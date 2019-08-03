@@ -1,7 +1,12 @@
 [package]
-name = "py-codeowners"
-version = "0.1.0"
+name = "codeowners"
+version = "0.1.2"
 authors = ["Steve Dignam <steve@dignam.xyz>"]
+license = "BSD-2-Clause"
+description = "A Python library to parse codeowner files"
+repository = "https://github.com/sbdchd/codeowners"
+readme = "README.md"
+keywords = ["codeowners"]
 edition = "2018"
 
 [lib]

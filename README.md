@@ -2,6 +2,17 @@
 
 > Python bindings to [softprops's Rust codeowners library](https://crates.io/crates/codeowners).
 
+## Why?
+
+To allow Python users to parse codeowners files without having to rewrite
+an existing implementation.
+
+## Install
+
+```shell
+poetry add codeowners
+```
+
 ## Usage
 
 ```python
@@ -25,11 +36,21 @@ assert owners.of("test.js") ==  [('USERNAME', '@ghost')]
 ## Dev
 
 ```shell
+poetry install
+
 cargo test
 
-# testing a build in Python
-cargo build --release
-cp target/release/libcodeowners.dylib codeowners.so
-ipython
-import codeowners
+# trying a build in Python
+poetry run pyo3-pack develop
+poetry run python -c "import codeowners; print(codeowners.CodeOwners)"
+```
+
+
+## Releasing a New Version
+
+```shell
+# bump version in Cargo.toml
+poetry run pyo3-pack build --release
+# Note: this will prompt for PyPi creds
+poetry run pyo3-pack publish
 ```
