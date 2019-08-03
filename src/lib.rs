@@ -6,6 +6,7 @@ struct CodeOwners {
     owners: codeowners::Owners,
 }
 
+#[allow(clippy::new_ret_no_self)]
 #[pymethods]
 impl CodeOwners {
     #[new]
