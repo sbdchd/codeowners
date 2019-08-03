@@ -50,7 +50,18 @@ poetry run python -c "import codeowners; print(codeowners.CodeOwners)"
 
 ```shell
 # bump version in Cargo.toml
+
+# build the macos version
 poetry run pyo3-pack build --release
+
+# build the linux versions
+VERSION="0.1.0" # Note: this is just the version for the builder container
+TAG="sbdchd/codeowners-builder:$VERSION"
+docker build -f build.Dockerfile . --tag "$TAG"
+# Note: building the Python versions can take a while if you are running Docker inside a VM
+docker run --rm -v $(pwd):/io "$TAG" build --release
+
+# upload wheels to PyPi
 # Note: this will prompt for PyPi creds
-poetry run pyo3-pack publish
+poetry run twine upload --skip-existing target/wheels/*
 ```
