@@ -1,4 +1,4 @@
-# codeowners
+# codeowners [![CircleCI](https://circleci.com/gh/sbdchd/codeowners.svg?style=svg)](https://circleci.com/gh/sbdchd/codeowners) [![pypi](https://img.shields.io/pypi/v/codeowners.svg)](https://pypi.org/project/codeowners/)
 
 > Python bindings to [softprops's Rust codeowners library](https://crates.io/crates/codeowners).
 
