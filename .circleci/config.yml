@@ -1,0 +1,57 @@
+version: 2
+
+jobs:
+
+  test:
+    docker:
+      - image: circleci/rust
+    steps:
+      - checkout
+      # https://circleci.com/docs/2.0/caching/
+      - restore_cache:
+          keys:
+            - codeowners-v1-{{ .Branch }}-{{ checksum "Cargo.toml" }}
+            - codeowners-v1-{{ .Branch }}-
+            - codeowners-v1-
+      - save_cache:
+          paths:
+            - ~/.cargo/
+          key: codeowners-v1-{{ .Branch }}-{{ checksum "Cargo.toml" }}
+      - run:
+          name: run tests
+          command: |
+            cargo test
+
+  lint:
+    docker:
+      - image: circleci/rust
+    steps:
+      - checkout
+      # https://circleci.com/docs/2.0/caching/
+      - restore_cache:
+          keys:
+            - codeowners-v1-{{ .Branch }}-{{ checksum "Cargo.toml" }}
+            - codeowners-v1-{{ .Branch }}-
+            - codeowners-v1-
+      - run:
+          name: install dependencies
+          command: |
+            rustup update
+            rustup component add clippy-preview
+            rustup component add rustfmt-preview
+      - save_cache:
+          paths:
+            - ~/.cargo/
+          key: codeowners-v1-{{ .Branch }}-{{ checksum "Cargo.toml" }}
+      - run:
+          name: run lints
+          command: |
+            cargo clippy -- -Dwarnings
+            cargo fmt
+
+workflows:
+  version: 2
+  test:
+    jobs:
+      - test
+      - lint
