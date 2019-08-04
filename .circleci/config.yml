@@ -20,7 +20,7 @@ jobs:
       - run:
           name: run tests
           command: |
-            cargo test
+            cargo test --no-default-features
 
   lint:
     docker:
