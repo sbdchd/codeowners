@@ -38,7 +38,7 @@ assert owners.of("test.js") ==  [('USERNAME', '@ghost')]
 ```shell
 poetry install
 
-cargo test
+cargo test --no-default-features
 
 # trying a build in Python
 poetry run pyo3-pack develop

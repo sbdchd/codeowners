@@ -8,6 +8,7 @@ struct CodeOwners {
 
 #[pymethods]
 impl CodeOwners {
+    #[allow(clippy::new_ret_no_self)]
     #[new]
     fn new(obj: &PyRawObject, text: String) {
         let owners = rs_codeowners::from_reader(text.as_bytes());
