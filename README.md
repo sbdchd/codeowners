@@ -55,9 +55,10 @@ poetry run python -c "import codeowners; print(codeowners.CodeOwners)"
 poetry run pyo3-pack build --release
 
 # build the linux versions
-VERSION="0.1.0" # Note: this is just the version for the builder container
-TAG="sbdchd/codeowners-builder:$VERSION"
+# Note: this is just the version for the builder container
+TAG="sbdchd/codeowners-builder:0.1.2"
 docker build -f build.Dockerfile . --tag "$TAG"
+
 # Note: building the Python versions can take a while if you are running Docker inside a VM
 docker run --rm -v $(pwd):/io "$TAG" build --release
 
