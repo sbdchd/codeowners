@@ -19,7 +19,7 @@ jobs:
           key: codeowners-v1-{{ .Branch }}-{{ checksum "Cargo.toml" }}
       - run:
           name: deps
-          command: 
+          command: |
             sudo apt-get update 
             sudo apt install -y python3 python3-dev
       - run:
