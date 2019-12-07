@@ -18,8 +18,11 @@ jobs:
             - ~/.cargo/
           key: codeowners-v1-{{ .Branch }}-{{ checksum "Cargo.toml" }}
       - run:
-          name: install python-dev
-          command: sudo apt install python3-dev
+          name: deps
+          command: 
+            sudo apt install python-dev python3-dev
+            python3 -m pip install cffi
+
       - run:
           name: run tests
           command: |
