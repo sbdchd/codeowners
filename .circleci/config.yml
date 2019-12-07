@@ -18,6 +18,11 @@ jobs:
             - ~/.cargo/
           key: codeowners-v1-{{ .Branch }}-{{ checksum "Cargo.toml" }}
       - run:
+          name: deps
+          command: 
+            sudo apt-get update 
+            sudo apt install -y python3 python3-dev
+      - run:
           name: run tests
           command: |
             cargo test --no-default-features
