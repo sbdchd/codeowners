@@ -44,7 +44,6 @@ jobs:
             rustup update
             rustup component add clippy-preview
             rustup component add rustfmt-preview
-            sudo apt install python3-dev
       - save_cache:
           paths:
             - ~/.cargo/
