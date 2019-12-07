@@ -18,6 +18,9 @@ jobs:
             - ~/.cargo/
           key: codeowners-v1-{{ .Branch }}-{{ checksum "Cargo.toml" }}
       - run:
+          name: install python-dev
+          command: sudo apt install python-dev
+      - run:
           name: run tests
           command: |
             cargo test
@@ -39,6 +42,7 @@ jobs:
             rustup update
             rustup component add clippy-preview
             rustup component add rustfmt-preview
+            sudo apt install python-dev
       - save_cache:
           paths:
             - ~/.cargo/
