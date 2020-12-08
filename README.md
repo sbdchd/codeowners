@@ -41,8 +41,8 @@ poetry install
 cargo test --no-default-features
 
 # trying a build in Python
-poetry run pyo3-pack develop
-poetry run python -c "import codeowners; print(codeowners.CodeOwners)"
+./.venv/bin/pyo3-pack develop
+./.venv/bin/python -c "import codeowners; print(codeowners.CodeOwners)"
 ```
 
 
@@ -52,7 +52,7 @@ poetry run python -c "import codeowners; print(codeowners.CodeOwners)"
 # bump version in Cargo.toml
 
 # build the macos version
-poetry run pyo3-pack build --release
+./.venv/bin/pyo3-pack build --release
 
 # build the linux versions
 # Note: this is just the version for the builder container
@@ -64,5 +64,5 @@ docker run --rm -v $(pwd):/io "$TAG" build --release
 
 # upload wheels to PyPi
 # Note: this will prompt for PyPi creds
-poetry run twine upload --skip-existing target/wheels/*
+./.venv/bin/twine upload --skip-existing target/wheels/*
 ```

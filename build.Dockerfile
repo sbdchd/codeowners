@@ -1,4 +1,4 @@
-FROM quay.io/pypa/manylinux2014_x86_64@sha256:24f1a674af73241de3b0ff14ee7ae5a5af047cc0af2f20c787e8adae92ca249d
+FROM quay.io/pypa/manylinux2014_x86_64
 
 ENV PATH /root/.cargo/bin:$PATH
 # Add all supported python versions
