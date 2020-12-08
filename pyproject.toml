@@ -1,8 +1,12 @@
 [tool.poetry]
 name = "codeowners"
-version = "0.1.0"
-description = ""
+version = "0.1.1"
+description = "Codeowners parser for Python via Rust"
 authors = ["Steve Dignam <steve@dignam.xyz>"]
+repository = "https://github.com/sbdchd/codeowners"
+readme = "README.md"
+license = "MIT"
+keywords = ["codeowners", "pyo3", "rust"]
 
 [tool.poetry.dependencies]
 python = "^3.7"
