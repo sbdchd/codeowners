@@ -23,5 +23,5 @@ pytest = "6.2.1"
 ipython = "6.4"
 
 [build-system]
-requires = ["poetry>=0.12"]
+requires = ["poetry>=0.12", "setuptools"]
 build-backend = "poetry.masonry.api"
