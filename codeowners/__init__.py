@@ -62,16 +62,18 @@ class CodeOwners:
     def __init__(self, text: str) -> None:
         paths: List[Tuple[Pattern[str], str, List[OwnerTuple]]] = []
         for line in text.splitlines():
-            if line != "" and not line.startswith("#"):
-                elements = iter(line.split())
-                path = next(elements, None)
-                if path is not None:
-                    owners: List[OwnerTuple] = []
-                    for owner in elements:
-                        owner_res = parse_owner(owner)
-                        if owner_res is not None:
-                            owners.append(owner_res)
-                    paths.append((path_to_regex(path), path, owners))
+            if line == "" or line.startswith("#"):
+                continue
+            elements = iter(line.split())
+            path = next(elements, None)
+            if path is None:
+            	continue
+            owners: List[OwnerTuple] = []
+            for owner in elements:
+                owner_res = parse_owner(owner)
+                if owner_res is not None:
+                    owners.append(owner_res)
+            paths.append((path_to_regex(path), path, owners))
         paths.reverse()
         self.paths = paths
 
