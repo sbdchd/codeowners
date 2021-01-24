@@ -7,10 +7,6 @@ jobs:
         auth:
           username: $DOCKER_USER
           password: $DOCKER_PASS
-      - image: circleci/redis:5.0
-        auth:
-          username: $DOCKER_USER
-          password: $DOCKER_PASS
     steps:
       - checkout
       - restore_cache:
