@@ -1,6 +1,6 @@
-#!/bin/sh
+#!/bin/bash
 
 set -ex
 
 
-./.venv/bin/pytest 
+./.venv/bin/pytest
