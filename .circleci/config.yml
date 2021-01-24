@@ -31,7 +31,7 @@ jobs:
             - /root/.cache/
           key: codeowners-v1-{{ checksum "poetry.lock" }}
       - run:
-          name: run tests
+          name: tests
           command: ./s/test
 
   lint:
@@ -60,7 +60,7 @@ jobs:
             - /root/.cache/
           key: codeowners-v1-{{ checksum "poetry.lock" }}
       - run:
-          name: run lints
+          name: lints
           command: ./s/lint
 
 workflows:
