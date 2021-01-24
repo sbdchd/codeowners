@@ -1,58 +1,67 @@
 version: 2
 
 jobs:
-
   test:
     docker:
-      - image: circleci/rust
+      - image: python:3.7
+        auth:
+          username: $DOCKER_USER
+          password: $DOCKER_PASS
+      - image: circleci/redis:5.0
+        auth:
+          username: $DOCKER_USER
+          password: $DOCKER_PASS
     steps:
       - checkout
-      # https://circleci.com/docs/2.0/caching/
       - restore_cache:
           keys:
-            - codeowners-v1-{{ .Branch }}-{{ checksum "Cargo.toml" }}
-            - codeowners-v1-{{ .Branch }}-
-            - codeowners-v1-
-      - save_cache:
-          paths:
-            - ~/.cargo/
-          key: codeowners-v1-{{ .Branch }}-{{ checksum "Cargo.toml" }}
-      - run:
-          name: deps
-          command: |
-            sudo apt-get update 
-            sudo apt install -y python3 python3-dev
-      - run:
-          name: run tests
-          command: |
-            cargo test --no-default-features
-
-  lint:
-    docker:
-      - image: circleci/rust
-    steps:
-      - checkout
-      # https://circleci.com/docs/2.0/caching/
-      - restore_cache:
-          keys:
-            - codeowners-v1-{{ .Branch }}-{{ checksum "Cargo.toml" }}
-            - codeowners-v1-{{ .Branch }}-
-            - codeowners-v1-
+            - codeowners-v1-{{ checksum "poetry.lock" }}
       - run:
           name: install dependencies
           command: |
-            rustup update
-            rustup component add clippy-preview
-            rustup component add rustfmt-preview
+            # Use our new PATH so we can call poetry from bash
+            echo 'export PATH="$PATH":"$HOME"/.local/bin' >> $BASH_ENV
+            source $BASH_ENV
+            command -v poetry || python -m pip install --user poetry==0.12.12
+            poetry config settings.virtualenvs.in-project true
+            poetry install
       - save_cache:
           paths:
-            - ~/.cargo/
-          key: codeowners-v1-{{ .Branch }}-{{ checksum "Cargo.toml" }}
+            - ./bot/.mypy_cache
+            - /root/.cache/
+          key: codeowners-v1-{{ checksum "poetry.lock" }}
+      - run:
+          name: run tests
+          command: ./s/test
+
+  lint:
+    docker:
+      - image: python:3.7
+        auth:
+          username: $DOCKER_USER
+          password: $DOCKER_PASS
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - codeowners-v1-{{ checksum "poetry.lock" }}
+      - run:
+          name: install dependencies
+          command: |
+            # Use our new PATH so we can call poetry from bash
+            echo 'export PATH="$PATH":"$HOME"/.local/bin' >> $BASH_ENV
+            source $BASH_ENV
+            command -v poetry || python -m pip install --user poetry==0.12.12
+            poetry config settings.virtualenvs.in-project true
+            poetry install
+      - save_cache:
+          paths:
+            - ./bot/.mypy_cache
+            - /root/.cache/
+          key: codeowners-v1-{{ checksum "poetry.lock" }}
       - run:
           name: run lints
-          command: |
-            cargo clippy -- -Dwarnings
-            cargo fmt
+          command: ./s/lint
 
 workflows:
   version: 2
