@@ -75,7 +75,7 @@ class CodeOwners:
         paths.reverse()
         self.paths = paths
 
-    def of(self,   filepath: str) -> List[OwnerTuple]:
+    def of(self, filepath: str) -> List[OwnerTuple]:
         for pattern, path, owners in self.paths:
             if pattern_matches(filepath, pattern):
                 return owners

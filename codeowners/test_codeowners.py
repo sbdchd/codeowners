@@ -272,7 +272,3 @@ def test_codeowners_with_regex_chars() -> None:
     assert owners.of("bar{6}.log") == [("USERNAME", "@logging")]
     assert owners.of("bar^foo.log") == [("USERNAME", "@logging")]
     assert owners.of("bar[0-5].log") == [("USERNAME", "@logging")]
-
-
-def test_foo() -> None:
-    assert False
