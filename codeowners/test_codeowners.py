@@ -272,3 +272,25 @@ def test_codeowners_with_regex_chars() -> None:
     assert owners.of("bar{6}.log") == [("USERNAME", "@logging")]
     assert owners.of("bar^foo.log") == [("USERNAME", "@logging")]
     assert owners.of("bar[0-5].log") == [("USERNAME", "@logging")]
+
+
+def test_regression_directory_expansion() -> None:
+    owners = CodeOwners(
+        dedent(
+            """
+            **/dir/**/*.* @a
+            """
+        )
+    ).of("bla/dir/file.txt")
+    assert owners == [("USERNAME", "@a")]
+
+
+def test_expansion_inline() -> None:
+    owners = CodeOwners(
+        dedent(
+            """
+            **/dir/*.* @a
+            """
+        )
+    ).of("bla/dir/file.txt")
+    assert owners == [("USERNAME", "@a")]
