@@ -1,10 +1,10 @@
 import re
 from textwrap import dedent
-from typing import List, Mapping, Pattern, Tuple
+from typing import Dict, List, Mapping, NamedTuple, Pattern, Tuple
 
 import pytest
 
-from codeowners import CodeOwners, path_to_regex
+from codeowners import CodeOwners, path_to_regex, pattern_matches
 
 
 def test_readme_example() -> None:
@@ -294,3 +294,264 @@ def test_expansion_inline() -> None:
         )
     ).of("bla/dir/file.txt")
     assert owners == [("USERNAME", "@a")]
+
+
+class PatternTestExample(NamedTuple):
+    name: str
+    pattern: str
+    paths: Dict[str, bool]
+
+
+# Taken from: https://github.com/hmarr/codeowners/blob/d0452091447bd2a29ee508eebc5a79874fb5d4ff/match_test.go#L15
+GO_CODEOWNER_EXAMPLES = [
+    PatternTestExample(
+        name="single-segment pattern",
+        pattern="foo",
+        paths={
+            "foo": True,
+            "foo/": True,
+            "foo/bar": True,
+            "bar/foo": True,
+            "bar/foo/baz": True,
+            "bar/baz": False,
+        },
+    ),
+    PatternTestExample(
+        name="single-segment pattern with leading slash",
+        pattern="/foo",
+        paths={
+            "foo": True,
+            "fool": False,
+            "foo/": True,
+            "foo/bar": True,
+            "bar/foo": False,
+            "bar/foo/baz": False,
+            "bar/baz": False,
+        },
+    ),
+    PatternTestExample(
+        name="single-segment pattern with trailing slash",
+        pattern="foo/",
+        paths={
+            "foo": False,
+            "foo/": True,
+            "foo/bar": True,
+            "bar/foo": False,
+            "bar/foo/baz": True,
+            "bar/baz": False,
+        },
+    ),
+    PatternTestExample(
+        name="single-segment pattern with leading and trailing slash",
+        pattern="/foo/",
+        paths={
+            "foo": False,
+            "foo/": True,
+            "foo/bar": True,
+            "bar/foo": False,
+            "bar/foo/baz": False,
+            "bar/baz": False,
+        },
+    ),
+    PatternTestExample(
+        name="multi-segment pattern",
+        pattern="foo/bar",
+        paths={
+            "foo/bar": True,
+            "foo/bart": False,
+            "foo/bar/baz": True,
+            "baz/foo/bar": False,
+            "baz/foo/bar/qux": False,
+        },
+    ),
+    PatternTestExample(
+        name="multi-segment pattern with leading slash",
+        pattern="/foo/bar",
+        paths={
+            "foo/bar": True,
+            "foo/bar/baz": True,
+            "baz/foo/bar": False,
+            "baz/foo/bar/qux": False,
+        },
+    ),
+    PatternTestExample(
+        name="multi-segment pattern with trailing slash",
+        pattern="foo/bar/",
+        paths={
+            "foo/bar": False,
+            "foo/bar/baz": True,
+            "baz/foo/bar": False,
+            "baz/foo/bar/qux": False,
+        },
+    ),
+    PatternTestExample(
+        name="multi-segment pattern with leading and trailing slash",
+        pattern="/foo/bar/",
+        paths={
+            "foo/bar": False,
+            "foo/bar/baz": True,
+            "baz/foo/bar": False,
+            "baz/foo/bar/qux": False,
+        },
+    ),
+    PatternTestExample(
+        name="single segment pattern with wildcard",
+        pattern="f*",
+        paths={
+            "foo": True,
+            "foo/": True,
+            "foo/bar": True,
+            "bar/foo": True,
+            "bar/foo/baz": True,
+            "bar/baz": False,
+            "xfoo": False,
+        },
+    ),
+    PatternTestExample(
+        name="single segment pattern with leading slash and wildcard",
+        pattern="/f*",
+        paths={
+            "foo": True,
+            "foo/": True,
+            "foo/bar": True,
+            "bar/foo": False,
+            "bar/foo/baz": False,
+            "bar/baz": False,
+            "xfoo": False,
+        },
+    ),
+    PatternTestExample(
+        name="single segment pattern with trailing slash and wildcard",
+        pattern="f*/",
+        paths={
+            "foo": False,
+            "foo/": True,
+            "foo/bar": True,
+            "bar/foo": False,
+            "bar/foo/baz": True,
+            "bar/baz": False,
+            "xfoo": False,
+        },
+    ),
+    PatternTestExample(
+        name="single segment pattern with leading and trailing slash and wildcard",
+        pattern="/f*/",
+        paths={
+            "foo": False,
+            "foo/": True,
+            "foo/bar": True,
+            "bar/foo": False,
+            "bar/foo/baz": False,
+            "bar/baz": False,
+            "xfoo": False,
+        },
+    ),
+    PatternTestExample(
+        name="single segment pattern with escaped wildcard",
+        pattern="f\\*o",
+        paths={"foo": False, "f*o": True},
+    ),
+    PatternTestExample(
+        name="multi-segment pattern with wildcard",
+        pattern="foo/*.txt",
+        paths={
+            "foo": False,
+            "foo/": False,
+            "foo/bar.txt": True,
+            "foo/bar/baz.txt": False,
+            "qux/foo/bar.txt": False,
+            "qux/foo/bar/baz.txt": False,
+        },
+    ),
+    PatternTestExample(
+        name="single segment pattern with single-character wildcard",
+        pattern="f?o",
+        paths={"foo": True, "fo": False, "fooo": False},
+    ),
+    PatternTestExample(
+        name="single segment pattern with escaped single-character wildcard",
+        pattern="f\\?o",
+        paths={"foo": False, "f?o": True},
+    ),
+    PatternTestExample(
+        name="single segment pattern with character range",
+        pattern="[Ffb]oo",
+        paths={"foo": True, "Foo": True, "boo": True, "too": False},
+    ),
+    PatternTestExample(
+        name="single segment pattern with escaped character range",
+        pattern="[\\]f]o\\[o\\]",
+        paths={"fo[o]": True, "]o[o]": True, "foo": False},
+    ),
+    PatternTestExample(
+        name="leading double-asterisk wildcard",
+        pattern="**/foo/bar",
+        paths={
+            "foo/bar": True,
+            "qux/foo/bar": True,
+            "qux/foo/bar/baz": True,
+            "foo/baz/bar": False,
+            "qux/foo/baz/bar": False,
+        },
+    ),
+    PatternTestExample(
+        name="leading double-asterisk wildcard with regular wildcard",
+        pattern="**/*bar*",
+        paths={
+            "bar": True,
+            "foo/bar": True,
+            "foo/rebar": True,
+            "foo/barrio": True,
+            "foo/qux/bar": True,
+        },
+    ),
+    PatternTestExample(
+        name="trailing double-asterisk wildcard",
+        pattern="foo/bar/**",
+        paths={
+            "foo/bar": False,
+            "foo/bar/baz": True,
+            "foo/bar/baz/qux": True,
+            "qux/foo/bar": False,
+            "qux/foo/bar/baz": False,
+        },
+    ),
+    PatternTestExample(
+        name="middle double-asterisk wildcard",
+        pattern="foo/**/bar",
+        paths={
+            "foo/bar": True,
+            "foo/bar/baz": True,
+            "foo/qux/bar/baz": True,
+            "foo/qux/quux/bar/baz": True,
+            "foo/bar/baz/qux": True,
+            "qux/foo/bar": False,
+            "qux/foo/bar/baz": False,
+        },
+    ),
+    PatternTestExample(
+        name="middle double-asterisk wildcard with trailing slash",
+        pattern="foo/**/",
+        paths={"foo/bar": False, "foo/bar/": True, "foo/bar/baz": True},
+    ),
+]
+
+
+def _path_matches(*, path: str, pattern: str) -> bool:
+    return pattern_matches(pattern=path_to_regex(pattern), path=path)
+
+
+def _idfn(name: str) -> str:
+    return name
+
+
+@pytest.mark.parametrize("name,pattern,paths", GO_CODEOWNER_EXAMPLES, ids=_idfn)
+def test_go_codeowners_examples(
+    name: str, pattern: str, paths: Dict[str, bool]
+) -> None:
+    assert paths
+    for path, expected in paths.items():
+        assert (
+            _path_matches(path=path, pattern=pattern) == expected
+        ), f"{name} {pattern} matches {path}"
+
