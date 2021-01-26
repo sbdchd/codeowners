@@ -554,4 +554,3 @@ def test_go_codeowners_examples(
         assert (
             _path_matches(path=path, pattern=pattern) == expected
         ), f"{name} {pattern} matches {path}"
-
