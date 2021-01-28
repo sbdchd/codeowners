@@ -489,4 +489,3 @@ def test_specific_patterns_against_git(
         assert (
             actual is expected
         ), f"match for pattern:{pattern} and path:{path} failed, expected: {expected}, actual: {actual}"
-
