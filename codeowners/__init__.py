@@ -1,6 +1,3 @@
-"""
-Python port of https://github.com/softprops/codeowners
-"""
 import re
 from typing import List, Optional, Pattern, Tuple
 
@@ -19,6 +16,28 @@ EMAIL = re.compile(r"^\S+@\S+")
 def path_to_regex(pattern: str) -> Pattern[str]:
     """
     ported from https://github.com/hmarr/codeowners/blob/d0452091447bd2a29ee508eebc5a79874fb5d4ff/match.go#L33
+
+    MIT License
+
+    Copyright (c) 2020 Harry Marr
+
+    Permission is hereby granted, free of charge, to any person obtaining a copy
+    of this software and associated documentation files (the "Software"), to deal
+    in the Software without restriction, including without limitation the rights
+    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+    copies of the Software, and to permit persons to whom the Software is
+    furnished to do so, subject to the following conditions:
+
+    The above copyright notice and this permission notice shall be included in all
+    copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+    SOFTWARE.
     """
     regex = ""
 
@@ -108,16 +127,18 @@ class CodeOwners:
     def __init__(self, text: str) -> None:
         paths: List[Tuple[Pattern[str], List[OwnerTuple]]] = []
         for line in text.splitlines():
-            if line != "" and not line.startswith("#"):
-                elements = iter(line.split())
-                path = next(elements, None)
-                if path is not None:
-                    owners: List[OwnerTuple] = []
-                    for owner in elements:
-                        owner_res = parse_owner(owner)
-                        if owner_res is not None:
-                            owners.append(owner_res)
-                    paths.append((path_to_regex(path), owners))
+            if line == "" or line.startswith("#"):
+                continue
+            elements = iter(line.split())
+            path = next(elements, None)
+            if path is None:
+                continue
+            owners: List[OwnerTuple] = []
+            for owner in elements:
+                owner_res = parse_owner(owner)
+                if owner_res is not None:
+                    owners.append(owner_res)
+            paths.append((path_to_regex(path), owners))
         paths.reverse()
         self.paths = paths
 
