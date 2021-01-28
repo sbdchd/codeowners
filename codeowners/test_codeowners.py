@@ -445,6 +445,14 @@ GO_CODEOWNER_EXAMPLES = [
 ]
 
 
+def test_unterminated_char_class() -> None:
+    """
+    Ensure we warn about unterminated character classes
+    """
+    with pytest.raises(ValueError):
+        CodeOwners("foo[bar.js  @js-user")
+
+
 def ids_for(data: Iterable[ex]) -> List[str]:
     return [d.name for d in data]
 
