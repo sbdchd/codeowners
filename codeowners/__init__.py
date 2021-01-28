@@ -104,10 +104,6 @@ def parse_owner(owner: str) -> Optional[OwnerTuple]:
     return None
 
 
-def pattern_matches(path: str, pattern: Pattern[str]) -> bool:
-    return pattern.search(path) is not None
-
-
 class CodeOwners:
     def __init__(self, text: str) -> None:
         paths: List[Tuple[Pattern[str], List[OwnerTuple]]] = []
@@ -127,6 +123,6 @@ class CodeOwners:
 
     def of(self, filepath: str) -> List[OwnerTuple]:
         for pattern, owners in self.paths:
-            if pattern_matches(filepath, pattern):
+            if pattern.search(filepath) is not None:
                 return owners
         return []
