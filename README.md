@@ -1,6 +1,6 @@
 # codeowners [![CircleCI](https://circleci.com/gh/sbdchd/codeowners.svg?style=svg)](https://circleci.com/gh/sbdchd/codeowners) [![pypi](https://img.shields.io/pypi/v/codeowners.svg)](https://pypi.org/project/codeowners/)
 
-> Python codeowners parser based on [softprops's Rust codeowners library](https://crates.io/crates/codeowners).
+> Python codeowners parser based on [softprops's Rust library](https://crates.io/crates/codeowners) and [hmarr's Go library](https://github.com/hmarr/codeowners).
 
 ## Why?
 
