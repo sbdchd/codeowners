@@ -49,11 +49,13 @@ apps/ @octocat
 """
 
 
-@pytest.mark.skip
 @pytest.mark.parametrize(
     "path,expected",
     [
-        ("buzz/docs/gettingstarted.md", [("EMAIL", "docs@example.com")]),
+        (
+            "buzz/docs/gettingstarted.md",
+            [("USERNAME", "@global-owner1"), ("USERNAME", "@global-owner2")],
+        ),
         ("docs/build-app/troubleshooting.md", [("USERNAME", "@doctocat")]),
         (
             "buzz/docs/build-app/troubleshooting.md",
@@ -72,8 +74,8 @@ apps/ @octocat
         ("build/logs/foo.go", [("USERNAME", "@doctocat")]),
         ("build/logs/foo/bar.go", [("USERNAME", "@doctocat")]),
         ("foo/build/logs/foo.go", [("EMAIL", "docs@example.com")]),
-        ("foo/docs/foo.js", [("EMAIL", "docs@example.com")]),
-        ("foo/bar/docs/foo.js", [("EMAIL", "docs@example.com")]),
+        ("foo/docs/foo.js", [("USERNAME", "@js-owner")]),
+        ("foo/bar/docs/foo.js", [("USERNAME", "@js-owner")]),
         ("foo/bar/docs/foo/foo.js", [("USERNAME", "@js-owner")]),
         ("foo/apps/foo.js", [("USERNAME", "@octocat")]),
         ("foo/apps/bar/buzz/foo.js", [("USERNAME", "@octocat")]),
@@ -84,7 +86,10 @@ def test_github_example_matches(
     path: str, expected: List[Tuple[Literal["USERNAME", "EMAIL", "TEAM"], str]]
 ) -> None:
     owners = CodeOwners(EXAMPLE)
-    assert owners.of(path) == expected
+    actual = owners.of(path)
+    assert (
+        actual == expected
+    ), f"mismatch for {path}, expected: {expected}, got: {actual}"
 
 
 def test_rule_missing_owner() -> None:
@@ -364,6 +369,9 @@ GO_CODEOWNER_EXAMPLES = [
             "docs/getting-started/foo.md": True,
             "docs/": True,
             "bar/docs/getting-started.md": False,
+            "foo/bar/docs/foo.js": False,
+            "foo/docs/foo.js": False,
+            "buzz/docs/gettingstarted.md": False,
         },
     ),
     ex(
@@ -428,7 +436,11 @@ GO_CODEOWNER_EXAMPLES = [
     ex(
         name="regex character group",
         pattern="bar[0-5].log",
-        paths={"bar0.log": True, "bar[0-5].log": True},
+        paths={
+            "bar0.log": True,
+            # differs between git versions
+            # "bar[0-5].log": True,
+        },
     ),
 ]
 
@@ -447,9 +459,10 @@ def test_specific_pattern_path_matching(
     for path, expected in paths.items():
         owners = CodeOwners(f"{pattern}  @js-user")
         matches = owners.of(path) == [("USERNAME", "@js-user")]
+        regex, *_ = owners.paths[0]
         assert (
             matches == expected
-        ), f"{pattern} matches {path} '{[(x[0], x[1]) for x in owners.paths]}'"
+        ), f"""{pattern} {regex} {"matches" if expected else "shouldn't match"} {path}"""
 
 
 @pytest.mark.parametrize(
