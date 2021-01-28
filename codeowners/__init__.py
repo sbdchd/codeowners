@@ -52,10 +52,8 @@ def path_to_regex(pattern: str) -> Pattern[str]:
     in_char_class = False
     escaped = False
 
-    i = -1
-    while i < len(pattern_trimmed) - 1:
-        i += 1
-        ch = pattern_trimmed[i]
+    iterator = enumerate(pattern_trimmed)
+    for i, ch in iterator:
 
         if escaped:
             regex += re.escape(ch)
@@ -78,7 +76,8 @@ def path_to_regex(pattern: str) -> Pattern[str]:
                 ):
                     regex += ".*"
 
-                    i += 2
+                    next(iterator, None)
+                    next(iterator, None)
                     continue
             regex += "[^/]*"
         elif ch == "?":
