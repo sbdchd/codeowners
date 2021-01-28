@@ -41,16 +41,10 @@ def path_to_regex(pattern: str) -> Pattern[str]:
     """
     regex = ""
 
-    try:
-        slash_pos = pattern.index("/")
-        anchored = slash_pos != len(pattern) - 1
-    except ValueError:
-        anchored = False
+    slash_pos = pattern.find("/")
+    anchored = slash_pos > -1 and slash_pos != len(pattern) - 1
 
-    if anchored:
-        regex += r"\A"
-    else:
-        regex += r"(?:\A|/)"
+    regex += r"\A" if anchored else r"(?:\A|/)"
 
     matches_dir = pattern[-1] == "/"
     pattern_trimmed = pattern.strip("/")
@@ -58,8 +52,6 @@ def path_to_regex(pattern: str) -> Pattern[str]:
     in_char_class = False
     escaped = False
 
-    # NOTE: this is an ugly hack so we can skip a letter in the loop, maybe
-    # refactor using generators or similar?
     i = -1
     while i < len(pattern_trimmed) - 1:
         i += 1
@@ -106,10 +98,7 @@ def path_to_regex(pattern: str) -> Pattern[str]:
     if in_char_class:
         raise ValueError(f"unterminated character class in pattern {pattern}")
 
-    if matches_dir:
-        regex += "/"
-    else:
-        regex += r"(?:\Z|/)"
+    regex += "/" if matches_dir else r"(?:\Z|/)"
     return re.compile(regex)
 
 
