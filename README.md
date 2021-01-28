@@ -48,9 +48,12 @@ s/lint
 ```shell
 # bump version in pyproject.toml
 
-# build
-poetry build -f wheel
+# update CHANGELOG.md
+
+# commit release commit to GitHub
 
 # build and publish
 poetry publish --build
+
+# create a release in the GitHub UI
 ```
