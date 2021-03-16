@@ -39,13 +39,21 @@ EXAMPLE = """# This is a comment.
 # `docs/build-app/troubleshooting.md`.
 docs/*  docs@example.com
 
+# Let's test GitLab's premium feature of sections
+# see https://docs.gitlab.com/ee/user/project/code_owners.html#code-owners-sections
+[First team]
+
 # In this example, @octocat owns any file in an apps directory
 # anywhere in your repository.
 apps/ @octocat
 
+# Now, optional approval rule for GitLab's sections
+^[Second team]
+
 # In this example, @doctocat owns any file in the `/docs`
 # directory in the root of your repository.
 /docs/ @doctocat
+
 """
 
 
