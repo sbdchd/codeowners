@@ -115,7 +115,13 @@ class CodeOwners:
     def __init__(self, text: str) -> None:
         paths: List[Tuple[Pattern[str], List[OwnerTuple]]] = []
         for line in text.splitlines():
-            if line == "" or line.startswith("#"):
+            line = line.strip()
+            if (
+                line == ""
+                or line.startswith("#")
+                or (line.startswith("[") and line.endswith("]"))
+                or (line.startswith("^[") and line.endswith("]"))
+            ):
                 continue
             elements = iter(line.split())
             path = next(elements, None)
