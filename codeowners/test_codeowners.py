@@ -103,6 +103,32 @@ def test_github_example_matches(
     ), f"mismatch for {path}, expected: {expected}, got: {actual}"
 
 
+@pytest.mark.parametrize(
+    "path,expected_owners,expected_line_num",
+    [
+        (
+            "buzz/docs/gettingstarted.md",
+            [("USERNAME", "@global-owner1"), ("USERNAME", "@global-owner2")],
+            8,
+        ),
+        ("foo.js", [("USERNAME", "@js-owner")], 14),
+    ],
+)
+def test_github_example_matches_with_lines(
+    path: str,
+    expected_owners: List[Tuple[Literal["USERNAME", "EMAIL", "TEAM"], str]],
+    expected_line_num: int,
+) -> None:
+    owners = CodeOwners(EXAMPLE)
+    actual_owners, actual_line_num = owners.matching_line(path)
+    assert (
+        actual_owners == expected_owners
+    ), f"mismatch for {path}, expected: {expected_owners}, got: {actual_owners}"
+    assert (
+        actual_line_num == expected_line_num
+    ), f"mismatch for {path}, expected linenum: {expected_line_num}, got: {actual_line_num}"
+
+
 def test_rule_missing_owner() -> None:
     assert CodeOwners("*.js").of("bar.js") == []
 
@@ -497,14 +523,14 @@ def test_specific_patterns_against_git(
     should work in most cases.
     """
     assert paths
-    directory = tempfile.TemporaryDirectory()
-    subprocess.run(["git", "init"], cwd=directory.name, check=True, capture_output=True)
-    (Path(directory.name) / ".gitignore").write_text(pattern + "\n")
-    for path, expected in paths.items():
-        res = subprocess.run(
-            ["git", "check-ignore", path], cwd=directory.name, capture_output=True
-        )
-        actual = res.returncode == 0
-        assert (
-            actual is expected
-        ), f"match for pattern:{pattern} and path:{path} failed, expected: {expected}, actual: {actual}"
+    with tempfile.TemporaryDirectory() as directory:
+        subprocess.run(["git", "init"], cwd=directory, check=True, capture_output=True)
+        (Path(directory) / ".gitignore").write_text(pattern + "\n")
+        for path, expected in paths.items():
+            res = subprocess.run(
+                ["git", "check-ignore", path], cwd=directory, capture_output=True
+            )
+            actual = res.returncode == 0
+            assert (
+                actual is expected
+            ), f"match for pattern:{pattern} and path:{path} failed, expected: {expected}, actual: {actual}"
