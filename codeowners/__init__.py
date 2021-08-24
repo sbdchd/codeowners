@@ -139,8 +139,8 @@ class CodeOwners:
     def matching_line(self, filepath: str) -> Tuple[List[OwnerTuple], int]:
         for pattern, owners, line_num in self.paths:
             if pattern.search(filepath) is not None:
-                return owners, line_num
-        return [], None
+                return (owners, line_num)
+        return ([], None)
 
     def of(self, filepath: str) -> List[OwnerTuple]:
         return self.matching_line(filepath)[0]

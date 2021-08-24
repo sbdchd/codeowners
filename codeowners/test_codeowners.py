@@ -103,6 +103,32 @@ def test_github_example_matches(
     ), f"mismatch for {path}, expected: {expected}, got: {actual}"
 
 
+@pytest.mark.parametrize(
+    "path,expected_owners,expected_line_num",
+    [
+        (
+            "buzz/docs/gettingstarted.md",
+            [("USERNAME", "@global-owner1"), ("USERNAME", "@global-owner2")],
+            8
+        ),
+        ("foo.js", [("USERNAME", "@js-owner")], 14),
+    ],
+)
+def test_github_example_matches_with_lines(
+    path: str,
+    expected_owners: List[Tuple[Literal["USERNAME", "EMAIL", "TEAM"], str]],
+    expected_line_num: int,
+) -> None:
+    owners = CodeOwners(EXAMPLE)
+    actual_owners, actual_line_num = owners.matching_line(path)
+    assert (
+        actual_owners == expected_owners
+    ), f"mismatch for {path}, expected: {expected_owners}, got: {actual_owners}"
+    assert (
+        actual_line_num == expected_line_num
+    ), f"mismatch for {path}, expected linenum: {expected_line_num}, got: {actual_line_num}"
+
+    
 def test_rule_missing_owner() -> None:
     assert CodeOwners("*.js").of("bar.js") == []
 
