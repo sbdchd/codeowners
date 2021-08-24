@@ -109,7 +109,7 @@ def test_github_example_matches(
         (
             "buzz/docs/gettingstarted.md",
             [("USERNAME", "@global-owner1"), ("USERNAME", "@global-owner2")],
-            8
+            8,
         ),
         ("foo.js", [("USERNAME", "@js-owner")], 14),
     ],
@@ -128,7 +128,7 @@ def test_github_example_matches_with_lines(
         actual_line_num == expected_line_num
     ), f"mismatch for {path}, expected linenum: {expected_line_num}, got: {actual_line_num}"
 
-    
+
 def test_rule_missing_owner() -> None:
     assert CodeOwners("*.js").of("bar.js") == []
 
