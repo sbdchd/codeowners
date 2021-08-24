@@ -497,14 +497,14 @@ def test_specific_patterns_against_git(
     should work in most cases.
     """
     assert paths
-    directory = tempfile.TemporaryDirectory()
-    subprocess.run(["git", "init"], cwd=directory.name, check=True, capture_output=True)
-    (Path(directory.name) / ".gitignore").write_text(pattern + "\n")
-    for path, expected in paths.items():
-        res = subprocess.run(
-            ["git", "check-ignore", path], cwd=directory.name, capture_output=True
-        )
-        actual = res.returncode == 0
-        assert (
-            actual is expected
-        ), f"match for pattern:{pattern} and path:{path} failed, expected: {expected}, actual: {actual}"
+    with tempfile.TemporaryDirectory() as directory:
+        subprocess.run(["git", "init"], cwd=directory, check=True, capture_output=True)
+        (Path(directory) / ".gitignore").write_text(pattern + "\n")
+        for path, expected in paths.items():
+            res = subprocess.run(
+                ["git", "check-ignore", path], cwd=directory, capture_output=True
+            )
+            actual = res.returncode == 0
+            assert (
+                actual is expected
+            ), f"match for pattern:{pattern} and path:{path} failed, expected: {expected}, actual: {actual}"
