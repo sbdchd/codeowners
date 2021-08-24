@@ -136,7 +136,7 @@ class CodeOwners:
         paths.reverse()
         self.paths = paths
 
-    def matching_line(self, filepath: str) -> Tuple[List[OwnerTuple], int]:
+    def matching_line(self, filepath: str) -> Tuple[List[OwnerTuple], Optional[int]]:
         for pattern, owners, line_num in self.paths:
             if pattern.search(filepath) is not None:
                 return (owners, line_num)
