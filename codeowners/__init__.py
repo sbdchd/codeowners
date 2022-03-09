@@ -1,5 +1,5 @@
 import re
-from typing import List, Optional, Pattern, Tuple
+from typing import Generator, List, Optional, Pattern, Tuple
 
 from typing_extensions import Literal
 
@@ -139,13 +139,17 @@ class CodeOwners:
         paths.reverse()
         self.paths = paths
 
+    def matching_lines(
+        self, filepath: str
+    ) -> Generator[Tuple[List[OwnerTuple], Optional[int], Optional[str]], None, None]:
+        for pattern, path, owners, line_num in self.paths:
+            if pattern.search(filepath.replace(" ", MASK)) is not None:
+                yield (owners, line_num, path)
+
     def matching_line(
         self, filepath: str
     ) -> Tuple[List[OwnerTuple], Optional[int], Optional[str]]:
-        for pattern, path, owners, line_num in self.paths:
-            if pattern.search(filepath.replace(" ", MASK)) is not None:
-                return (owners, line_num, path)
-        return ([], None, None)
+        return next(self.matching_lines(filepath), ([], None, None))
 
     def of(self, filepath: str) -> List[OwnerTuple]:
         return self.matching_line(filepath)[0]
