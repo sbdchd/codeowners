@@ -10,7 +10,7 @@ keywords = ["codeowners", "git", "github"]
 
 [tool.poetry.dependencies]
 python = "^3.7"
-typing_extensions = "^3.7"
+typing_extensions = ">=3.7"
 
 [tool.poetry.dev-dependencies]
 twine = "^1.13"
