@@ -401,9 +401,9 @@ GO_CODEOWNER_EXAMPLES = [
         pattern="docs/*",
         paths={
             "docs/getting-started.md": True,
-            "docs/build-app/troubleshooting.md": True,
+            "docs/build-app/troubleshooting.md": False,
             "/docs/getting-started.md": False,
-            "docs/getting-started/foo.md": True,
+            "docs/getting-started/foo.md": False,
             "docs/": True,
             "bar/docs/getting-started.md": False,
             "foo/bar/docs/foo.js": False,
@@ -522,6 +522,9 @@ def test_specific_patterns_against_git(
     Codeowners is a subset of git ignore behavior so checking against it
     should work in most cases.
     """
+    if name == "docs with star":
+        pytest.skip("Behaviour for docs-with-star does not match gitignore")
+
     assert paths
     with tempfile.TemporaryDirectory() as directory:
         subprocess.run(["git", "init"], cwd=directory, check=True, capture_output=True)

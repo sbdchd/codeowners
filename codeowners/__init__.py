@@ -47,6 +47,7 @@ def path_to_regex(pattern: str) -> Pattern[str]:
     regex += r"\A" if anchored else r"(?:\A|/)"
 
     matches_dir = pattern[-1] == "/"
+    matches_no_subdirs = pattern[-2:] == "/*"
     pattern_trimmed = pattern.strip("/")
 
     in_char_class = False
@@ -97,7 +98,12 @@ def path_to_regex(pattern: str) -> Pattern[str]:
     if in_char_class:
         raise ValueError(f"unterminated character class in pattern {pattern}")
 
-    regex += "/" if matches_dir else r"(?:\Z|/)"
+    if matches_dir:
+        regex += "/"
+    elif matches_no_subdirs:
+        regex += r"\Z"
+    else:
+        regex += r"(?:\Z|/)"
     return re.compile(regex)
 
 
