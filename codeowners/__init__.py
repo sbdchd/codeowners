@@ -11,6 +11,7 @@ OwnerTuple = Tuple[Literal["USERNAME", "TEAM", "EMAIL"], str]
 TEAM = re.compile(r"^@\S+/\S+")
 USERNAME = re.compile(r"^@\S+")
 EMAIL = re.compile(r"^\S+@\S+")
+MASK = "/" * 20
 
 
 def path_to_regex(pattern: str) -> Pattern[str]:
@@ -113,7 +114,7 @@ def parse_owner(owner: str) -> Optional[OwnerTuple]:
 
 class CodeOwners:
     def __init__(self, text: str) -> None:
-        paths: List[Tuple[Pattern[str], List[OwnerTuple], int]] = []
+        paths: List[Tuple[Pattern[str], str, List[OwnerTuple], int]] = []
         for line_num, line in enumerate(text.splitlines(), start=1):
             line = line.strip()
             if (
@@ -123,7 +124,7 @@ class CodeOwners:
                 or (line.startswith("^[") and line.endswith("]"))
             ):
                 continue
-            elements = iter(line.split())
+            elements = iter(line.replace("\\ ", MASK).split())
             path = next(elements, None)
             if path is None:
                 continue
@@ -132,15 +133,19 @@ class CodeOwners:
                 owner_res = parse_owner(owner)
                 if owner_res is not None:
                     owners.append(owner_res)
-            paths.append((path_to_regex(path), owners, line_num))
+            paths.append(
+                (path_to_regex(path), path.replace(MASK, "\\ "), owners, line_num)
+            )
         paths.reverse()
         self.paths = paths
 
-    def matching_line(self, filepath: str) -> Tuple[List[OwnerTuple], Optional[int]]:
-        for pattern, owners, line_num in self.paths:
-            if pattern.search(filepath) is not None:
-                return (owners, line_num)
-        return ([], None)
+    def matching_line(
+        self, filepath: str
+    ) -> Tuple[List[OwnerTuple], Optional[int], Optional[str]]:
+        for pattern, path, owners, line_num in self.paths:
+            if pattern.search(filepath.replace(" ", MASK)) is not None:
+                return (owners, line_num, path)
+        return ([], None, None)
 
     def of(self, filepath: str) -> List[OwnerTuple]:
         return self.matching_line(filepath)[0]

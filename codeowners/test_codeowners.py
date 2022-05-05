@@ -104,29 +104,34 @@ def test_github_example_matches(
 
 
 @pytest.mark.parametrize(
-    "path,expected_owners,expected_line_num",
+    "path,expected_path,expected_owners,expected_line_num",
     [
         (
+            "buzz/docs/gettingstarted.md",
             "buzz/docs/gettingstarted.md",
             [("USERNAME", "@global-owner1"), ("USERNAME", "@global-owner2")],
             8,
         ),
-        ("foo.js", [("USERNAME", "@js-owner")], 14),
+        ("foo.js", "foo.js", [("USERNAME", "@js-owner")], 14),
     ],
 )
 def test_github_example_matches_with_lines(
     path: str,
+    expected_path: str,
     expected_owners: List[Tuple[Literal["USERNAME", "EMAIL", "TEAM"], str]],
     expected_line_num: int,
 ) -> None:
     owners = CodeOwners(EXAMPLE)
-    actual_owners, actual_line_num = owners.matching_line(path)
+    actual_owners, actual_line_num, actual_path = owners.matching_line(path)
     assert (
         actual_owners == expected_owners
     ), f"mismatch for {path}, expected: {expected_owners}, got: {actual_owners}"
     assert (
         actual_line_num == expected_line_num
     ), f"mismatch for {path}, expected linenum: {expected_line_num}, got: {actual_line_num}"
+    assert (
+        actual_line_num == expected_line_num
+    ), f"mismatch for {path}, expected linenum: {expected_path}, got: {actual_path}"
 
 
 def test_rule_missing_owner() -> None:
@@ -478,6 +483,23 @@ GO_CODEOWNER_EXAMPLES = [
             # differs between git versions
             # "bar[0-5].log": True,
         },
+    ),
+    ex(
+        name="spaces in dir name",
+        pattern="foo/b\\ ar/",
+        paths={
+            "foo": False,
+            "foo/b ar": False,
+            "foo/b ar/": True,
+            "foo/b ar/baz": True,
+            "foo/b": False,
+            "foo/bar": False,
+        },
+    ),
+    ex(
+        name="spaces in file name",
+        pattern="foo/b\\ ar.py",
+        paths={"foo": False, "foo/b ar.py": True, "foo/bar.py": False},
     ),
 ]
 
