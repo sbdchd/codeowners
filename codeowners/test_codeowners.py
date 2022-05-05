@@ -499,11 +499,7 @@ GO_CODEOWNER_EXAMPLES = [
     ex(
         name="spaces in file name",
         pattern="foo/b\\ ar.py",
-        paths={
-            "foo": False,
-            "foo/b ar.py": True,
-            "foo/bar.py": False,
-        },
+        paths={"foo": False, "foo/b ar.py": True, "foo/bar.py": False},
     ),
 ]
 

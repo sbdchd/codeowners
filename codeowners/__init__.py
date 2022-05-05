@@ -133,11 +133,15 @@ class CodeOwners:
                 owner_res = parse_owner(owner)
                 if owner_res is not None:
                     owners.append(owner_res)
-            paths.append((path_to_regex(path), path.replace(MASK, "\\ "), owners, line_num))
+            paths.append(
+                (path_to_regex(path), path.replace(MASK, "\\ "), owners, line_num)
+            )
         paths.reverse()
         self.paths = paths
 
-    def matching_line(self, filepath: str) -> Tuple[List[OwnerTuple], Optional[int], Optional[str]]:
+    def matching_line(
+        self, filepath: str
+    ) -> Tuple[List[OwnerTuple], Optional[int], Optional[str]]:
         for pattern, path, owners, line_num in self.paths:
             if pattern.search(filepath.replace(" ", MASK)) is not None:
                 return (owners, line_num, path)
