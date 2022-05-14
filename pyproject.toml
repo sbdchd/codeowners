@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "codeowners"
-version = "0.4.1"
+version = "0.5.0"
 description = "Codeowners parser for Python"
 authors = ["Steve Dignam <steve@dignam.xyz>"]
 repository = "https://github.com/sbdchd/codeowners"
