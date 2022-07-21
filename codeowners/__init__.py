@@ -150,7 +150,7 @@ class CodeOwners:
 
     def matching_lines(
         self, filepath: str
-    ) -> Generator[Tuple[List[OwnerTuple], Optional[int], Optional[str], Optional[str], Optional[str]], None, None]:
+    ) -> Generator[Tuple[List[OwnerTuple], Optional[int], Optional[str], Optional[str]], None, None]:
         for pattern, path, owners, line_num, section_name in self.paths:
             if pattern.search(filepath.replace(" ", MASK)) is not None:
                 yield (owners, line_num, path, section_name)
