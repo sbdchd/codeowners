@@ -105,7 +105,7 @@ def test_github_example_matches(
     ), f"mismatch for {path}, expected: {expected}, got: {actual}"
 
 
-def test_gitlab_sections():
+def test_gitlab_sections() -> None:
     owners = CodeOwners(EXAMPLE)
     code_path = "build/logs/foo.go"
     actual_section_name = owners.section_name(code_path)

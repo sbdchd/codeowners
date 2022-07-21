@@ -116,7 +116,7 @@ class CodeOwners:
     def __init__(self, text: str) -> None:
         section_name = None
 
-        paths: List[Tuple[Pattern[str], str, List[OwnerTuple], int]] = []
+        paths: List[Tuple[Pattern[str], str, List[OwnerTuple], int, Optional[str]]] = []
         for line_num, line in enumerate(text.splitlines(), start=1):
             line = line.strip()
             if line == "" or line.startswith("#"):
