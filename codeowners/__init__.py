@@ -119,10 +119,7 @@ class CodeOwners:
         paths: List[Tuple[Pattern[str], str, List[OwnerTuple], int]] = []
         for line_num, line in enumerate(text.splitlines(), start=1):
             line = line.strip()
-            if (
-                line == ""
-                or line.startswith("#")
-            ):
+            if line == "" or line.startswith("#"):
                 continue
             # Track the GitLab section name (if used)
             # https://docs.gitlab.com/ee/user/project/code_owners.html#code-owners-sections
@@ -143,14 +140,22 @@ class CodeOwners:
                 if owner_res is not None:
                     owners.append(owner_res)
             paths.append(
-                (path_to_regex(path), path.replace(MASK, "\\ "), owners, line_num, section_name)
+                (
+                    path_to_regex(path),
+                    path.replace(MASK, "\\ "),
+                    owners,
+                    line_num,
+                    section_name,
+                )
             )
         paths.reverse()
         self.paths = paths
 
     def matching_lines(
         self, filepath: str
-    ) -> Generator[Tuple[List[OwnerTuple], Optional[int], Optional[str], Optional[str]], None, None]:
+    ) -> Generator[
+        Tuple[List[OwnerTuple], Optional[int], Optional[str], Optional[str]], None, None
+    ]:
         for pattern, path, owners, line_num, section_name in self.paths:
             if pattern.search(filepath.replace(" ", MASK)) is not None:
                 yield (owners, line_num, path, section_name)

@@ -109,11 +109,15 @@ def test_gitlab_sections():
     owners = CodeOwners(EXAMPLE)
     code_path = "build/logs/foo.go"
     actual_section_name = owners.section_name(code_path)
-    assert (actual_section_name == "Logs"), f"Expected section name of Logs for {code_path} got {actual_section_name}"
+    assert (
+        actual_section_name == "Logs"
+    ), f"Expected section name of Logs for {code_path} got {actual_section_name}"
 
     code_path = "foo/apps/foo.js"
     actual_section_name = owners.section_name(code_path)
-    assert (actual_section_name == "Another team trailing whitespace"), f"Expected section name of 'Another team trailing whitespace' for {code_path} got {actual_section_name}"
+    assert (
+        actual_section_name == "Another team trailing whitespace"
+    ), f"Expected section name of 'Another team trailing whitespace' for {code_path} got {actual_section_name}"
 
 
 @pytest.mark.parametrize(
@@ -135,8 +139,12 @@ def test_github_example_matches_with_lines(
     expected_line_num: int,
 ) -> None:
     owners = CodeOwners(EXAMPLE)
-    actual_owners, actual_line_num, actual_path, section_name = owners.matching_line(path)
-    assert section_name is None, f"section name should have been None but found {section_name}"
+    actual_owners, actual_line_num, actual_path, section_name = owners.matching_line(
+        path
+    )
+    assert (
+        section_name is None
+    ), f"section name should have been None but found {section_name}"
     assert (
         actual_owners == expected_owners
     ), f"mismatch for {path}, expected: {expected_owners}, got: {actual_owners}"
