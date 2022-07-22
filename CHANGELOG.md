@@ -7,6 +7,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+# 0.6.0 - 2022-07-22
+
+- Support gitlab sections (#38). Thanks @corbinbs!
+
+- Allow listing all matching lines (#37). Thanks @glujan!
+
+# 0.5.0 - 2022-05-05
+
+### Added
+
+- returning path alongside owners for `matching_line` (#35). Thanks @pahwaranger!
+
+# 0.4.1 - 2022-05-26
+
+### Added
+
+- Support typing_extensions v4. Thanks @martinxsliu!
+
 # 0.4.0 - 2021-08-24
 
 ### Added
