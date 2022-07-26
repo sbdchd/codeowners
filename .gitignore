@@ -9,3 +9,4 @@
 #**/*.rs.bk
 *.so
 dist
+codeowners/__pycache__/

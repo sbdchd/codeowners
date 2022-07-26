@@ -1,5 +1,5 @@
 import re
-from typing import List, Optional, Pattern, Tuple
+from typing import Generator, List, Optional, Pattern, Tuple
 
 from typing_extensions import Literal
 
@@ -11,6 +11,7 @@ OwnerTuple = Tuple[Literal["USERNAME", "TEAM", "EMAIL"], str]
 TEAM = re.compile(r"^@\S+/\S+")
 USERNAME = re.compile(r"^@\S+")
 EMAIL = re.compile(r"^\S+@\S+")
+MASK = "/" * 20
 
 
 def path_to_regex(pattern: str) -> Pattern[str]:
@@ -119,17 +120,23 @@ def parse_owner(owner: str) -> Optional[OwnerTuple]:
 
 class CodeOwners:
     def __init__(self, text: str) -> None:
-        paths: List[Tuple[Pattern[str], List[OwnerTuple], int]] = []
+        section_name = None
+
+        paths: List[Tuple[Pattern[str], str, List[OwnerTuple], int, Optional[str]]] = []
         for line_num, line in enumerate(text.splitlines(), start=1):
             line = line.strip()
-            if (
-                line == ""
-                or line.startswith("#")
-                or (line.startswith("[") and line.endswith("]"))
-                or (line.startswith("^[") and line.endswith("]"))
-            ):
+            if line == "" or line.startswith("#"):
                 continue
-            elements = iter(line.split())
+            # Track the GitLab section name (if used)
+            # https://docs.gitlab.com/ee/user/project/code_owners.html#code-owners-sections
+            elif line.startswith("[") and line.endswith("]"):
+                section_name = line[1:-1]
+                continue
+            elif line.startswith("^[") and line.endswith("]"):
+                section_name = line[2:-1]
+                continue
+
+            elements = iter(line.replace("\\ ", MASK).split())
             path = next(elements, None)
             if path is None:
                 continue
@@ -138,15 +145,40 @@ class CodeOwners:
                 owner_res = parse_owner(owner)
                 if owner_res is not None:
                     owners.append(owner_res)
-            paths.append((path_to_regex(path), owners, line_num))
+            paths.append(
+                (
+                    path_to_regex(path),
+                    path.replace(MASK, "\\ "),
+                    owners,
+                    line_num,
+                    section_name,
+                )
+            )
         paths.reverse()
         self.paths = paths
 
-    def matching_line(self, filepath: str) -> Tuple[List[OwnerTuple], Optional[int]]:
-        for pattern, owners, line_num in self.paths:
-            if pattern.search(filepath) is not None:
-                return (owners, line_num)
-        return ([], None)
+    def matching_lines(
+        self, filepath: str
+    ) -> Generator[
+        Tuple[List[OwnerTuple], Optional[int], Optional[str], Optional[str]], None, None
+    ]:
+        for pattern, path, owners, line_num, section_name in self.paths:
+            if pattern.search(filepath.replace(" ", MASK)) is not None:
+                yield (owners, line_num, path, section_name)
+
+    def matching_line(
+        self, filepath: str
+    ) -> Tuple[List[OwnerTuple], Optional[int], Optional[str], Optional[str]]:
+        return next(self.matching_lines(filepath), ([], None, None, None))
+
+    def section_name(self, filepath: str) -> Optional[str]:
+        """
+        Find the section name of the specified file path.
+
+        None is returned when no matching section information
+        was found (or sections are not used in the CODEOWNERS file)
+        """
+        return self.matching_line(filepath)[3]
 
     def of(self, filepath: str) -> List[OwnerTuple]:
         return self.matching_line(filepath)[0]

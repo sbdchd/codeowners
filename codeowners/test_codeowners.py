@@ -32,11 +32,13 @@ EXAMPLE = """# This is a comment.
 # In this example, @doctocat owns any files in the build/logs
 # directory at the root of the repository and any of its
 # subdirectories.
+[Logs]
 /build/logs/ @doctocat
 
 # The `docs/*` pattern will match files like
 # `docs/getting-started.md` but not further nested files like
 # `docs/build-app/troubleshooting.md`.
+[Docs]
 docs/*  docs@example.com
 
 # Let's test GitLab's premium feature of sections
@@ -103,30 +105,55 @@ def test_github_example_matches(
     ), f"mismatch for {path}, expected: {expected}, got: {actual}"
 
 
+def test_gitlab_sections() -> None:
+    owners = CodeOwners(EXAMPLE)
+    code_path = "build/logs/foo.go"
+    actual_section_name = owners.section_name(code_path)
+    assert (
+        actual_section_name == "Logs"
+    ), f"Expected section name of Logs for {code_path} got {actual_section_name}"
+
+    code_path = "foo/apps/foo.js"
+    actual_section_name = owners.section_name(code_path)
+    assert (
+        actual_section_name == "Another team trailing whitespace"
+    ), f"Expected section name of 'Another team trailing whitespace' for {code_path} got {actual_section_name}"
+
+
 @pytest.mark.parametrize(
-    "path,expected_owners,expected_line_num",
+    "path,expected_path,expected_owners,expected_line_num",
     [
         (
+            "buzz/docs/gettingstarted.md",
             "buzz/docs/gettingstarted.md",
             [("USERNAME", "@global-owner1"), ("USERNAME", "@global-owner2")],
             8,
         ),
-        ("foo.js", [("USERNAME", "@js-owner")], 14),
+        ("foo.js", "foo.js", [("USERNAME", "@js-owner")], 14),
     ],
 )
 def test_github_example_matches_with_lines(
     path: str,
+    expected_path: str,
     expected_owners: List[Tuple[Literal["USERNAME", "EMAIL", "TEAM"], str]],
     expected_line_num: int,
 ) -> None:
     owners = CodeOwners(EXAMPLE)
-    actual_owners, actual_line_num = owners.matching_line(path)
+    actual_owners, actual_line_num, actual_path, section_name = owners.matching_line(
+        path
+    )
+    assert (
+        section_name is None
+    ), f"section name should have been None but found {section_name}"
     assert (
         actual_owners == expected_owners
     ), f"mismatch for {path}, expected: {expected_owners}, got: {actual_owners}"
     assert (
         actual_line_num == expected_line_num
     ), f"mismatch for {path}, expected linenum: {expected_line_num}, got: {actual_line_num}"
+    assert (
+        actual_line_num == expected_line_num
+    ), f"mismatch for {path}, expected linenum: {expected_path}, got: {actual_path}"
 
 
 def test_rule_missing_owner() -> None:
@@ -478,6 +505,23 @@ GO_CODEOWNER_EXAMPLES = [
             # differs between git versions
             # "bar[0-5].log": True,
         },
+    ),
+    ex(
+        name="spaces in dir name",
+        pattern="foo/b\\ ar/",
+        paths={
+            "foo": False,
+            "foo/b ar": False,
+            "foo/b ar/": True,
+            "foo/b ar/baz": True,
+            "foo/b": False,
+            "foo/bar": False,
+        },
+    ),
+    ex(
+        name="spaces in file name",
+        pattern="foo/b\\ ar.py",
+        paths={"foo": False, "foo/b ar.py": True, "foo/bar.py": False},
     ),
 ]
 
