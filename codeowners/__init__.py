@@ -45,7 +45,7 @@ def path_to_regex(pattern: str) -> Pattern[str]:
     slash_pos = pattern.find("/")
     anchored = slash_pos > -1 and slash_pos != len(pattern) - 1
 
-    regex += r"\A" if anchored else r"(?:\A|/)"
+    regex += r"\A/" if anchored else r"(?:\A|/)"
 
     matches_dir = pattern[-1] == "/"
     matches_no_subdirs = pattern[-2:] == "/*"
