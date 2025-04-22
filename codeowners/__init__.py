@@ -76,7 +76,10 @@ def path_to_regex(pattern: str) -> Pattern[str]:
                 if (left_anchored or leading_slash) and (
                     right_anchored or trailing_slash
                 ):
-                    regex += ".*"
+                    if trailing_slash:
+                        regex += "(?:.*/)?"
+                    else:
+                        regex += ".*"
 
                     next(iterator, None)
                     next(iterator, None)

@@ -352,8 +352,10 @@ GO_CODEOWNER_EXAMPLES = [
         pattern="**/foo/bar",
         paths={
             "foo/bar": True,
+            "notfoo/bar": False,
             "qux/foo/bar": True,
             "qux/foo/bar/baz": True,
+            "qux/notfoo/bar": False,
             "foo/baz/bar": False,
             "qux/foo/baz/bar": False,
         },
@@ -391,6 +393,13 @@ GO_CODEOWNER_EXAMPLES = [
             "foo/bar/baz/qux": True,
             "qux/foo/bar": False,
             "qux/foo/bar/baz": False,
+            "foo/notbar": False,
+            "foo/notbar/baz": False,
+            "foo/qux/notbar/baz": False,
+            "foo/qux/quux/notbar/baz": False,
+            "foo/notbar/baz/qux": False,
+            "qux/foo/notbar": False,
+            "qux/foo/notbar/baz": False,
         },
     ),
     ex(
@@ -468,11 +477,15 @@ GO_CODEOWNER_EXAMPLES = [
     ex(name="escaping str", pattern=r"\*-foo.js", paths={"*-foo.js": True}),
     ex(name="apps absolute", pattern="apps/", paths={"apps/": True}),
     ex(name="foo/bar", pattern="foo/bar", paths={"foo/bar/baz.rs": True}),
-    ex(name="expansion inline", pattern="**/dir/*.*", paths={"bla/dir/file.txt": True}),
+    ex(
+        name="expansion inline",
+        pattern="**/dir/*.*",
+        paths={"bla/dir/file.txt": True, "bla/notdir/file.txt": False},
+    ),
     ex(
         name="regression directory expansion",
         pattern="**/dir/**/*.*",
-        paths={"bla/dir/file.txt": True},
+        paths={"bla/dir/file.txt": True, "bla/notdir/file.txt": False},
     ),
     ex(
         name="$",
