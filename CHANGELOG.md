@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+# 0.8.0 - 2025-04-25
+
+- Fix `**/` to only match whole path segments. Thanks @RedBeard0531!
+
+# 0.7.0 - 2024-03-07
+
+- Support no-subdirs syntax. Thanks @phil-bradbury!
+
 # 0.6.0 - 2022-07-22
 
 - Support gitlab sections (#38). Thanks @corbinbs!
