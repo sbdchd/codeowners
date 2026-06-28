@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+# 0.9.0 - 2026-06-28
+
 - Migrate tooling to GitHub Actions, uv, and Ruff, and update the supported Python versions.
 - Publish to PyPI from CI via trusted publishing.
 
