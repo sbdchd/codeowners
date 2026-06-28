@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- Migrate tooling to GitHub Actions, uv, and Ruff, and update the supported Python versions.
+
 # 0.8.0 - 2025-04-25
 
 - Fix `**/` to only match whole path segments. Thanks @RedBeard0531!

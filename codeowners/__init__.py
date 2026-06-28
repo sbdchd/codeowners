@@ -1,7 +1,5 @@
 import re
-from typing import Generator, List, Optional, Pattern, Tuple
-
-from typing_extensions import Literal
+from typing import Generator, List, Literal, Optional, Pattern, Tuple
 
 __all__ = ["CodeOwners"]
 
@@ -56,7 +54,6 @@ def path_to_regex(pattern: str) -> Pattern[str]:
 
     iterator = enumerate(pattern_trimmed)
     for i, ch in iterator:
-
         if escaped:
             regex += re.escape(ch)
             escaped = False

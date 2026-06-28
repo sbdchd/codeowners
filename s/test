@@ -3,4 +3,4 @@
 set -ex
 
 
-./.venv/bin/pytest "${@}"
+uv run pytest "${@}"

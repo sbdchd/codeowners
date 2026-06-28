@@ -1,4 +1,4 @@
-# codeowners [![CircleCI](https://circleci.com/gh/sbdchd/codeowners.svg?style=svg)](https://circleci.com/gh/sbdchd/codeowners) [![pypi](https://img.shields.io/pypi/v/codeowners.svg)](https://pypi.org/project/codeowners/)
+# codeowners [![CI](https://github.com/sbdchd/codeowners/actions/workflows/ci.yml/badge.svg)](https://github.com/sbdchd/codeowners/actions/workflows/ci.yml) [![pypi](https://img.shields.io/pypi/v/codeowners.svg)](https://pypi.org/project/codeowners/)
 
 > Python codeowners parser based on [softprops's Rust
 > library](https://crates.io/crates/codeowners) and [hmarr's Go
@@ -38,7 +38,7 @@ assert owners.of("test.js") ==  [('USERNAME', '@ghost')]
 ## Dev
 
 ```shell
-poetry install
+uv sync
 
 s/test
 
@@ -55,7 +55,8 @@ s/lint
 # commit release commit to GitHub
 
 # build and publish
-poetry publish --build
+uv build
+uv publish
 
 # create a release in the GitHub UI
 ```

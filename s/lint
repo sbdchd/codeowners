@@ -4,15 +4,13 @@ set -ex
 
 # format code
 if [[ $CI ]]; then
-    ./.venv/bin/black --check .
-    ./.venv/bin/isort --check-only .
+    uv run ruff format --check .
 else
-    ./.venv/bin/black .
-    ./.venv/bin/isort .
+    uv run ruff format .
 fi
 
-# type check code
-./.venv/bin/mypy .
+# lint (includes import sorting)
+uv run ruff check .
 
-# lint
-./.venv/bin/flake8 codeowners
+# type check code
+uv run mypy .
