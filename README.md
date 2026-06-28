@@ -35,6 +35,20 @@ owners = CodeOwners(example_file)
 assert owners.of("test.js") ==  [('USERNAME', '@ghost')]
 ```
 
+### Path format
+
+Paths passed to `of()` (and `matching_line()` / `section_name()`) must be
+repo-relative with no leading slash, matching the behavior of the upstream
+[Go](https://github.com/hmarr/codeowners/) and
+[Rust](https://github.com/hmarr/codeowners-rs) libraries as well as
+`git check-ignore`. A leading slash will not match:
+
+```python
+owners = CodeOwners("/build/logs/log.txt @ghost")
+assert owners.of("build/logs/log.txt") == [('USERNAME', '@ghost')]  # ✅
+assert owners.of("/build/logs/log.txt") == []                       # ✗ leading slash
+```
+
 ## Dev
 
 ```shell
