@@ -1,0 +1,58 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    container: python:3.7
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Cache poetry
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cache
+            ./bot/.mypy_cache
+          key: codeowners-v1-${{ hashFiles('poetry.lock') }}
+
+      - name: install dependencies
+        run: |
+          export PATH="$PATH:$HOME/.local/bin"
+          command -v poetry || python -m pip install --user poetry==1.1.13
+          poetry config virtualenvs.in-project true
+          poetry install
+
+      - name: tests
+        run: ./s/test
+
+  lint:
+    runs-on: ubuntu-latest
+    container: python:3.7
+    env:
+      CI: "true"
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Cache poetry
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cache
+            ./bot/.mypy_cache
+          key: codeowners-v1-${{ hashFiles('poetry.lock') }}
+
+      - name: install dependencies
+        run: |
+          export PATH="$PATH:$HOME/.local/bin"
+          command -v poetry || python -m pip install --user poetry==1.1.13
+          poetry config virtualenvs.in-project true
+          poetry install
+
+      - name: lints
+        run: ./s/lint
