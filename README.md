@@ -67,10 +67,10 @@ s/lint
 # update CHANGELOG.md
 
 # commit release commit to GitHub
-
-# build and publish
-uv build
-uv publish
-
-# create a release in the GitHub UI
 ```
+
+Then create a release in the GitHub UI. The `Publish` workflow builds the
+package and uploads it to PyPI via [trusted publishing][trusted-publishing]
+(OIDC, no API token).
+
+[trusted-publishing]: https://docs.pypi.org/trusted-publishers/
