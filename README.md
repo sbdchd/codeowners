@@ -35,6 +35,17 @@ owners = CodeOwners(example_file)
 assert owners.of("test.js") ==  [('USERNAME', '@ghost')]
 ```
 
+### Path format
+
+Paths must be repo-relative with no leading slash, matching `git check-ignore`. A leading
+slash will not match:
+
+```python
+owners = CodeOwners("/build/logs/log.txt @ghost")
+assert owners.of("build/logs/log.txt") == [('USERNAME', '@ghost')]  # ✅
+assert owners.of("/build/logs/log.txt") == []                       # ✗ leading slash
+```
+
 ## Dev
 
 ```shell
