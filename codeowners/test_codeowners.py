@@ -1,10 +1,9 @@
 import subprocess
 import tempfile
 from pathlib import Path
-from typing import Dict, Iterable, List, NamedTuple, Tuple
+from typing import Dict, Iterable, List, Literal, NamedTuple, Tuple
 
 import pytest
-from typing_extensions import Literal
 
 from codeowners import CodeOwners
 
@@ -100,24 +99,24 @@ def test_github_example_matches(
 ) -> None:
     owners = CodeOwners(EXAMPLE)
     actual = owners.of(path)
-    assert (
-        actual == expected
-    ), f"mismatch for {path}, expected: {expected}, got: {actual}"
+    assert actual == expected, (
+        f"mismatch for {path}, expected: {expected}, got: {actual}"
+    )
 
 
 def test_gitlab_sections() -> None:
     owners = CodeOwners(EXAMPLE)
     code_path = "build/logs/foo.go"
     actual_section_name = owners.section_name(code_path)
-    assert (
-        actual_section_name == "Logs"
-    ), f"Expected section name of Logs for {code_path} got {actual_section_name}"
+    assert actual_section_name == "Logs", (
+        f"Expected section name of Logs for {code_path} got {actual_section_name}"
+    )
 
     code_path = "foo/apps/foo.js"
     actual_section_name = owners.section_name(code_path)
-    assert (
-        actual_section_name == "Another team trailing whitespace"
-    ), f"Expected section name of 'Another team trailing whitespace' for {code_path} got {actual_section_name}"
+    assert actual_section_name == "Another team trailing whitespace", (
+        f"Expected section name of 'Another team trailing whitespace' for {code_path} got {actual_section_name}"
+    )
 
 
 @pytest.mark.parametrize(
@@ -142,18 +141,18 @@ def test_github_example_matches_with_lines(
     actual_owners, actual_line_num, actual_path, section_name = owners.matching_line(
         path
     )
-    assert (
-        section_name is None
-    ), f"section name should have been None but found {section_name}"
-    assert (
-        actual_owners == expected_owners
-    ), f"mismatch for {path}, expected: {expected_owners}, got: {actual_owners}"
-    assert (
-        actual_line_num == expected_line_num
-    ), f"mismatch for {path}, expected linenum: {expected_line_num}, got: {actual_line_num}"
-    assert (
-        actual_line_num == expected_line_num
-    ), f"mismatch for {path}, expected linenum: {expected_path}, got: {actual_path}"
+    assert section_name is None, (
+        f"section name should have been None but found {section_name}"
+    )
+    assert actual_owners == expected_owners, (
+        f"mismatch for {path}, expected: {expected_owners}, got: {actual_owners}"
+    )
+    assert actual_line_num == expected_line_num, (
+        f"mismatch for {path}, expected linenum: {expected_line_num}, got: {actual_line_num}"
+    )
+    assert actual_line_num == expected_line_num, (
+        f"mismatch for {path}, expected linenum: {expected_path}, got: {actual_path}"
+    )
 
 
 def test_rule_missing_owner() -> None:
@@ -562,9 +561,9 @@ def test_specific_pattern_path_matching(
         owners = CodeOwners(f"{pattern}  @js-user")
         matches = owners.of(path) == [("USERNAME", "@js-user")]
         regex, *_ = owners.paths[0]
-        assert (
-            matches == expected
-        ), f"""{pattern} {regex} {"matches" if expected else "shouldn't match"} {path}"""
+        assert matches == expected, (
+            f"""{pattern} {regex} {"matches" if expected else "shouldn't match"} {path}"""
+        )
 
 
 @pytest.mark.parametrize(
@@ -591,6 +590,6 @@ def test_specific_patterns_against_git(
                 ["git", "check-ignore", path], cwd=directory, capture_output=True
             )
             actual = res.returncode == 0
-            assert (
-                actual is expected
-            ), f"match for pattern:{pattern} and path:{path} failed, expected: {expected}, actual: {actual}"
+            assert actual is expected, (
+                f"match for pattern:{pattern} and path:{path} failed, expected: {expected}, actual: {actual}"
+            )
