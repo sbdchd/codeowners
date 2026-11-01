@@ -1,0 +1,4166 @@
+# Which files GitHub says a CODEOWNERS line owns, one per line:
+#
+#   <CODEOWNERS line> | <file path> | <1 if the line owns the file, else 0>
+#
+# Recorded on 2026-10-31 from a private test repository, with one branch per
+# CODEOWNERS file, by reading `codeownerInfo.ruleForPathLine` from GitHub's
+# `/{owner}/{repo}/deferred-metadata/{branch}/{path}` endpoint. Each line was
+# the only rule in its CODEOWNERS file. Lines GitHub's errors API rejects own
+# nothing, so they're recorded as 0.
+!foo @o | foo | 1
+!foo @o | x/foo | 1
+!foo @o | a.md | 0
+!foo @o | x/a.md | 0
+!foo @o | a/b | 0
+!foo @o | bar | 0
+!foo @o | foo/in | 0
+!foo @o | x/foo/in | 0
+!foo @o | a.md/in | 0
+!foo @o | a/b/in | 0
+!foo @o | bar/in | 0
+!/foo @o | foo | 0
+!/foo @o | x/foo | 0
+!/foo @o | a.md | 0
+!/foo @o | x/a.md | 0
+!/foo @o | a/b | 0
+!/foo @o | bar | 0
+!/foo @o | foo/in | 0
+!/foo @o | x/foo/in | 0
+!/foo @o | a.md/in | 0
+!/foo @o | a/b/in | 0
+!/foo @o | bar/in | 0
+!foo/ @o | foo | 0
+!foo/ @o | x/foo | 0
+!foo/ @o | a.md | 0
+!foo/ @o | x/a.md | 0
+!foo/ @o | a/b | 0
+!foo/ @o | bar | 0
+!foo/ @o | foo/in | 0
+!foo/ @o | x/foo/in | 0
+!foo/ @o | a.md/in | 0
+!foo/ @o | a/b/in | 0
+!foo/ @o | bar/in | 0
+!*.md @o | foo | 0
+!*.md @o | x/foo | 0
+!*.md @o | a.md | 1
+!*.md @o | x/a.md | 1
+!*.md @o | a/b | 0
+!*.md @o | bar | 0
+!*.md @o | foo/in | 0
+!*.md @o | x/foo/in | 0
+!*.md @o | a.md/in | 0
+!*.md @o | a/b/in | 0
+!*.md @o | bar/in | 0
+!a/b @o | foo | 0
+!a/b @o | x/foo | 0
+!a/b @o | a.md | 0
+!a/b @o | x/a.md | 0
+!a/b @o | a/b | 0
+!a/b @o | bar | 0
+!a/b @o | foo/in | 0
+!a/b @o | x/foo/in | 0
+!a/b @o | a.md/in | 0
+!a/b @o | a/b/in | 0
+!a/b @o | bar/in | 0
+!/** @o | foo | 0
+!/** @o | x/foo | 0
+!/** @o | a.md | 0
+!/** @o | x/a.md | 0
+!/** @o | a/b | 0
+!/** @o | bar | 0
+!/** @o | foo/in | 0
+!/** @o | x/foo/in | 0
+!/** @o | a.md/in | 0
+!/** @o | a/b/in | 0
+!/** @o | bar/in | 0
+!** @o | foo | 1
+!** @o | x/foo | 1
+!** @o | a.md | 1
+!** @o | x/a.md | 1
+!** @o | a/b | 1
+!** @o | bar | 1
+!** @o | foo/in | 1
+!** @o | x/foo/in | 1
+!** @o | a.md/in | 1
+!** @o | a/b/in | 1
+!** @o | bar/in | 1
+!* @o | foo | 1
+!* @o | x/foo | 1
+!* @o | a.md | 1
+!* @o | x/a.md | 1
+!* @o | a/b | 1
+!* @o | bar | 1
+!* @o | foo/in | 1
+!* @o | x/foo/in | 1
+!* @o | a.md/in | 1
+!* @o | a/b/in | 1
+!* @o | bar/in | 1
+!**/foo @o | foo | 0
+!**/foo @o | x/foo | 0
+!**/foo @o | a.md | 0
+!**/foo @o | x/a.md | 0
+!**/foo @o | a/b | 0
+!**/foo @o | bar | 0
+!**/foo @o | foo/in | 0
+!**/foo @o | x/foo/in | 0
+!**/foo @o | a.md/in | 0
+!**/foo @o | a/b/in | 0
+!**/foo @o | bar/in | 0
+!f?o @o | foo | 1
+!f?o @o | x/foo | 1
+!f?o @o | a.md | 0
+!f?o @o | x/a.md | 0
+!f?o @o | a/b | 0
+!f?o @o | bar | 0
+!f?o @o | foo/in | 0
+!f?o @o | x/foo/in | 0
+!f?o @o | a.md/in | 0
+!f?o @o | a/b/in | 0
+!f?o @o | bar/in | 0
+!a/* @o | foo | 0
+!a/* @o | x/foo | 0
+!a/* @o | a.md | 0
+!a/* @o | x/a.md | 0
+!a/* @o | a/b | 0
+!a/* @o | bar | 0
+!a/* @o | foo/in | 0
+!a/* @o | x/foo/in | 0
+!a/* @o | a.md/in | 0
+!a/* @o | a/b/in | 0
+!a/* @o | bar/in | 0
+!a/** @o | foo | 0
+!a/** @o | x/foo | 0
+!a/** @o | a.md | 0
+!a/** @o | x/a.md | 0
+!a/** @o | a/b | 0
+!a/** @o | bar | 0
+!a/** @o | foo/in | 0
+!a/** @o | x/foo/in | 0
+!a/** @o | a.md/in | 0
+!a/** @o | a/b/in | 0
+!a/** @o | bar/in | 0
+**/ @o | x | 1
+**/ @o | a/x | 1
+**/ @o | a/y/z | 1
+**/ @o | b/c | 1
+**/ @o | b/a/x | 1
+/**/ @o | x | 1
+/**/ @o | a/x | 1
+/**/ @o | a/y/z | 1
+/**/ @o | b/c | 1
+/**/ @o | b/a/x | 1
+a/**/ @o | x | 0
+a/**/ @o | a/x | 1
+a/**/ @o | a/y/z | 1
+a/**/ @o | b/c | 0
+a/**/ @o | b/a/x | 0
+**/a/ @o | x | 0
+**/a/ @o | a/x | 1
+**/a/ @o | a/y/z | 1
+**/a/ @o | b/c | 0
+**/a/ @o | b/a/x | 1
+** @o | x | 1
+** @o | a/x | 1
+** @o | a/y/z | 1
+** @o | b/c | 1
+** @o | b/a/x | 1
+/** @o | x | 1
+/** @o | a/x | 1
+/** @o | a/y/z | 1
+/** @o | b/c | 1
+/** @o | b/a/x | 1
+**/* @o | x | 1
+**/* @o | a/x | 1
+**/* @o | a/y/z | 1
+**/* @o | b/c | 1
+**/* @o | b/a/x | 1
+*/** @o | x | 0
+*/** @o | a/x | 1
+*/** @o | a/y/z | 1
+*/** @o | b/c | 1
+*/** @o | b/a/x | 1
+{a,b} @o | [id]/ab/a | 0
+{a,b} @o | \[id\]/a.b/a b | 0
+{a,b} @o | \[id\]/a.b/{a,b} | 1
+{a,b} @o | \[id\]/日/\[id\] | 0
+{a,b} @o | a.b/#a/\[id\] | 0
+{a,b} @o | a.b/{a,b} | 1
+{a,b} @o | a/é.md | 0
+{a,b} @o | a\b/a/é.md | 0
+{a,b} @o | aa/a | 0
+{a,b} @o | ab | 0
+{a,b} @o | b.md/docs/X.MD | 0
+{a,b} @o | docs/é/a | 0
+{a,b} @o | é.md/[id]/docs | 0
+*a*/?/docs @o | !a/docs/X.MD | 0
+*a*/?/docs @o | X.MD | 0
+*a*/?/docs @o | \[id\]/é.md | 0
+*a*/?/docs @o | a b | 0
+*a*/?/docs @o | a.md/aa | 0
+*a*/?/docs @o | a/{a,b}/b | 0
+*a*/?/docs @o | a\b/a.md | 0
+*a*/?/docs @o | ab/!a/xa | 0
+*a*/?/docs @o | x[a]/{a,b} | 0
+*a*/?/docs @o | x[a]/é.md/b.md | 0
+*a*/?/docs @o | xa/X.MD | 0
+*a*/?/docs @o | é.md/x[a]/b | 0
+*a*/?/docs @o | é.md/日/{a,b} | 0
+*a*/?/docs @o | 日/A/a.b | 0
+/*.md/a/\[a @o | !a/x.md | 0
+/*.md/a/\[a @o | !a/日 | 0
+/*.md/a/\[a @o | X.MD/a\b/x[a] | 0
+/*.md/a/\[a @o | \[id\] | 0
+/*.md/a/\[a @o | a.b/aa | 0
+/*.md/a/\[a @o | a\b/[id]/ab | 0
+/*.md/a/\[a @o | a\b/aa/a | 0
+/*.md/a/\[a @o | a\b/aa/aa | 0
+/*.md/a/\[a @o | x[a]/a\b | 0
+/*.md/a/\[a @o | {a,b}/日 | 0
+/*.md/a/\[a @o | 日/a | 0
+/*.md/a/\[a @o | 日/a.b/#a | 0
+A @o | #a | 0
+A @o | A/X.MD | 1
+A @o | X.MD/xa/#a | 0
+A @o | a | 0
+A @o | a.b | 0
+A @o | a.md/a b/a.b | 0
+A @o | aa | 0
+A @o | b/xa | 0
+A @o | é.md/é | 0
+A @o | é/{a,b}/{a,b} | 0
+A @o | 日 | 0
+/**/x* @o | !a/a.b/\[id\] | 0
+/**/x* @o | A | 0
+/**/x* @o | X.MD/a.b/a.md | 0
+/**/x* @o | [id] | 0
+/**/x* @o | a b | 0
+/**/x* @o | a/\[id\] | 0
+/**/x* @o | aa | 0
+/**/x* @o | ab/b/a b | 0
+/**/x* @o | b | 0
+/**/x* @o | b.md/a/é.md | 0
+/**/x* @o | x[a]/é/xa | 1
+/**/x* @o | xa/ab/a\b | 1
+/**/x* @o | é.md | 0
+/?/*a* @o | !a/b/é.md | 0
+/?/*a* @o | [id] | 0
+/?/*a* @o | a b/!a | 0
+/?/*a* @o | a.b/X.MD/a.md | 0
+/?/*a* @o | a/é | 0
+/?/*a* @o | ab/[id] | 0
+/?/*a* @o | b/x[a]/[id] | 1
+/?/*a* @o | x[a]/x.md | 0
+/?/*a* @o | xa/ab/x[a] | 0
+/?/*a* @o | {a,b} | 0
+/?/*a* @o | é.md/a b/a | 0
+/?/*a* @o | 日 | 0
+*.MD/docs @o | !a/#a/日 | 0
+*.MD/docs @o | A/é.md | 0
+*.MD/docs @o | X.MD | 0
+*.MD/docs @o | [id]/#a/é | 0
+*.MD/docs @o | \[id\]/aa | 0
+*.MD/docs @o | a\b/{a,b}/a\b | 0
+*.MD/docs @o | b/A/x.md | 0
+*.MD/docs @o | docs/aa | 0
+*.MD/docs @o | docs/é/b | 0
+*.MD/docs @o | x.md | 0
+*.MD/docs @o | {a,b}/x.md/x[a] | 0
+*.MD/docs @o | é.md/A/x[a] | 0
+*.MD/docs @o | é/docs | 0
+*.md/{a,b}/A @o | X.MD/xa | 0
+*.md/{a,b}/A @o | \[id\] | 0
+*.md/{a,b}/A @o | a b/a\b/#a | 0
+*.md/{a,b}/A @o | a/A/ab | 0
+*.md/{a,b}/A @o | a/aa | 0
+*.md/{a,b}/A @o | ab/X.MD/docs | 0
+*.md/{a,b}/A @o | b.md | 0
+*.md/{a,b}/A @o | b/a | 0
+*.md/{a,b}/A @o | docs/a.b/#a | 0
+*.md/{a,b}/A @o | docs/ab/é.md | 0
+*.md/{a,b}/A @o | {a,b}/é/docs | 0
+? @o | #a/X.MD | 0
+? @o | A/A | 1
+? @o | X.MD/é | 0
+? @o | [id]/a b/[id] | 0
+? @o | a b/b | 1
+? @o | a.b | 0
+? @o | a.md/{a,b}/xa | 0
+? @o | aa/a.b | 0
+? @o | b.md/é/\[id\] | 0
+? @o | 日 | 0
+/?/*.md/?? @o | !a | 0
+/?/*.md/?? @o | #a | 0
+/?/*.md/?? @o | A/!a | 0
+/?/*.md/?? @o | A/A/a | 0
+/?/*.md/?? @o | X.MD/X.MD/x.md | 0
+/?/*.md/?? @o | \[id\] | 0
+/?/*.md/?? @o | a/a b/日 | 0
+/?/*.md/?? @o | aa/a b/x.md | 0
+/?/*.md/?? @o | docs/a.md | 0
+/?/*.md/?? @o | x.md | 0
+/?/*.md/?? @o | {a,b}/x.md | 0
+/?/*.md/?? @o | é | 0
+/?/*.md/?? @o | é.md | 0
+*a*/b/\[a @o | X.MD/#a | 0
+*a*/b/\[a @o | a.b/a/é.md | 0
+*a*/b/\[a @o | a.md/[id]/X.MD | 0
+*a*/b/\[a @o | a/b.md | 0
+*a*/b/\[a @o | a\b/a.b | 0
+*a*/b/\[a @o | ab/a\b | 0
+*a*/b/\[a @o | b | 0
+*a*/b/\[a @o | x.md/x.md/#a | 0
+*a*/b/\[a @o | x[a]/a | 0
+*a*/b/\[a @o | x[a]/x.md | 0
+*a*/b/\[a @o | xa/\[id\]/#a | 0
+\[id\]/{a,b} @o | !a | 0
+\[id\]/{a,b} @o | X.MD | 0
+\[id\]/{a,b} @o | \[id\]/\[id\]/é | 0
+\[id\]/{a,b} @o | a b | 0
+\[id\]/{a,b} @o | a.md/a b | 0
+\[id\]/{a,b} @o | b | 0
+\[id\]/{a,b} @o | b.md/#a/b.md | 0
+\[id\]/{a,b} @o | xa/b.md | 0
+\[id\]/{a,b} @o | xa/{a,b} | 0
+\[id\]/{a,b} @o | é/!a/b.md | 0
+\[id\]/{a,b} @o | é/a\b | 0
+\[id\]/{a,b} @o | 日/X.MD/!a | 0
+\[id\]/{a,b} @o | 日/X.MD/a.md | 0
+/*a*/\#a/a**b/ @o | #a | 0
+/*a*/\#a/a**b/ @o | A/x.md | 0
+/*a*/\#a/a**b/ @o | [id]/x[a] | 0
+/*a*/\#a/a**b/ @o | a.b | 0
+/*a*/\#a/a**b/ @o | a.md/b.md | 0
+/*a*/\#a/a**b/ @o | a\b | 0
+/*a*/\#a/a**b/ @o | b.md/docs | 0
+/*a*/\#a/a**b/ @o | b/!a/A | 0
+/*a*/\#a/a**b/ @o | b/{a,b}/xa | 0
+/*a*/\#a/a**b/ @o | x[a]/é.md/X.MD | 0
+/*a*/\#a/a**b/ @o | xa/xa/a.md | 0
+/*a*/\#a/a**b/ @o | é.md/!a | 0
+/*a*/\#a/a**b/ @o | é.md/X.MD | 0
+\#a/x.md @o | !a | 0
+\#a/x.md @o | #a/\[id\] | 0
+\#a/x.md @o | \[id\]/#a/[id] | 0
+\#a/x.md @o | a b | 0
+\#a/x.md @o | a.b/X.MD/a\b | 0
+\#a/x.md @o | a\b/a | 0
+\#a/x.md @o | aa/a\b | 0
+\#a/x.md @o | b.md | 0
+\#a/x.md @o | docs/xa | 0
+\#a/x.md @o | x[a]/#a | 0
+\#a/x.md @o | x[a]/a | 0
+\#a/x.md @o | {a,b}/ab | 0
+/\[a @o | !a/xa | 0
+/\[a @o | !a/é | 0
+/\[a @o | a b/a\b | 0
+/\[a @o | a.md/a.b | 0
+/\[a @o | a/#a/b.md | 0
+/\[a @o | a/a\b/a b | 0
+/\[a @o | b.md/x.md/A | 0
+/\[a @o | docs | 0
+/\[a @o | x[a] | 0
+/\[a @o | {a,b}/docs/b.md | 0
+/\[a @o | é.md/[id] | 0
+/\[a @o | é/xa | 0
+/\[a @o | 日/x[a]/a b | 0
+*a*/*a*/*a* @o | !a/[id]/日 | 0
+*a*/*a*/*a* @o | X.MD/a.b/aa | 0
+*a*/*a*/*a* @o | \[id\]/b.md | 0
+*a*/*a*/*a* @o | a b/b.md/a | 0
+*a*/*a*/*a* @o | a.md/ab | 0
+*a*/*a*/*a* @o | a/xa/é.md | 0
+*a*/*a*/*a* @o | a\b/a b/x.md | 0
+*a*/*a*/*a* @o | aa | 0
+*a*/*a*/*a* @o | ab/a.md/a b | 1
+*a*/*a*/*a* @o | ab/é.md/é | 0
+*a*/*a*/*a* @o | b.md/x.md | 0
+*a*/*a*/*a* @o | x[a]/a.md/A | 0
+*a*/*a*/*a* @o | é.md/#a/X.MD | 0
+*a*/*a*/*a* @o | 日 | 0
+/x*/a\ b @o | #a/A | 0
+/x*/a\ b @o | A/日 | 0
+/x*/a\ b @o | [id]/!a | 0
+/x*/a\ b @o | \[id\] | 0
+/x*/a\ b @o | a.md/#a/aa | 0
+/x*/a\ b @o | a.md/X.MD/a.md | 0
+/x*/a\ b @o | a/X.MD | 0
+/x*/a\ b @o | a\b/b/X.MD | 0
+/x*/a\ b @o | b.md/a.md | 0
+/x*/a\ b @o | x[a] | 0
+/x*/a\ b @o | xa/日/a.b | 0
+/x*/a\ b @o | é.md | 0
+x*/a?/a**b @o | !a/X.MD | 0
+x*/a?/a**b @o | #a/aa | 0
+x*/a?/a**b @o | A | 0
+x*/a?/a**b @o | X.MD/x[a]/a.b | 0
+x*/a?/a**b @o | \[id\]/docs | 0
+x*/a?/a**b @o | a.b/日/a b | 0
+x*/a?/a**b @o | a.md/\[id\] | 0
+x*/a?/a**b @o | aa/a.md | 0
+x*/a?/a**b @o | x.md/aa/#a | 0
+x*/a?/a**b @o | xa | 0
+x*/a?/a**b @o | é/ab | 0
+**/a#b/*.MD/ @o | !a/aa/a.b | 0
+**/a#b/*.MD/ @o | #a/é/{a,b} | 0
+**/a#b/*.MD/ @o | X.MD/docs/\[id\] | 0
+**/a#b/*.MD/ @o | \[id\]/{a,b} | 0
+**/a#b/*.MD/ @o | a.b/a\b | 0
+**/a#b/*.MD/ @o | a/[id]/xa | 1
+**/a#b/*.MD/ @o | aa | 0
+**/a#b/*.MD/ @o | b | 0
+**/a#b/*.MD/ @o | docs/X.MD | 0
+**/a#b/*.MD/ @o | xa/#a | 0
+**/a#b/*.MD/ @o | {a,b} | 0
+**/a#b/*.MD/ @o | é.md/X.MD | 0
+**/a#b/*.MD/ @o | é.md/[id]/a.b | 0
+/docs/**/A @o | #a | 0
+/docs/**/A @o | [id]/é.md | 0
+/docs/**/A @o | a | 0
+/docs/**/A @o | ab | 0
+/docs/**/A @o | b.md/a b | 0
+/docs/**/A @o | b/!a/x.md | 0
+/docs/**/A @o | b/x[a]/é.md | 0
+/docs/**/A @o | x.md/A | 0
+/docs/**/A @o | xa | 0
+/docs/**/A @o | é.md/x[a] | 0
+a\ b @o | #a/#a/b.md | 0
+a\ b @o | #a/aa/A | 0
+a\ b @o | X.MD/docs | 0
+a\ b @o | [id]/a.md/a\b | 0
+a\ b @o | \[id\]/\[id\]/b | 0
+a\ b @o | a\b/ab | 0
+a\ b @o | aa/a.md | 0
+a\ b @o | ab | 0
+a\ b @o | b | 0
+a\ b @o | b.md/!a/b | 0
+a\ b @o | x[a]/X.MD/日 | 0
+a\ b @o | xa/A | 0
+a\ b @o | é.md/é | 0
+b @o | !a | 0
+b @o | #a | 0
+b @o | A/#a | 0
+b @o | A/a b | 0
+b @o | [id]/é/é | 0
+b @o | a.b/a/!a | 0
+b @o | b/a.b/xa | 1
+b @o | docs/ab | 0
+b @o | docs/xa | 0
+b @o | x.md/#a | 0
+b @o | é.md | 0
+b @o | 日/docs/é | 0
+/\[id\]/{a,b}/a\ b @o | !a/!a | 0
+/\[id\]/{a,b}/a\ b @o | !a/é | 0
+/\[id\]/{a,b}/a\ b @o | a/a b/X.MD | 0
+/\[id\]/{a,b}/a\ b @o | ab/a b | 0
+/\[id\]/{a,b}/a\ b @o | b | 0
+/\[id\]/{a,b}/a\ b @o | b.md/a\b | 0
+/\[id\]/{a,b}/a\ b @o | x.md/x[a] | 0
+/\[id\]/{a,b}/a\ b @o | x[a]/a.md/!a | 0
+/\[id\]/{a,b}/a\ b @o | é/é | 0
+/\[id\]/{a,b}/a\ b @o | 日/#a | 0
+A/\#a/x* @o | !a/X.MD/a | 0
+A/\#a/x* @o | #a | 0
+A/\#a/x* @o | A/x[a] | 0
+A/\#a/x* @o | X.MD | 0
+A/\#a/x* @o | \[id\]/x[a]/x.md | 0
+A/\#a/x* @o | a.md | 0
+A/\#a/x* @o | a\b | 0
+A/\#a/x* @o | aa/b | 0
+A/\#a/x* @o | aa/é | 0
+A/\#a/x* @o | x.md | 0
+A/\#a/x* @o | x[a]/#a | 0
+A/\#a/x* @o | é.md/a b | 0
+A/\#a/x* @o | é/日/b.md | 0
+/x*/a#b/docs/ @o | !a/x[a]/x[a] | 0
+/x*/a#b/docs/ @o | !a/{a,b} | 0
+/x*/a#b/docs/ @o | A/A/[id] | 0
+/x*/a#b/docs/ @o | X.MD/!a/ab | 0
+/x*/a#b/docs/ @o | [id]/{a,b}/A | 0
+/x*/a#b/docs/ @o | \[id\]/[id] | 0
+/x*/a#b/docs/ @o | a\b | 0
+/x*/a#b/docs/ @o | ab/[id] | 0
+/x*/a#b/docs/ @o | b/日 | 0
+/x*/a#b/docs/ @o | x[a] | 0
+/x*/a#b/docs/ @o | xa/日 | 0
+/x*/a#b/docs/ @o | {a,b}/\[id\]/ab | 0
+/x*/a#b/docs/ @o | {a,b}/a.md | 0
+/x*/a#b/docs/ @o | é.md | 0
+a/** @o | !a | 0
+a/** @o | A | 0
+a/** @o | X.MD/#a/b.md | 0
+a/** @o | a b/a.b/a b | 0
+a/** @o | a\b/!a | 0
+a/** @o | a\b/a b/!a | 0
+a/** @o | aa/b.md | 0
+a/** @o | ab/é.md | 0
+a/** @o | docs/a b/!a | 0
+a/** @o | x[a]/x.md | 0
+a/** @o | xa/x[a]/b | 0
+a/** @o | xa/xa | 0
+a/** @o | é/a\b/b.md | 0
+a @o | #a | 0
+a @o | A/A | 0
+a @o | [id]/a.md | 0
+a @o | a | 1
+a @o | a b/ab/a.md | 0
+a @o | ab/#a | 0
+a @o | ab/é | 0
+a @o | b.md/{a,b} | 0
+a @o | x.md/ab | 0
+a @o | x.md/x[a] | 0
+a @o | {a,b} | 0
+a @o | é.md/a.b | 0
+a @o | é.md/a.md | 0
+*.md/ @o | A/é.md/docs | 1
+*.md/ @o | X.MD/a/A | 0
+*.md/ @o | [id]/a\b/ab | 0
+*.md/ @o | a.b/a b/xa | 0
+*.md/ @o | a\b | 0
+*.md/ @o | aa/b | 0
+*.md/ @o | ab/xa/docs | 0
+*.md/ @o | b/[id]/xa | 0
+*.md/ @o | b/b.md | 0
+*.md/ @o | xa/#a | 0
+*.md/ @o | {a,b}/docs/x.md | 0
+*.md/ @o | {a,b}/é.md/docs | 1
+*.md/ @o | é.md | 0
+/a**b/a#b @o | !a | 0
+/a**b/a#b @o | #a/#a | 0
+/a**b/a#b @o | #a/a.md | 0
+/a**b/a#b @o | [id]/aa/é | 0
+/a**b/a#b @o | [id]/ab | 0
+/a**b/a#b @o | a b/{a,b}/b.md | 0
+/a**b/a#b @o | a.b/a b/docs | 0
+/a**b/a#b @o | aa/!a/x.md | 0
+/a**b/a#b @o | ab | 0
+/a**b/a#b @o | b.md/aa/b | 0
+/a**b/a#b @o | b/a\b | 0
+/a**b/a#b @o | docs/a | 0
+/a**b/a#b @o | x.md | 0
+/a**b/a#b @o | xa/日/a.md | 0
+/a#b/?/ @o | !a/a.md | 0
+/a#b/?/ @o | X.MD/xa/docs | 0
+/a#b/?/ @o | \[id\]/A | 0
+/a#b/?/ @o | \[id\]/é | 0
+/a#b/?/ @o | a.b/a\b/x.md | 0
+/a#b/?/ @o | a.md | 0
+/a#b/?/ @o | a\b/a.md/b | 0
+/a#b/?/ @o | aa | 0
+/a#b/?/ @o | b.md | 0
+/a#b/?/ @o | x.md | 0
+/a#b/?/ @o | x[a] | 0
+/a#b/?/ @o | {a,b}/{a,b}/é | 0
+/a#b/?/ @o | é | 0
+/{a,b} @o | !a/b | 0
+/{a,b} @o | !a/é.md/a | 0
+/{a,b} @o | #a/aa | 0
+/{a,b} @o | \[id\]/A/\[id\] | 0
+/{a,b} @o | a b | 0
+/{a,b} @o | a/A | 0
+/{a,b} @o | b/日/A | 0
+/{a,b} @o | docs | 0
+/{a,b} @o | x.md/docs | 0
+/{a,b} @o | x.md/xa | 0
+/{a,b} @o | xa/b.md | 0
+/{a,b} @o | é/\[id\] | 0
+/{a,b} @o | é/a | 0
+\[id\] @o | #a/a | 0
+\[id\] @o | A/xa | 0
+\[id\] @o | \[id\]/b.md | 0
+\[id\] @o | a\b/#a | 0
+\[id\] @o | a\b/a | 0
+\[id\] @o | a\b/x.md | 0
+\[id\] @o | aa/!a/{a,b} | 0
+\[id\] @o | ab/a\b/é.md | 0
+\[id\] @o | docs/X.MD/\[id\] | 0
+\[id\] @o | x.md/aa/#a | 0
+\[id\] @o | xa | 0
+\[id\] @o | é/docs/日 | 0
+x*/a\ b/x.md/ @o | !a/xa/x[a] | 0
+x*/a\ b/x.md/ @o | #a | 0
+x*/a\ b/x.md/ @o | a.b/xa | 0
+x*/a\ b/x.md/ @o | a.b/é.md | 0
+x*/a\ b/x.md/ @o | a\b/日/a\b | 0
+x*/a\ b/x.md/ @o | aa | 0
+x*/a\ b/x.md/ @o | x.md | 0
+x*/a\ b/x.md/ @o | x[a] | 0
+x*/a\ b/x.md/ @o | xa/xa | 0
+x*/a\ b/x.md/ @o | {a,b} | 0
+x*/a\ b/x.md/ @o | 日/a b | 0
+a**b/a/日 @o | !a | 0
+a**b/a/日 @o | X.MD/docs | 0
+a**b/a/日 @o | \[id\]/aa/\[id\] | 0
+a**b/a/日 @o | a.b/b/docs | 0
+a**b/a/日 @o | a.md/a/b | 0
+a**b/a/日 @o | a/ab | 0
+a**b/a/日 @o | a\b/docs | 0
+a**b/a/日 @o | ab/é.md | 0
+a**b/a/日 @o | b.md/日/{a,b} | 0
+a**b/a/日 @o | b/b.md | 0
+a**b/a/日 @o | x[a] | 0
+a**b/a/日 @o | xa/ab/#a | 0
+a**b/a/日 @o | 日/a\b/#a | 0
+a#b @o | \[id\] | 0
+a#b @o | a b/é | 0
+a#b @o | a.md/\[id\] | 0
+a#b @o | a.md/docs | 0
+a#b @o | a/{a,b}/[id] | 1
+a#b @o | aa/!a/x.md | 0
+a#b @o | ab/é.md | 0
+a#b @o | b.md/X.MD | 0
+a#b @o | b.md/b.md/{a,b} | 0
+a#b @o | b.md/b/aa | 0
+a#b @o | docs/!a/X.MD | 0
+a#b @o | é/xa | 0
+*.MD @o | X.MD | 1
+*.MD @o | [id]/ab/a.b | 0
+*.MD @o | \[id\]/a\b/a.md | 0
+*.MD @o | a b/x.md/x.md | 0
+*.MD @o | a/a\b | 0
+*.MD @o | a\b/docs | 0
+*.MD @o | ab/docs | 0
+*.MD @o | b.md | 0
+*.MD @o | docs/#a/a | 0
+*.MD @o | {a,b}/#a/x.md | 0
+*.MD @o | é.md/b.md | 0
+*.MD @o | é.md/xa | 0
+!/*.MD @o | !a | 0
+!/*.MD @o | [id]/a.md/!a | 0
+!/*.MD @o | [id]/ab/\[id\] | 0
+!/*.MD @o | \[id\] | 0
+!/*.MD @o | a | 0
+!/*.MD @o | a b | 0
+!/*.MD @o | a.b/docs | 0
+!/*.MD @o | a\b/X.MD/X.MD | 0
+!/*.MD @o | aa/b.md/a\b | 0
+!/*.MD @o | b.md/b/é.md | 0
+!/*.MD @o | b/!a | 0
+!/*.MD @o | x[a]/a | 0
+x*/*a* @o | !a/ab | 0
+x*/*a* @o | #a/x[a] | 0
+x*/*a* @o | #a/日 | 0
+x*/*a* @o | X.MD/a.md/é.md | 0
+x*/*a* @o | [id] | 0
+x*/*a* @o | a/x.md | 0
+x*/*a* @o | aa | 0
+x*/*a* @o | x.md/#a | 1
+x*/*a* @o | x[a]/#a | 1
+x*/*a* @o | é.md/[id]/{a,b} | 0
+x*/*a* @o | é/a\b/b.md | 0
+x*/*a* @o | 日/x.md | 0
+{a,b}/ @o | A/x.md/xa | 0
+{a,b}/ @o | a | 0
+{a,b}/ @o | a b | 0
+{a,b}/ @o | a\b/A/\[id\] | 0
+{a,b}/ @o | x.md/a b | 0
+{a,b}/ @o | x.md/x[a]/aa | 0
+{a,b}/ @o | x[a] | 0
+{a,b}/ @o | xa | 0
+{a,b}/ @o | é.md/a.md | 0
+{a,b}/ @o | é.md/é.md/ab | 0
+{a,b}/ @o | é.md/日/X.MD | 0
+x.md/a?/a\ b/ @o | !a/é.md/docs | 0
+x.md/a?/a\ b/ @o | [id]/é.md/xa | 0
+x.md/a?/a\ b/ @o | a.b/#a | 0
+x.md/a?/a\ b/ @o | a.md | 0
+x.md/a?/a\ b/ @o | a/a b | 0
+x.md/a?/a\ b/ @o | a/a.md | 0
+x.md/a?/a\ b/ @o | b/b/é | 0
+x.md/a?/a\ b/ @o | docs/docs/ab | 0
+x.md/a?/a\ b/ @o | x.md/a.md/x[a] | 0
+x.md/a?/a\ b/ @o | x[a]/\[id\]/[id] | 0
+x.md/a?/a\ b/ @o | x[a]/docs/aa | 0
+x.md/a?/a\ b/ @o | é.md/xa/{a,b} | 0
+/a**b/*.md/x*/ @o | !a/[id]/!a | 0
+/a**b/*.md/x*/ @o | !a/\[id\]/ab | 0
+/a**b/*.md/x*/ @o | !a/日 | 0
+/a**b/*.md/x*/ @o | #a/{a,b} | 0
+/a**b/*.md/x*/ @o | A | 0
+/a**b/*.md/x*/ @o | X.MD | 0
+/a**b/*.md/x*/ @o | [id]/é.md | 0
+/a**b/*.md/x*/ @o | \[id\] | 0
+/a**b/*.md/x*/ @o | a/a.b/b | 0
+/a**b/*.md/x*/ @o | a\b/é/\[id\] | 0
+/a**b/*.md/x*/ @o | b/ab/a.b | 0
+/a**b/*.md/x*/ @o | xa/ab | 0
+!*.MD/{a,b} @o | !a/A/x[a] | 0
+!*.MD/{a,b} @o | #a/日 | 0
+!*.MD/{a,b} @o | A/é.md | 0
+!*.MD/{a,b} @o | a.b | 0
+!*.MD/{a,b} @o | a/ab | 0
+!*.MD/{a,b} @o | a\b/#a/A | 0
+!*.MD/{a,b} @o | aa | 0
+!*.MD/{a,b} @o | b/a\b | 0
+!*.MD/{a,b} @o | x.md | 0
+!*.MD/{a,b} @o | x[a]/b.md/a b | 0
+!*.MD/{a,b} @o | x[a]/é | 0
+!*.MD/{a,b} @o | {a,b}/b | 0
+!*.MD/{a,b} @o | 日/ab/é.md | 0
+!/a/{a,b}/{a,b} @o | #a | 0
+!/a/{a,b}/{a,b} @o | A/{a,b}/b.md | 0
+!/a/{a,b}/{a,b} @o | [id]/x.md | 0
+!/a/{a,b}/{a,b} @o | a.md | 0
+!/a/{a,b}/{a,b} @o | a/X.MD/é | 0
+!/a/{a,b}/{a,b} @o | a\b | 0
+!/a/{a,b}/{a,b} @o | aa/日 | 0
+!/a/{a,b}/{a,b} @o | b.md | 0
+!/a/{a,b}/{a,b} @o | b/b.md/日 | 0
+!/a/{a,b}/{a,b} @o | x.md/x[a]/docs | 0
+!/a/{a,b}/{a,b} @o | é/!a | 0
+!/a/{a,b}/{a,b} @o | é/日 | 0
+!/a/{a,b}/{a,b} @o | 日/é | 0
+!日/? @o | #a | 0
+!日/? @o | A/x.md | 0
+!日/? @o | [id]/a\b | 0
+!日/? @o | \[id\]/[id] | 0
+!日/? @o | a\b/b.md | 0
+!日/? @o | ab/X.MD | 0
+!日/? @o | b/a | 0
+!日/? @o | b/a.md/x[a] | 0
+!日/? @o | x.md/b/a.b | 0
+!日/? @o | xa/b.md/!a | 0
+!日/? @o | {a,b}/b/!a | 0
+!日/? @o | é/a b | 0
+/*/** @o | !a | 0
+/*/** @o | A/[id]/aa | 1
+/*/** @o | [id]/[id]/a.b | 1
+/*/** @o | \[id\]/{a,b} | 1
+/*/** @o | a | 0
+/*/** @o | a.b/é | 1
+/*/** @o | a\b/b | 1
+/*/** @o | b/X.MD | 1
+/*/** @o | docs/#a/a.b | 1
+/*/** @o | 日/\[id\]/b.md | 1
+/*/** @o | 日/é/é.md | 1
+** @o | !a/a b/x[a] | 1
+** @o | #a/a b | 1
+** @o | a/{a,b} | 1
+** @o | a\b/!a/{a,b} | 1
+** @o | aa/a\b | 1
+** @o | aa/{a,b} | 1
+** @o | ab/[id]/a.md | 1
+** @o | ab/a.md/x[a] | 1
+** @o | b.md/x[a]/xa | 1
+** @o | docs | 1
+** @o | xa/x[a]/a.b | 1
+** @o | {a,b}/X.MD/#a | 1
+** @o | {a,b}/aa/x[a] | 1
+** @o | é/A | 1
+a**b @o | #a | 0
+a**b @o | A/é/docs | 0
+a**b @o | [id]/a.md | 0
+a**b @o | \[id\]/!a | 0
+a**b @o | a b/ab/aa | 1
+a**b @o | a b/x[a] | 1
+a**b @o | b.md/A/x.md | 0
+a**b @o | b/a b/é.md | 1
+a**b @o | x.md/é.md/ab | 1
+a**b @o | é/a.md | 0
+a**b @o | 日 | 0
+*.md/a @o | !a/a.b | 0
+*.md/a @o | X.MD/xa | 0
+*.md/a @o | [id] | 0
+*.md/a @o | \[id\]/aa | 0
+*.md/a @o | a | 0
+*.md/a @o | a b/é.md | 0
+*.md/a @o | a.md | 0
+*.md/a @o | aa | 0
+*.md/a @o | b.md | 0
+*.md/a @o | x.md/a b/日 | 0
+*.md/a @o | x[a]/b.md/日 | 0
+*.md/a @o | xa/a b/a.b | 0
+*.md/a @o | é.md/é.md/[id] | 0
+x\[a\]/日 @o | !a/!a/X.MD | 0
+x\[a\]/日 @o | A/b.md | 0
+x\[a\]/日 @o | \[id\]/b | 0
+x\[a\]/日 @o | a | 0
+x\[a\]/日 @o | a b | 0
+x\[a\]/日 @o | a\b/xa | 0
+x\[a\]/日 @o | aa | 0
+x\[a\]/日 @o | ab/a | 0
+x\[a\]/日 @o | b.md/#a/ab | 0
+x\[a\]/日 @o | b/ab/a.md | 0
+x\[a\]/日 @o | docs/!a | 0
+x\[a\]/日 @o | docs/x[a]/b.md | 0
+/A/ @o | #a/\[id\]/X.MD | 0
+/A/ @o | X.MD/!a/b.md | 0
+/A/ @o | \[id\] | 0
+/A/ @o | a | 0
+/A/ @o | a.md/a.b/b | 0
+/A/ @o | a\b | 0
+/A/ @o | aa | 0
+/A/ @o | x[a]/a\b | 0
+/A/ @o | {a,b} | 0
+/A/ @o | é.md | 0
+/A/ @o | é/ab | 0
+?/ @o | #a/[id]/é | 0
+?/ @o | X.MD/docs/b | 0
+?/ @o | \[id\] | 0
+?/ @o | a b | 0
+?/ @o | a.b | 0
+?/ @o | a.md/#a | 0
+?/ @o | aa/é.md/xa | 0
+?/ @o | ab/\[id\]/b | 0
+?/ @o | b/x[a] | 1
+?/ @o | docs/A/\[id\] | 1
+?/ @o | x.md/A/a.b | 1
+?/ @o | 日/a.b | 0
+A/x\[a\] @o | !a/a | 0
+A/x\[a\] @o | #a/\[id\]/日 | 0
+A/x\[a\] @o | #a/a\b | 0
+A/x\[a\] @o | A | 0
+A/x\[a\] @o | X.MD/aa | 0
+A/x\[a\] @o | a b | 0
+A/x\[a\] @o | a.b/日 | 0
+A/x\[a\] @o | b.md/x.md/x.md | 0
+A/x\[a\] @o | docs/\[id\]/A | 0
+A/x\[a\] @o | x.md/X.MD/a.b | 0
+A/x\[a\] @o | x.md/a b | 0
+A/x\[a\] @o | x.md/a\b/a.md | 0
+A/x\[a\] @o | é/é.md | 0
+A/x\[a\] @o | é/日 | 0
+??/*/x* @o | !a/b.md | 0
+??/*/x* @o | A/xa | 0
+??/*/x* @o | X.MD | 0
+??/*/x* @o | a b | 0
+??/*/x* @o | a.md/[id]/b | 0
+??/*/x* @o | b/#a | 0
+??/*/x* @o | b/b/[id] | 0
+??/*/x* @o | x[a]/é.md | 0
+??/*/x* @o | xa | 0
+??/*/x* @o | {a,b} | 0
+??/*/x* @o | 日/a.b/docs | 0
+??/*/x* @o | 日/é/b.md | 0
+??/*/x* @o | 日/日/!a | 0
+!*.md @o | #a/x.md/X.MD | 0
+!*.md @o | A | 0
+!*.md @o | [id]/ab | 0
+!*.md @o | \[id\] | 0
+!*.md @o | a | 0
+!*.md @o | a.b/x[a] | 0
+!*.md @o | a\b/aa/a\b | 0
+!*.md @o | x.md | 1
+!*.md @o | x[a]/!a | 0
+!*.md @o | {a,b}/X.MD/!a | 0
+!*.md @o | 日 | 0
+*/b/ @o | !a | 0
+*/b/ @o | A/#a | 0
+*/b/ @o | A/{a,b}/é | 0
+*/b/ @o | X.MD/x[a] | 0
+*/b/ @o | [id]/A/a.b | 0
+*/b/ @o | a b/aa/é | 0
+*/b/ @o | a\b/b | 0
+*/b/ @o | a\b/日 | 0
+*/b/ @o | b.md/[id]/aa | 0
+*/b/ @o | xa/a.md/a | 0
+*/b/ @o | xa/x[a] | 0
+*/b/ @o | {a,b} | 0
+*/b/ @o | é | 0
+*/b/ @o | 日 | 0
+*.MD @o | !a/x[a] | 0
+*.MD @o | #a/a b | 0
+*.MD @o | #a/xa/X.MD | 1
+*.MD @o | X.MD/b.md | 1
+*.MD @o | [id]/é.md/a.b | 0
+*.MD @o | \[id\]/é | 0
+*.MD @o | ab/a | 0
+*.MD @o | ab/aa | 0
+*.MD @o | b.md/x[a] | 0
+*.MD @o | b/docs | 0
+*.MD @o | x.md/日 | 0
+*.MD @o | x[a]/a b | 0
+*.MD @o | é.md | 0
+a\ b/ @o | A/b/!a | 0
+a\ b/ @o | [id]/X.MD | 0
+a\ b/ @o | a.b | 0
+a\ b/ @o | a.md/{a,b}/é.md | 0
+a\ b/ @o | a\b/a.b/X.MD | 0
+a\ b/ @o | x[a]/日/b | 0
+a\ b/ @o | xa/a\b/a b | 0
+a\ b/ @o | {a,b}/x[a]/{a,b} | 0
+a\ b/ @o | é.md | 0
+a\ b/ @o | é/!a/X.MD | 0
+a\ b/ @o | 日/日/a.b | 0
+a? @o | [id]/a b/xa | 0
+a? @o | [id]/é.md/a.b | 0
+a? @o | \[id\]/aa/b | 1
+a? @o | a\b/a b/X.MD | 0
+a? @o | aa/!a/a b | 1
+a? @o | ab/a.b/a.b | 1
+a? @o | b.md/X.MD | 0
+a? @o | x.md/X.MD | 0
+a? @o | xa | 0
+a? @o | {a,b}/a | 0
+a? @o | é | 0
+/?? @o | !a/x[a] | 1
+/?? @o | #a/X.MD/a | 1
+/?? @o | X.MD/aa/a.b | 0
+/?? @o | X.MD/{a,b} | 0
+/?? @o | [id]/b | 0
+/?? @o | a\b/a.b | 0
+/?? @o | b/xa/A | 0
+/?? @o | docs | 0
+/?? @o | x.md/a.b | 0
+/?? @o | x[a] | 0
+/?? @o | {a,b}/é.md | 0
+/?? @o | 日/X.MD | 0
+*.md/\#a/?? @o | !a/docs | 0
+*.md/\#a/?? @o | \[id\] | 0
+*.md/\#a/?? @o | a.b | 0
+*.md/\#a/?? @o | ab/a.b | 0
+*.md/\#a/?? @o | ab/aa/{a,b} | 0
+*.md/\#a/?? @o | x.md/aa | 0
+*.md/\#a/?? @o | x.md/docs/a.md | 0
+*.md/\#a/?? @o | x.md/é/x.md | 0
+*.md/\#a/?? @o | é.md | 0
+*.md/\#a/?? @o | é/#a/é.md | 0
+*.md/\#a/?? @o | 日 | 0
+\[id\] @o | X.MD/a.b | 0
+\[id\] @o | [id]/aa/\[id\] | 0
+\[id\] @o | \[id\] | 0
+\[id\] @o | a.b/é/{a,b} | 0
+\[id\] @o | a\b/b.md/é | 0
+\[id\] @o | b.md/x[a] | 0
+\[id\] @o | docs | 0
+\[id\] @o | x[a]/é/a\b | 0
+\[id\] @o | é.md/a\b/[id] | 0
+\[id\] @o | é/a b | 0
+\[id\] @o | é/{a,b} | 0
+!\[a @o | X.MD/a/é.md | 0
+!\[a @o | \[id\]/é | 0
+!\[a @o | a b/docs/ab | 0
+!\[a @o | a.md/é.md | 0
+!\[a @o | a/日 | 0
+!\[a @o | aa | 0
+!\[a @o | ab | 0
+!\[a @o | docs | 0
+!\[a @o | xa/ab/[id] | 0
+!\[a @o | é.md/[id] | 0
+!\[a @o | 日/aa/aa | 0
+*a*/*/\[a @o | X.MD/x.md/docs | 0
+*a*/*/\[a @o | [id] | 0
+*a*/*/\[a @o | \[id\] | 0
+*a*/*/\[a @o | a.md/!a/#a | 0
+*a*/*/\[a @o | a.md/xa/é | 0
+*a*/*/\[a @o | ab | 0
+*a*/*/\[a @o | b.md | 0
+*a*/*/\[a @o | x.md/a/日 | 0
+*a*/*/\[a @o | x[a]/!a | 0
+*a*/*/\[a @o | x[a]/{a,b} | 0
+*a*/*/\[a @o | é | 0
+/a\ b/{a,b}/x.md @o | [id]/A/docs | 0
+/a\ b/{a,b}/x.md @o | [id]/\[id\] | 0
+/a\ b/{a,b}/x.md @o | a.md | 0
+/a\ b/{a,b}/x.md @o | a/!a | 0
+/a\ b/{a,b}/x.md @o | ab/ab | 0
+/a\ b/{a,b}/x.md @o | b.md/日 | 0
+/a\ b/{a,b}/x.md @o | b/#a | 0
+/a\ b/{a,b}/x.md @o | docs/a.b | 0
+/a\ b/{a,b}/x.md @o | x[a]/!a/a.md | 0
+/a\ b/{a,b}/x.md @o | {a,b}/xa/#a | 0
+/a\ b/{a,b}/x.md @o | é.md | 0
+/a\ b/{a,b}/x.md @o | 日/A/é.md | 0
+/日/**/ @o | X.MD | 0
+/日/**/ @o | a.b/aa | 0
+/日/**/ @o | a.md | 0
+/日/**/ @o | a/b/ab | 0
+/日/**/ @o | ab/x.md | 0
+/日/**/ @o | b.md/docs/ab | 0
+/日/**/ @o | b/!a/a.b | 0
+/日/**/ @o | docs/\[id\] | 0
+/日/**/ @o | x[a]/docs | 0
+/日/**/ @o | xa | 0
+/日/**/ @o | 日/ab/é | 1
+/日/**/ @o | 日/x[a]/b | 1
+!/x.md/x.md @o | A/{a,b} | 0
+!/x.md/x.md @o | [id] | 0
+!/x.md/x.md @o | a.md/é.md/b.md | 0
+!/x.md/x.md @o | a.md/日/docs | 0
+!/x.md/x.md @o | a\b/ab/\[id\] | 0
+!/x.md/x.md @o | aa/!a/docs | 0
+!/x.md/x.md @o | docs/A | 0
+!/x.md/x.md @o | x[a]/A/a | 0
+!/x.md/x.md @o | é.md/{a,b}/é | 0
+!/x.md/x.md @o | 日 | 0
+x\[a\]/*.md/A @o | !a/X.MD | 0
+x\[a\]/*.md/A @o | a b/é.md/b.md | 0
+x\[a\]/*.md/A @o | a.b/\[id\] | 0
+x\[a\]/*.md/A @o | a.md/a.b/a.b | 0
+x\[a\]/*.md/A @o | a/#a/aa | 0
+x\[a\]/*.md/A @o | a\b/b | 0
+x\[a\]/*.md/A @o | ab/xa/a\b | 0
+x\[a\]/*.md/A @o | x[a]/x[a] | 0
+x\[a\]/*.md/A @o | xa/é.md/xa | 0
+x\[a\]/*.md/A @o | é.md/{a,b}/b.md | 0
+x\[a\]/*.md/A @o | é/{a,b} | 0
+A @o | !a/a.md | 0
+A @o | A/a.b/a b | 1
+A @o | a b/a\b | 0
+A @o | a.md | 0
+A @o | a\b/日 | 0
+A @o | b.md | 0
+A @o | docs/docs | 0
+A @o | x.md/a.b/b | 0
+A @o | x.md/docs | 0
+A @o | x[a] | 0
+A @o | {a,b}/x[a] | 0
+??/a**b/a**b @o | !a/a b/[id] | 0
+??/a**b/a**b @o | !a/é | 0
+??/a**b/a**b @o | #a/aa | 0
+??/a**b/a**b @o | A/aa | 0
+??/a**b/a**b @o | \[id\]/A/aa | 0
+??/a**b/a**b @o | a b | 0
+??/a**b/a**b @o | a\b | 0
+??/a**b/a**b @o | b/a | 0
+??/a**b/a**b @o | docs/b/docs | 0
+??/a**b/a**b @o | xa/b/[id] | 0
+??/a**b/a**b @o | 日/a.md/x[a] | 0
+a**b/? @o | !a/x.md | 0
+a**b/? @o | !a/é.md/docs | 0
+a**b/? @o | #a/a.md | 0
+a**b/? @o | A/a.b | 0
+a**b/? @o | X.MD | 0
+a**b/? @o | [id]/\[id\] | 0
+a**b/? @o | \[id\] | 0
+a**b/? @o | ab/日 | 0
+a**b/? @o | b | 0
+a**b/? @o | b.md | 0
+a**b/? @o | x.md/a.md | 0
+a**b/? @o | xa/aa | 0
+a**b/? @o | {a,b} | 0
+!**/x.md @o | a.b/a\b | 0
+!**/x.md @o | a.md/b.md | 0
+!**/x.md @o | a\b/ab | 0
+!**/x.md @o | ab/[id]/!a | 0
+!**/x.md @o | b | 0
+!**/x.md @o | b.md/aa/ab | 0
+!**/x.md @o | docs/X.MD/{a,b} | 0
+!**/x.md @o | docs/\[id\] | 0
+!**/x.md @o | docs/a b/a.md | 0
+!**/x.md @o | x.md/ab | 0
+!**/x.md @o | {a,b} | 0
+\[id\]/a**b/ @o | !a/docs | 0
+\[id\]/a**b/ @o | A | 0
+\[id\]/a**b/ @o | \[id\]/!a | 0
+\[id\]/a**b/ @o | a.md/é.md | 0
+\[id\]/a**b/ @o | a/a\b/xa | 0
+\[id\]/a**b/ @o | a\b/#a/xa | 0
+\[id\]/a**b/ @o | aa/ab | 0
+\[id\]/a**b/ @o | ab | 0
+\[id\]/a**b/ @o | docs/a b | 0
+\[id\]/a**b/ @o | docs/日/a.b | 0
+\[id\]/a**b/ @o | x.md/a\b/é.md | 0
+\[id\]/a**b/ @o | {a,b} | 0
+\[id\]/a**b/ @o | é.md | 0
+/A/*.md/*.MD @o | !a/\[id\] | 0
+/A/*.md/*.MD @o | A | 0
+/A/*.md/*.MD @o | X.MD/b.md | 0
+/A/*.md/*.MD @o | [id]/a b/a b | 0
+/A/*.md/*.MD @o | a b/日/a b | 0
+/A/*.md/*.MD @o | a/xa/{a,b} | 0
+/A/*.md/*.MD @o | a\b | 0
+/A/*.md/*.MD @o | aa/\[id\] | 0
+/A/*.md/*.MD @o | aa/日 | 0
+/A/*.md/*.MD @o | b | 0
+/A/*.md/*.MD @o | b.md | 0
+/A/*.md/*.MD @o | xa/\[id\] | 0
+/A/*.md/*.MD @o | é/a.md/a b | 0
+/A/*.md/*.MD @o | 日 | 0
+*.md/ @o | !a/b.md | 0
+*.md/ @o | A | 0
+*.md/ @o | X.MD | 0
+*.md/ @o | [id]/é.md | 0
+*.md/ @o | \[id\]/b.md | 0
+*.md/ @o | a.b/a.md/a\b | 1
+*.md/ @o | a.md/[id] | 1
+*.md/ @o | a/aa | 0
+*.md/ @o | aa/A/é | 0
+*.md/ @o | b | 0
+*.md/ @o | docs | 0
+*.md/ @o | é/A | 0
+/日/docs/ @o | #a/a b | 0
+/日/docs/ @o | \[id\] | 0
+/日/docs/ @o | a b/a b/#a | 0
+/日/docs/ @o | a/a\b | 0
+/日/docs/ @o | aa | 0
+/日/docs/ @o | b.md | 0
+/日/docs/ @o | b/[id] | 0
+/日/docs/ @o | docs/[id]/a | 0
+/日/docs/ @o | xa/a b | 0
+/日/docs/ @o | xa/xa/a | 0
+/日/docs/ @o | {a,b} | 0
+/日/docs/ @o | é | 0
+日/ @o | !a | 0
+日/ @o | X.MD | 0
+日/ @o | \[id\] | 0
+日/ @o | a/a\b | 0
+日/ @o | a\b/#a/[id] | 0
+日/ @o | a\b/a.b/#a | 0
+日/ @o | aa | 0
+日/ @o | x.md | 0
+日/ @o | x[a]/A | 0
+日/ @o | x[a]/é.md | 0
+日/ @o | é | 0
+日/ @o | é.md/é.md/!a | 0
+日/ @o | 日/#a | 1
+\[id\]/b @o | !a/a | 0
+\[id\]/b @o | #a/[id]/a\b | 0
+\[id\]/b @o | #a/x[a]/b | 0
+\[id\]/b @o | A/a.md/b | 0
+\[id\]/b @o | X.MD/b | 0
+\[id\]/b @o | [id] | 0
+\[id\]/b @o | a.md/é.md | 0
+\[id\]/b @o | a\b/X.MD/\[id\] | 0
+\[id\]/b @o | a\b/é.md | 0
+\[id\]/b @o | docs | 0
+\[id\]/b @o | é.md/a b/a | 0
+x\[a\]/a\ b/*/ @o | A | 0
+x\[a\]/a\ b/*/ @o | a.b | 0
+x\[a\]/a\ b/*/ @o | aa/docs | 0
+x\[a\]/a\ b/*/ @o | ab | 0
+x\[a\]/a\ b/*/ @o | b.md/日/A | 0
+x\[a\]/a\ b/*/ @o | docs/xa/é.md | 0
+x\[a\]/a\ b/*/ @o | x[a]/\[id\] | 0
+x\[a\]/a\ b/*/ @o | xa | 0
+x\[a\]/a\ b/*/ @o | {a,b}/b/a.b | 0
+x\[a\]/a\ b/*/ @o | {a,b}/{a,b}/!a | 0
+x\[a\]/a\ b/*/ @o | é | 0
+x\[a\]/a\ b/*/ @o | é.md/日 | 0
+x\[a\]/a\ b/*/ @o | 日/ab/x[a] | 0
+\[a/*.md/\#a/ @o | !a/aa/é | 0
+\[a/*.md/\#a/ @o | !a/xa/X.MD | 0
+\[a/*.md/\#a/ @o | #a | 0
+\[a/*.md/\#a/ @o | A/X.MD/a.b | 0
+\[a/*.md/\#a/ @o | \[id\]/{a,b}/é.md | 0
+\[a/*.md/\#a/ @o | a b/a.md/a.b | 0
+\[a/*.md/\#a/ @o | a/x[a] | 0
+\[a/*.md/\#a/ @o | ab | 0
+\[a/*.md/\#a/ @o | docs/a b | 0
+\[a/*.md/\#a/ @o | x[a] | 0
+\[a/*.md/\#a/ @o | é | 0
+\[a/*.md/\#a/ @o | é.md/b.md | 0
+*.MD/a\ b @o | X.MD/a\b | 0
+*.MD/a\ b @o | [id]/é.md/x.md | 0
+*.MD/a\ b @o | \[id\]/\[id\] | 0
+*.MD/a\ b @o | a.b | 0
+*.MD/a\ b @o | a.md/b | 0
+*.MD/a\ b @o | a/a.b | 0
+*.MD/a\ b @o | aa/a.md | 0
+*.MD/a\ b @o | b/#a | 0
+*.MD/a\ b @o | b/b/a | 0
+*.MD/a\ b @o | x[a]/A | 0
+*.MD/a\ b @o | é.md | 0
+*.MD/a\ b @o | é/a/a.b | 0
+/a**b/é/* @o | !a/!a/aa | 0
+/a**b/é/* @o | !a/ab | 0
+/a**b/é/* @o | #a | 0
+/a**b/é/* @o | [id]/b | 0
+/a**b/é/* @o | \[id\]/日 | 0
+/a**b/é/* @o | a.b/é | 0
+/a**b/é/* @o | a.md/a.b | 0
+/a**b/é/* @o | a.md/é.md/ab | 0
+/a**b/é/* @o | a/A/{a,b} | 0
+/a**b/é/* @o | a\b/é.md | 0
+/a**b/é/* @o | ab/X.MD/ab | 0
+/a**b/é/* @o | xa/!a | 0
+/a**b/é/* @o | {a,b}/a b | 0
+日/a#b/a#b @o | #a/{a,b}/a | 0
+日/a#b/a#b @o | \[id\] | 0
+日/a#b/a#b @o | a/b | 0
+日/a#b/a#b @o | a\b/b.md | 0
+日/a#b/a#b @o | aa/a.b | 0
+日/a#b/a#b @o | b.md/[id] | 0
+日/a#b/a#b @o | b/!a | 0
+日/a#b/a#b @o | b/X.MD | 0
+日/a#b/a#b @o | docs | 0
+日/a#b/a#b @o | {a,b} | 0
+日/a#b/a#b @o | é | 0
+日/a#b/a#b @o | é.md/X.MD/#a | 0
+\[id\]/a\\b/ @o | \[id\]/日/aa | 0
+\[id\]/a\\b/ @o | a b | 0
+\[id\]/a\\b/ @o | a\b/日 | 0
+\[id\]/a\\b/ @o | ab/a.md | 0
+\[id\]/a\\b/ @o | ab/x[a]/#a | 0
+\[id\]/a\\b/ @o | b.md/a.md/X.MD | 0
+\[id\]/a\\b/ @o | b.md/docs/a\b | 0
+\[id\]/a\\b/ @o | x.md | 0
+\[id\]/a\\b/ @o | x[a]/é/x[a] | 0
+\[id\]/a\\b/ @o | {a,b} | 0
+\[id\]/a\\b/ @o | é | 0
+\[id\]/a\\b/ @o | é.md/A | 0
+\[id\]/x\[a\]/a\ b @o | !a/x[a] | 0
+\[id\]/x\[a\]/a\ b @o | #a/a.md/xa | 0
+\[id\]/x\[a\]/a\ b @o | A | 0
+\[id\]/x\[a\]/a\ b @o | X.MD | 0
+\[id\]/x\[a\]/a\ b @o | [id]/a.b | 0
+\[id\]/x\[a\]/a\ b @o | a.md/a\b | 0
+\[id\]/x\[a\]/a\ b @o | ab/aa | 0
+\[id\]/x\[a\]/a\ b @o | b/x.md/a\b | 0
+\[id\]/x\[a\]/a\ b @o | x.md | 0
+\[id\]/x\[a\]/a\ b @o | x[a] | 0
+\[id\]/x\[a\]/a\ b @o | {a,b}/X.MD/A | 0
+\[id\]/x\[a\]/a\ b @o | {a,b}/é | 0
+\[id\]/x\[a\]/a\ b @o | é.md | 0
+\[id\]/x\[a\]/a\ b @o | 日 | 0
+日/\[id\] @o | a.b/é/x[a] | 0
+日/\[id\] @o | a.md | 0
+日/\[id\] @o | a/b.md/a.md | 0
+日/\[id\] @o | a\b | 0
+日/\[id\] @o | b.md/b | 0
+日/\[id\] @o | b/x[a]/xa | 0
+日/\[id\] @o | docs/ab/é.md | 0
+日/\[id\] @o | docs/x[a]/a | 0
+日/\[id\] @o | xa/a.md | 0
+日/\[id\] @o | é | 0
+日/\[id\] @o | é.md/a.md | 0
+日/\[id\] @o | 日/xa | 0
+/x\[a\]/\[a/a? @o | !a/a.md | 0
+/x\[a\]/\[a/a? @o | #a/xa/b | 0
+/x\[a\]/\[a/a? @o | a b/X.MD/b.md | 0
+/x\[a\]/\[a/a? @o | a.b | 0
+/x\[a\]/\[a/a? @o | a\b/x[a] | 0
+/x\[a\]/\[a/a? @o | aa/é.md/#a | 0
+/x\[a\]/\[a/a? @o | ab/b.md/X.MD | 0
+/x\[a\]/\[a/a? @o | x.md/!a/b.md | 0
+/x\[a\]/\[a/a? @o | x.md/é | 0
+/x\[a\]/\[a/a? @o | x[a]/a\b | 0
+/x\[a\]/\[a/a? @o | {a,b}/a b/x[a] | 0
+/x\[a\]/\[a/a? @o | {a,b}/b | 0
+/x\[a\]/\[a/a? @o | é.md/#a | 0
+x* @o | X.MD | 0
+x* @o | \[id\] | 0
+x* @o | a.b | 0
+x* @o | aa/aa | 0
+x* @o | aa/é.md | 0
+x* @o | ab/x.md | 1
+x* @o | b | 0
+x* @o | docs/b | 0
+x* @o | x[a]/xa/X.MD | 1
+x* @o | x[a]/{a,b}/X.MD | 1
+x* @o | xa/docs/b | 1
+!é/A @o | #a/[id] | 0
+!é/A @o | a b | 0
+!é/A @o | a.b/é.md | 0
+!é/A @o | a/日/a.md | 0
+!é/A @o | aa/x.md | 0
+!é/A @o | b.md | 0
+!é/A @o | b/#a/a\b | 0
+!é/A @o | docs/a.b | 0
+!é/A @o | docs/ab | 0
+!é/A @o | x.md/#a/docs | 0
+!é/A @o | x[a]/aa | 0
+!é/A @o | xa/x.md/!a | 0
+/*.md/a**b/a @o | !a | 0
+/*.md/a**b/a @o | [id]/[id] | 0
+/*.md/a**b/a @o | \[id\] | 0
+/*.md/a**b/a @o | a.md/!a | 0
+/*.md/a**b/a @o | ab | 0
+/*.md/a**b/a @o | docs/#a | 0
+/*.md/a**b/a @o | docs/\[id\] | 0
+/*.md/a**b/a @o | x.md/ab/{a,b} | 0
+/*.md/a**b/a @o | x.md/docs | 0
+/*.md/a**b/a @o | {a,b} | 0
+/*.md/a**b/a @o | é/ab/aa | 0
+/*.md/a**b/a @o | 日/#a | 0
+\#a/é/*.MD/ @o | #a/x[a] | 0
+\#a/é/*.MD/ @o | A | 0
+\#a/é/*.MD/ @o | X.MD | 0
+\#a/é/*.MD/ @o | [id]/#a/b.md | 0
+\#a/é/*.MD/ @o | a | 0
+\#a/é/*.MD/ @o | a.md/é | 0
+\#a/é/*.MD/ @o | a.md/日 | 0
+\#a/é/*.MD/ @o | aa/a\b | 0
+\#a/é/*.MD/ @o | ab/é/x[a] | 0
+\#a/é/*.MD/ @o | x[a]/é | 0
+\#a/é/*.MD/ @o | é | 0
+\#a/é/*.MD/ @o | é.md | 0
+\#a/é/*.MD/ @o | 日/[id]/docs | 0
+x*/\[id\]/\[a @o | \[id\]/aa | 0
+x*/\[id\]/\[a @o | a b/a\b/b | 0
+x*/\[id\]/\[a @o | a b/ab | 0
+x*/\[id\]/\[a @o | a/docs/aa | 0
+x*/\[id\]/\[a @o | a\b | 0
+x*/\[id\]/\[a @o | aa/a | 0
+x*/\[id\]/\[a @o | b.md/X.MD | 0
+x*/\[id\]/\[a @o | b/X.MD/aa | 0
+x*/\[id\]/\[a @o | x[a] | 0
+x*/\[id\]/\[a @o | xa/{a,b}/[id] | 0
+x*/\[id\]/\[a @o | {a,b} | 0
+x*/\[id\]/\[a @o | é.md/{a,b}/docs | 0
+x*/\[id\]/\[a @o | 日/a b | 0
+/?/x.md @o | !a/é | 0
+/?/x.md @o | #a/X.MD | 0
+/?/x.md @o | #a/é | 0
+/?/x.md @o | A | 0
+/?/x.md @o | [id]/é/b | 0
+/?/x.md @o | a b/b/ab | 0
+/?/x.md @o | aa | 0
+/?/x.md @o | ab | 0
+/?/x.md @o | x[a]/a b/{a,b} | 0
+/?/x.md @o | xa/a.b | 0
+/?/x.md @o | {a,b}/X.MD/é.md | 0
+a#b/??/x.md @o | #a/xa/aa | 0
+a#b/??/x.md @o | A/b/é | 0
+a#b/??/x.md @o | a/X.MD | 1
+a#b/??/x.md @o | aa/[id] | 0
+a#b/??/x.md @o | ab/a.md/\[id\] | 0
+a#b/??/x.md @o | ab/b | 0
+a#b/??/x.md @o | b | 0
+a#b/??/x.md @o | b.md/X.MD | 0
+a#b/??/x.md @o | x[a]/x[a] | 0
+a#b/??/x.md @o | xa/docs/é.md | 0
+a#b/??/x.md @o | é | 0
+a#b/??/x.md @o | é.md/a\b | 0
+é/*.MD/A @o | !a/a b/a | 0
+é/*.MD/A @o | #a/a.b/a.md | 0
+é/*.MD/A @o | X.MD | 0
+é/*.MD/A @o | [id]/x.md/b | 0
+é/*.MD/A @o | \[id\] | 0
+é/*.MD/A @o | a b/docs | 0
+é/*.MD/A @o | b/{a,b} | 0
+é/*.MD/A @o | xa/é.md | 0
+é/*.MD/A @o | {a,b}/A/b.md | 0
+é/*.MD/A @o | é.md/a\b/a | 0
+/\[id\]/??/docs @o | #a/é.md/\[id\] | 0
+/\[id\]/??/docs @o | A | 0
+/\[id\]/??/docs @o | X.MD/b/é.md | 0
+/\[id\]/??/docs @o | [id]/!a | 0
+/\[id\]/??/docs @o | a b/aa/#a | 0
+/\[id\]/??/docs @o | a.b/a\b/a\b | 0
+/\[id\]/??/docs @o | a.md | 0
+/\[id\]/??/docs @o | a/!a/ab | 0
+/\[id\]/??/docs @o | ab/[id]/X.MD | 0
+/\[id\]/??/docs @o | x.md/a.md/b.md | 0
+/\[id\]/??/docs @o | x[a]/a/\[id\] | 0
+/\[id\]/??/docs @o | x[a]/b.md/é.md | 0
+/\[id\]/??/docs @o | xa/a | 0
+/\[id\]/??/docs @o | xa/xa | 0
+a?/{a,b} @o | #a/[id] | 0
+a?/{a,b} @o | #a/é.md/b | 0
+a?/{a,b} @o | X.MD/é | 0
+a?/{a,b} @o | [id]/a b/#a | 0
+a?/{a,b} @o | a/docs/[id] | 0
+a?/{a,b} @o | a\b | 0
+a?/{a,b} @o | b.md/b/aa | 0
+a?/{a,b} @o | x.md | 0
+a?/{a,b} @o | x[a] | 0
+a?/{a,b} @o | {a,b}/aa | 0
+a?/{a,b} @o | {a,b}/ab/a b | 0
+a?/{a,b} @o | é.md/日 | 0
+/x.md/\[id\] @o | X.MD | 0
+/x.md/\[id\] @o | [id]/docs/\[id\] | 0
+/x.md/\[id\] @o | a b/docs | 0
+/x.md/\[id\] @o | a.b | 0
+/x.md/\[id\] @o | a.md/é.md | 0
+/x.md/\[id\] @o | a/a.md | 0
+/x.md/\[id\] @o | aa/{a,b}/ab | 0
+/x.md/\[id\] @o | ab/日 | 0
+/x.md/\[id\] @o | b/#a | 0
+/x.md/\[id\] @o | {a,b}/[id]/ab | 0
+/x.md/\[id\] @o | {a,b}/é.md/X.MD | 0
+/x.md/\[id\] @o | é.md | 0
+/x.md/\[id\] @o | é/日/x[a] | 0
+/x.md/*.md/a**b @o | !a | 0
+/x.md/*.md/a**b @o | #a/x.md | 0
+/x.md/*.md/a**b @o | [id]/b | 0
+/x.md/*.md/a**b @o | a.md | 0
+/x.md/*.md/a**b @o | a/a/日 | 0
+/x.md/*.md/a**b @o | x.md | 0
+/x.md/*.md/a**b @o | x[a] | 0
+/x.md/*.md/a**b @o | xa/xa | 0
+/x.md/*.md/a**b @o | {a,b}/x[a]/X.MD | 0
+/x.md/*.md/a**b @o | é.md | 0
+a**b @o | #a/X.MD/xa | 0
+a**b @o | A/x[a] | 0
+a**b @o | A/日 | 0
+a**b @o | X.MD/aa | 0
+a**b @o | [id] | 0
+a**b @o | \[id\] | 0
+a**b @o | a.md/a\b/\[id\] | 1
+a**b @o | a.md/x.md/a\b | 1
+a**b @o | a\b | 1
+a**b @o | aa | 0
+a**b @o | docs/ab/ab | 1
+a**b @o | xa | 0
+a**b @o | {a,b}/ab/a\b | 1
+*.md/\#a @o | X.MD/b/b | 0
+*.md/\#a @o | [id]/x.md/aa | 0
+*.md/\#a @o | [id]/xa/a b | 0
+*.md/\#a @o | a b | 0
+*.md/\#a @o | a.b/x[a]/日 | 0
+*.md/\#a @o | a.md/b | 0
+*.md/\#a @o | a\b/a b | 0
+*.md/\#a @o | aa/a.b | 0
+*.md/\#a @o | ab | 0
+*.md/\#a @o | b.md | 0
+*.md/\#a @o | x.md/a.b | 0
+*.md/\#a @o | xa | 0
+**/a\\b @o | !a | 0
+**/a\\b @o | a | 0
+**/a\\b @o | a.b | 0
+**/a\\b @o | a.md/X.MD | 0
+**/a\\b @o | a\b | 1
+**/a\\b @o | ab/\[id\] | 0
+**/a\\b @o | ab/a/b.md | 0
+**/a\\b @o | b/b.md/[id] | 0
+**/a\\b @o | docs/X.MD/!a | 0
+**/a\\b @o | xa/ab/é.md | 0
+**/a\\b @o | {a,b}/{a,b}/日 | 0
+**/a\\b @o | é.md | 0
+**/a\\b @o | é/b/x.md | 0
+/x.md/x.md @o | !a/\[id\]/[id] | 0
+/x.md/x.md @o | X.MD/a.b/a\b | 0
+/x.md/x.md @o | [id] | 0
+/x.md/x.md @o | a b/{a,b}/aa | 0
+/x.md/x.md @o | ab/\[id\]/{a,b} | 0
+/x.md/x.md @o | b | 0
+/x.md/x.md @o | docs/A/a.md | 0
+/x.md/x.md @o | docs/x[a] | 0
+/x.md/x.md @o | xa/é/b.md | 0
+/x.md/x.md @o | {a,b}/日 | 0
+/x.md/x.md @o | é/A/!a | 0
+x.md/日/b @o | X.MD/a b/b.md | 0
+x.md/日/b @o | X.MD/aa/a.b | 0
+x.md/日/b @o | [id]/b | 0
+x.md/日/b @o | [id]/x[a] | 0
+x.md/日/b @o | a | 0
+x.md/日/b @o | a.b/A | 0
+x.md/日/b @o | a.md/b | 0
+x.md/日/b @o | docs | 0
+x.md/日/b @o | x[a]/!a | 0
+x.md/日/b @o | é | 0
+x.md/日/b @o | é.md/a b | 0
+x.md/日/b @o | 日/a | 0
+x.md/日/b @o | 日/a.b/[id] | 0
+x.md/日/b @o | 日/b.md | 0
+A/a#b @o | #a/{a,b} | 0
+A/a#b @o | \[id\]/a\b/b.md | 0
+A/a#b @o | a b | 0
+A/a#b @o | a/a | 0
+A/a#b @o | aa | 0
+A/a#b @o | ab/\[id\]/\[id\] | 0
+A/a#b @o | x.md/x.md/é.md | 0
+A/a#b @o | x.md/日/A | 0
+A/a#b @o | x[a]/ab/x[a] | 0
+A/a#b @o | {a,b} | 0
+A/a#b @o | é.md | 0
+A/a#b @o | é/[id]/x.md | 0
+/docs/x.md/\[a @o | X.MD/#a | 0
+/docs/x.md/\[a @o | a b | 0
+/docs/x.md/\[a @o | a.md | 0
+/docs/x.md/\[a @o | a/A/a.b | 0
+/docs/x.md/\[a @o | a/b.md | 0
+/docs/x.md/\[a @o | aa | 0
+/docs/x.md/\[a @o | ab/a.md/é.md | 0
+/docs/x.md/\[a @o | ab/日 | 0
+/docs/x.md/\[a @o | x.md | 0
+/docs/x.md/\[a @o | xa/x.md | 0
+/docs/x.md/\[a @o | {a,b} | 0
+/docs/x.md/\[a @o | 日/a b | 0
+\[id\]/*a*/a**b/ @o | #a/X.MD/[id] | 0
+\[id\]/*a*/a**b/ @o | A | 0
+\[id\]/*a*/a**b/ @o | X.MD | 0
+\[id\]/*a*/a**b/ @o | [id] | 0
+\[id\]/*a*/a**b/ @o | a.md/A | 0
+\[id\]/*a*/a**b/ @o | a\b/a\b | 0
+\[id\]/*a*/a**b/ @o | ab/[id] | 0
+\[id\]/*a*/a**b/ @o | b.md/#a/é | 0
+\[id\]/*a*/a**b/ @o | docs/日/X.MD | 0
+\[id\]/*a*/a**b/ @o | x[a]/日 | 0
+\[id\]/*a*/a**b/ @o | {a,b}/aa/A | 0
+\[id\]/*a*/a**b/ @o | 日/A | 0
+a?/{a,b} @o | !a/aa/b | 0
+a?/{a,b} @o | #a | 0
+a?/{a,b} @o | [id] | 0
+a?/{a,b} @o | \[id\]/a.b/ab | 0
+a?/{a,b} @o | a.b | 0
+a?/{a,b} @o | a/\[id\] | 0
+a?/{a,b} @o | ab/xa | 0
+a?/{a,b} @o | b.md/a\b/a.b | 0
+a?/{a,b} @o | b/xa | 0
+a?/{a,b} @o | x.md/[id]/#a | 0
+a?/{a,b} @o | x[a]/docs/X.MD | 0
+a?/{a,b} @o | {a,b}/日/a.md | 0
+a?/{a,b} @o | 日/!a | 0
+x.md @o | !a/!a/b.md | 0
+x.md @o | !a/\[id\]/ab | 0
+x.md @o | A/x[a] | 0
+x.md @o | [id]/[id]/a | 0
+x.md @o | \[id\]/\[id\] | 0
+x.md @o | a\b/ab | 0
+x.md @o | a\b/b/b.md | 0
+x.md @o | b | 0
+x.md @o | x.md/xa | 1
+x.md @o | é.md/A/x[a] | 0
+x.md @o | 日/a\b/!a | 0
+/a @o | [id] | 0
+/a @o | \[id\] | 0
+/a @o | a b/a b | 0
+/a @o | a b/xa | 0
+/a @o | a\b | 0
+/a @o | ab | 0
+/a @o | b.md/a/a.md | 0
+/a @o | b/b.md | 0
+/a @o | x.md/docs/#a | 0
+/a @o | x[a] | 0
+/a @o | xa | 0
+/a @o | é.md/a b/é.md | 0
+/a @o | 日/aa | 0
+A/**/ @o | a b/ab/X.MD | 0
+A/**/ @o | a.b/\[id\] | 0
+A/**/ @o | a.b/a.md | 0
+A/**/ @o | a.md/xa/docs | 0
+A/**/ @o | a/A/a b | 0
+A/**/ @o | aa/a.b/[id] | 0
+A/**/ @o | aa/xa/é.md | 0
+A/**/ @o | docs/x[a] | 0
+A/**/ @o | x[a]/a.md/!a | 0
+A/**/ @o | {a,b}/{a,b} | 0
+A/**/ @o | é.md/A | 0
+!a#b/ @o | !a | 0
+!a#b/ @o | X.MD/a.md/xa | 0
+!a#b/ @o | X.MD/b/x[a] | 0
+!a#b/ @o | a.b/b.md/a b | 0
+!a#b/ @o | a.md | 0
+!a#b/ @o | ab/xa | 0
+!a#b/ @o | ab/日 | 0
+!a#b/ @o | x.md/A/!a | 0
+!a#b/ @o | x[a]/{a,b} | 0
+!a#b/ @o | x[a]/日/ab | 0
+!a#b/ @o | xa/aa | 0
+!a#b/ @o | {a,b}/x.md | 0
+!a#b/ @o | 日/[id]/#a | 0
+?/x*/ @o | !a/\[id\] | 0
+?/x*/ @o | #a | 0
+?/x*/ @o | A | 0
+?/x*/ @o | X.MD | 0
+?/x*/ @o | \[id\]/ab/a | 0
+?/x*/ @o | a b | 0
+?/x*/ @o | a.md/ab | 0
+?/x*/ @o | aa/é.md | 0
+?/x*/ @o | ab/a b/xa | 0
+?/x*/ @o | ab/é.md/\[id\] | 0
+?/x*/ @o | x.md/docs | 0
+?/x*/ @o | xa/xa | 0
+?/x*/ @o | é.md/#a/a | 0
+?/x*/ @o | é/\[id\]/x.md | 0
+b/*.MD/*a*/ @o | #a | 0
+b/*.MD/*a*/ @o | X.MD/a b | 0
+b/*.MD/*a*/ @o | [id]/#a/#a | 0
+b/*.MD/*a*/ @o | a b/a\b | 0
+b/*.MD/*a*/ @o | a.b/b | 0
+b/*.MD/*a*/ @o | a\b | 0
+b/*.MD/*a*/ @o | aa/x[a]/a | 0
+b/*.MD/*a*/ @o | b/x.md/x.md | 0
+b/*.MD/*a*/ @o | {a,b}/ab/docs | 0
+b/*.MD/*a*/ @o | é/a b/b | 0
+b/*.MD/*a*/ @o | é/a\b/A | 0
+b/*.MD/*a*/ @o | é/é | 0
+b/*.MD/*a*/ @o | 日 | 0
+日/\#a/ @o | !a/docs/ab | 0
+日/\#a/ @o | #a/ab | 0
+日/\#a/ @o | A/b | 0
+日/\#a/ @o | a\b/!a | 0
+日/\#a/ @o | b/ab/{a,b} | 0
+日/\#a/ @o | docs/docs | 0
+日/\#a/ @o | x.md/日 | 0
+日/\#a/ @o | x[a]/a/é.md | 0
+日/\#a/ @o | {a,b} | 0
+日/\#a/ @o | é/[id]/a | 0
+日/\#a/ @o | 日/docs | 0
+/a**b/??/*.MD @o | !a/{a,b}/X.MD | 0
+/a**b/??/*.MD @o | A/[id] | 0
+/a**b/??/*.MD @o | X.MD/b.md | 0
+/a**b/??/*.MD @o | \[id\]/a.b/x.md | 0
+/a**b/??/*.MD @o | a b/a\b/x[a] | 0
+/a**b/??/*.MD @o | a.b/!a/a.b | 0
+/a**b/??/*.MD @o | a\b/é.md/é.md | 0
+/a**b/??/*.MD @o | b.md/ab/a\b | 0
+/a**b/??/*.MD @o | x.md/[id]/x.md | 0
+/a**b/??/*.MD @o | x.md/a/X.MD | 0
+/a**b/??/*.MD @o | {a,b} | 0
+/a**b/??/*.MD @o | 日/!a | 0
+é/*.MD/*.MD @o | A/xa/aa | 0
+é/*.MD/*.MD @o | [id]/x.md | 0
+é/*.MD/*.MD @o | [id]/é.md/b | 0
+é/*.MD/*.MD @o | a | 0
+é/*.MD/*.MD @o | a b | 0
+é/*.MD/*.MD @o | a.b/b.md | 0
+é/*.MD/*.MD @o | aa/x.md | 0
+é/*.MD/*.MD @o | b/日/a.md | 0
+é/*.MD/*.MD @o | x.md/aa | 0
+é/*.MD/*.MD @o | xa/A | 0
+é/*.MD/*.MD @o | xa/x[a]/{a,b} | 0
+/日/ @o | a b/xa/a b | 0
+/日/ @o | a.b | 0
+/日/ @o | a.md/[id]/[id] | 0
+/日/ @o | a/é/a.md | 0
+/日/ @o | ab | 0
+/日/ @o | b/x.md/ab | 0
+/日/ @o | xa/#a | 0
+/日/ @o | é/!a | 0
+/日/ @o | 日/[id]/xa | 1
+!/b @o | #a | 0
+!/b @o | A | 0
+!/b @o | X.MD/\[id\]/x[a] | 0
+!/b @o | \[id\]/é.md | 0
+!/b @o | a.b/docs/a | 0
+!/b @o | a/b.md | 0
+!/b @o | a/x.md | 0
+!/b @o | b.md/b.md | 0
+!/b @o | b.md/x[a] | 0
+!/b @o | docs/\[id\] | 0
+!/b @o | x.md | 0
+!/b @o | x[a] | 0
+!/b @o | {a,b}/[id] | 0
+日/x.md/ @o | [id]/a.md/日 | 0
+日/x.md/ @o | \[id\]/b | 0
+日/x.md/ @o | a | 0
+日/x.md/ @o | a b | 0
+日/x.md/ @o | a\b/[id] | 0
+日/x.md/ @o | a\b/b.md/\[id\] | 0
+日/x.md/ @o | ab | 0
+日/x.md/ @o | docs/a b/!a | 0
+日/x.md/ @o | {a,b}/b.md | 0
+日/x.md/ @o | {a,b}/{a,b}/日 | 0
+日/x.md/ @o | é.md/b.md | 0
+/A/a#b @o | X.MD/xa | 0
+/A/a#b @o | \[id\]/aa/#a | 0
+/A/a#b @o | a | 0
+/A/a#b @o | a.b/a.b | 0
+/A/a#b @o | a.b/日/b | 0
+/A/a#b @o | aa/aa/b.md | 0
+/A/a#b @o | b.md/\[id\]/[id] | 0
+/A/a#b @o | docs/a/日 | 0
+/A/a#b @o | docs/ab/[id] | 0
+/A/a#b @o | x.md/!a | 0
+/A/a#b @o | xa/日 | 0
+/A/a#b @o | é.md/[id]/a b | 0
+x.md/a#b/{a,b} @o | !a/{a,b}/#a | 0
+x.md/a#b/{a,b} @o | #a/b | 0
+x.md/a#b/{a,b} @o | X.MD | 0
+x.md/a#b/{a,b} @o | a.b/x[a]/日 | 0
+x.md/a#b/{a,b} @o | a.md/日 | 0
+x.md/a#b/{a,b} @o | ab | 0
+x.md/a#b/{a,b} @o | b/A | 0
+x.md/a#b/{a,b} @o | docs/\[id\]/aa | 0
+x.md/a#b/{a,b} @o | x[a]/日 | 0
+x.md/a#b/{a,b} @o | {a,b} | 0
+x.md/a#b/{a,b} @o | é.md | 0
+x.md/a#b/{a,b} @o | é/日/a | 0
+a#b/x\[a\] @o | #a/aa/x.md | 0
+a#b/x\[a\] @o | X.MD/ab/ab | 0
+a#b/x\[a\] @o | [id]/é | 0
+a#b/x\[a\] @o | \[id\]/X.MD/!a | 0
+a#b/x\[a\] @o | a b | 0
+a#b/x\[a\] @o | a.b | 0
+a#b/x\[a\] @o | a.md | 0
+a#b/x\[a\] @o | ab/a | 1
+a#b/x\[a\] @o | docs | 0
+a#b/x\[a\] @o | x.md/x.md/ab | 0
+a#b/x\[a\] @o | x[a]/X.MD | 0
+a#b/x\[a\] @o | {a,b}/!a/b | 0
+a#b/x\[a\] @o | é.md | 0
+docs/a#b @o | !a/a | 0
+docs/a#b @o | #a | 0
+docs/a#b @o | A | 0
+docs/a#b @o | [id] | 0
+docs/a#b @o | a b/{a,b}/a\b | 0
+docs/a#b @o | a.b | 0
+docs/a#b @o | a\b/ab/ab | 0
+docs/a#b @o | aa/é | 0
+docs/a#b @o | ab/!a | 0
+docs/a#b @o | b/a b/#a | 0
+docs/a#b @o | docs/X.MD | 0
+docs/a#b @o | {a,b}/!a/A | 0
+docs/a#b @o | 日/b.md | 0
+/é @o | #a/ab/x[a] | 0
+/é @o | #a/b.md | 0
+/é @o | A | 0
+/é @o | a.md/ab/x.md | 0
+/é @o | a.md/日/{a,b} | 0
+/é @o | aa | 0
+/é @o | ab | 0
+/é @o | b.md/a.md | 0
+/é @o | x.md/X.MD/a.md | 0
+/é @o | xa/#a | 0
+/é @o | é.md/{a,b} | 0
+/é @o | 日/é | 0
+/é @o | 日/日/a b | 0
+/a**b/b @o | A/xa | 0
+/a**b/b @o | a.b | 0
+/a**b/b @o | aa | 0
+/a**b/b @o | ab/a b/#a | 0
+/a**b/b @o | b.md | 0
+/a**b/b @o | b/ab | 0
+/a**b/b @o | x[a]/x[a]/日 | 0
+/a**b/b @o | {a,b}/!a | 0
+/a**b/b @o | {a,b}/x.md/\[id\] | 0
+/a**b/b @o | {a,b}/é.md | 0
+/a**b/b @o | é | 0
+/a**b/b @o | 日/A | 0
+**/ @o | !a/a.b/!a | 1
+**/ @o | #a/{a,b}/a b | 1
+**/ @o | [id] | 1
+**/ @o | a b | 1
+**/ @o | a.md | 1
+**/ @o | ab | 1
+**/ @o | b | 1
+**/ @o | x.md/{a,b} | 1
+**/ @o | x[a] | 1
+**/ @o | xa/#a | 1
+**/ @o | {a,b} | 1
+**/ @o | é.md/a b | 1
+**/ @o | é/b.md | 1
+**/ @o | 日/a.b | 1
+*.MD @o | #a/a/#a | 0
+*.MD @o | X.MD/a b | 1
+*.MD @o | [id] | 0
+*.MD @o | \[id\]/b.md | 0
+*.MD @o | \[id\]/x.md/é | 0
+*.MD @o | a b/a\b | 0
+*.MD @o | a.b/é | 0
+*.MD @o | aa | 0
+*.MD @o | docs/é.md | 0
+*.MD @o | x[a]/docs/aa | 0
+*.MD @o | xa/[id]/aa | 0
+*.MD @o | 日/x.md | 0
+x*/*.MD @o | A/\[id\] | 0
+x*/*.MD @o | A/{a,b}/aa | 0
+x*/*.MD @o | a.md | 0
+x*/*.MD @o | a\b/[id] | 0
+x*/*.MD @o | a\b/a.md | 0
+x*/*.MD @o | a\b/b.md | 0
+x*/*.MD @o | b/é | 0
+x*/*.MD @o | x.md/ab/A | 0
+x*/*.MD @o | x.md/é.md/docs | 0
+x*/*.MD @o | xa | 0
+x*/*.MD @o | {a,b}/{a,b} | 0
+x*/*.MD @o | {a,b}/é/x.md | 0
+x*/*.MD @o | é/a.b | 0
+a @o | #a/b.md | 0
+a @o | A | 0
+a @o | a.b/a b/ab | 0
+a @o | a\b/b.md/日 | 0
+a @o | aa/x.md/a.b | 0
+a @o | ab | 0
+a @o | b/docs/X.MD | 0
+a @o | xa/b/a | 1
+a @o | xa/é.md | 0
+a @o | {a,b}/é.md/docs | 0
+a @o | é.md/aa | 0
+a @o | é/b | 0
+a @o | é/docs/xa | 0
+x\[a\] @o | #a/aa | 0
+x\[a\] @o | \[id\]/[id]/a | 0
+x\[a\] @o | \[id\]/a.md | 0
+x\[a\] @o | a.b/日/{a,b} | 0
+x\[a\] @o | a\b | 0
+x\[a\] @o | ab/!a/a | 0
+x\[a\] @o | b/a | 0
+x\[a\] @o | x.md/a b | 0
+x\[a\] @o | x.md/x[a]/x[a] | 1
+x\[a\] @o | {a,b}/b.md/é.md | 0
+x\[a\] @o | é.md/docs/xa | 0
+\[a @o | #a/docs | 0
+\[a @o | A/a.md/日 | 0
+\[a @o | \[id\]/docs | 0
+\[a @o | a.b/日 | 0
+\[a @o | a.md | 0
+\[a @o | a/b/{a,b} | 0
+\[a @o | ab | 0
+\[a @o | docs/\[id\] | 0
+\[a @o | x.md/!a | 0
+\[a @o | x[a]/a\b | 0
+\[a @o | xa/!a | 0
+\[a @o | {a,b}/é.md | 0
+\[a @o | 日 | 0
+\#a @o | #a | 1
+\#a @o | X.MD/\[id\] | 0
+\#a @o | [id] | 0
+\#a @o | a | 0
+\#a @o | a b | 0
+\#a @o | a.b/a\b/a\b | 0
+\#a @o | aa/a b | 0
+\#a @o | x[a]/a b/X.MD | 0
+\#a @o | {a,b}/a.md | 0
+\#a @o | {a,b}/x.md | 0
+\#a @o | é.md/xa | 0
+\#a @o | 日 | 0
+a?/*.md/a @o | !a | 0
+a?/*.md/a @o | #a | 0
+a?/*.md/a @o | X.MD/X.MD | 0
+a?/*.md/a @o | [id] | 0
+a?/*.md/a @o | a | 0
+a?/*.md/a @o | aa/x.md | 0
+a?/*.md/a @o | b.md | 0
+a?/*.md/a @o | b/a.b/a b | 0
+a?/*.md/a @o | docs/A/aa | 0
+a?/*.md/a @o | x.md | 0
+a?/*.md/a @o | é.md/x.md | 0
+a?/*.md/a @o | é/#a | 0
+a?/*.md/a @o | é/b | 0
+a**b/é @o | !a/X.MD | 0
+a**b/é @o | \[id\]/a | 0
+a**b/é @o | a | 0
+a**b/é @o | a b/{a,b}/aa | 0
+a**b/é @o | aa/!a/b | 0
+a**b/é @o | ab/#a/docs | 0
+a**b/é @o | b | 0
+a**b/é @o | docs | 0
+a**b/é @o | x.md/#a | 0
+a**b/é @o | {a,b}/\[id\] | 0
+a**b/é @o | {a,b}/é/x[a] | 0
+a**b/é @o | é/docs/xa | 0
+!/** @o | A | 0
+!/** @o | X.MD | 0
+!/** @o | [id] | 0
+!/** @o | a b/!a/日 | 0
+!/** @o | a b/b.md/a b | 0
+!/** @o | a.b/日 | 0
+!/** @o | aa/日/\[id\] | 0
+!/** @o | ab/[id]/a.b | 0
+!/** @o | docs | 0
+!/** @o | x.md/日 | 0
+!/** @o | x[a]/A/\[id\] | 0
+/\[id\]/ @o | !a/x[a]/{a,b} | 0
+/\[id\]/ @o | #a/é | 0
+/\[id\]/ @o | [id] | 0
+/\[id\]/ @o | a.md | 0
+/\[id\]/ @o | aa | 0
+/\[id\]/ @o | b.md | 0
+/\[id\]/ @o | docs/docs | 0
+/\[id\]/ @o | x.md/b.md | 0
+/\[id\]/ @o | x[a]/b | 0
+/\[id\]/ @o | xa | 0
+/\[id\]/ @o | {a,b}/b.md | 0
+/\[id\]/ @o | é.md/[id]/x[a] | 0
+/\[id\]/ @o | é/b.md | 0
+/\[id\]/ @o | 日/a.b/{a,b} | 0
+x.md/\#a @o | !a | 0
+x.md/\#a @o | #a/aa | 0
+x.md/\#a @o | A/é.md/a | 0
+x.md/\#a @o | [id]/ab | 0
+x.md/\#a @o | [id]/docs | 0
+x.md/\#a @o | \[id\]/[id]/{a,b} | 0
+x.md/\#a @o | a b | 0
+x.md/\#a @o | aa/!a | 0
+x.md/\#a @o | aa/x.md | 0
+x.md/\#a @o | x.md/é.md | 0
+x.md/\#a @o | xa/A/xa | 0
+x.md/\#a @o | é | 0
+x.md/\#a @o | é.md/a.md | 0
+x*/日/ @o | !a/é.md/x.md | 0
+x*/日/ @o | #a/a/é.md | 0
+x*/日/ @o | A/x[a] | 0
+x*/日/ @o | [id] | 0
+x*/日/ @o | \[id\] | 0
+x*/日/ @o | a.md | 0
+x*/日/ @o | aa | 0
+x*/日/ @o | docs/ab | 0
+x*/日/ @o | x.md/\[id\] | 0
+x*/日/ @o | xa/#a/\[id\] | 0
+x*/日/ @o | xa/é/日 | 0
+x*/日/ @o | é.md/aa/b | 0
+x*/日/ @o | é.md/b | 0
+/x.md/{a,b}/??/ @o | !a | 0
+/x.md/{a,b}/??/ @o | A/\[id\] | 0
+/x.md/{a,b}/??/ @o | a.b | 0
+/x.md/{a,b}/??/ @o | a.md/a.md | 0
+/x.md/{a,b}/??/ @o | a\b/a.md | 0
+/x.md/{a,b}/??/ @o | ab/\[id\]/日 | 0
+/x.md/{a,b}/??/ @o | ab/é.md/#a | 0
+/x.md/{a,b}/??/ @o | x.md/日 | 0
+/x.md/{a,b}/??/ @o | xa/x.md | 0
+/x.md/{a,b}/??/ @o | 日/A/a.b | 0
+/x.md/{a,b}/??/ @o | 日/xa | 0
+a#b/\#a @o | #a/a b/[id] | 0
+a#b/\#a @o | #a/a.b/A | 0
+a#b/\#a @o | X.MD/a.b/日 | 0
+a#b/\#a @o | \[id\] | 0
+a#b/\#a @o | a.md/b | 0
+a#b/\#a @o | a\b/x[a] | 0
+a#b/\#a @o | docs | 0
+a#b/\#a @o | x[a]/ab/a b | 0
+a#b/\#a @o | xa/X.MD/é.md | 0
+a#b/\#a @o | 日/\[id\] | 0
+a#b/\#a @o | 日/日/xa | 0
+A/x\[a\] @o | !a | 0
+A/x\[a\] @o | [id] | 0
+A/x\[a\] @o | a.b | 0
+A/x\[a\] @o | a.md | 0
+A/x\[a\] @o | b | 0
+A/x\[a\] @o | x[a]/a\b | 0
+A/x\[a\] @o | {a,b}/A/ab | 0
+A/x\[a\] @o | {a,b}/A/b | 0
+A/x\[a\] @o | é | 0
+/x\[a\]/a\ b @o | #a/a | 0
+/x\[a\]/a\ b @o | A/aa/a.b | 0
+/x\[a\]/a\ b @o | \[id\]/x[a] | 0
+/x\[a\]/a\ b @o | a\b/aa/日 | 0
+/x\[a\]/a\ b @o | aa | 0
+/x\[a\]/a\ b @o | b.md | 0
+/x\[a\]/a\ b @o | x.md | 0
+/x\[a\]/a\ b @o | xa/a\b/x.md | 0
+/x\[a\]/a\ b @o | xa/b.md/docs | 0
+/x\[a\]/a\ b @o | xa/é.md | 0
+/x\[a\]/a\ b @o | {a,b}/A | 0
+/x\[a\]/a\ b @o | é.md | 0
+/x\[a\]/a\ b @o | é/[id] | 0
+/\[id\]/a/\[id\] @o | [id] | 0
+/\[id\]/a/\[id\] @o | a.b/a\b/a b | 0
+/\[id\]/a/\[id\] @o | a.b/x.md/x.md | 0
+/\[id\]/a/\[id\] @o | a\b/a | 0
+/\[id\]/a/\[id\] @o | aa/a.b | 0
+/\[id\]/a/\[id\] @o | aa/x[a]/A | 0
+/\[id\]/a/\[id\] @o | aa/日 | 0
+/\[id\]/a/\[id\] @o | ab | 0
+/\[id\]/a/\[id\] @o | b.md/xa | 0
+/\[id\]/a/\[id\] @o | b/x.md/{a,b} | 0
+/\[id\]/a/\[id\] @o | é.md/a.b | 0
+/\[id\]/a/\[id\] @o | 日/a.md/é.md | 0
+*.md/*.md/a**b @o | #a/x[a]/a.md | 0
+*.md/*.md/a**b @o | A | 0
+*.md/*.md/a**b @o | X.MD/a\b/A | 0
+*.md/*.md/a**b @o | X.MD/b/a b | 0
+*.md/*.md/a**b @o | [id]/\[id\]/ab | 0
+*.md/*.md/a**b @o | [id]/a | 0
+*.md/*.md/a**b @o | [id]/ab | 0
+*.md/*.md/a**b @o | \[id\] | 0
+*.md/*.md/a**b @o | x[a]/{a,b}/x.md | 0
+*.md/*.md/a**b @o | é.md | 0
+*.md/*.md/a**b @o | é/\[id\]/[id] | 0
+*.md/*.md/a**b @o | é/日/ab | 0
+{a,b}/**/x\[a\]/ @o | #a/日 | 0
+{a,b}/**/x\[a\]/ @o | A/a.b/X.MD | 0
+{a,b}/**/x\[a\]/ @o | X.MD/X.MD/!a | 0
+{a,b}/**/x\[a\]/ @o | \[id\]/x[a] | 0
+{a,b}/**/x\[a\]/ @o | a b | 0
+{a,b}/**/x\[a\]/ @o | a.md | 0
+{a,b}/**/x\[a\]/ @o | a\b | 0
+{a,b}/**/x\[a\]/ @o | aa/日 | 0
+{a,b}/**/x\[a\]/ @o | b.md | 0
+{a,b}/**/x\[a\]/ @o | b/\[id\]/b.md | 0
+{a,b}/**/x\[a\]/ @o | docs | 0
+{a,b}/**/x\[a\]/ @o | x[a] | 0
+{a,b}/**/x\[a\]/ @o | {a,b} | 0
+/*a*/a#b @o | !a/a.md/aa | 0
+/*a*/a#b @o | !a/xa | 0
+/*a*/a#b @o | !a/é.md | 0
+/*a*/a#b @o | [id]/ab/!a | 0
+/*a*/a#b @o | a.b/docs/[id] | 0
+/*a*/a#b @o | a\b | 0
+/*a*/a#b @o | aa/{a,b}/日 | 0
+/*a*/a#b @o | ab/[id] | 0
+/*a*/a#b @o | é.md | 0
+/*a*/a#b @o | é/b/\[id\] | 0
+docs/\[id\]/a\\b @o | #a/b/é.md | 0
+docs/\[id\]/a\\b @o | [id]/b | 0
+docs/\[id\]/a\\b @o | \[id\]/x.md | 0
+docs/\[id\]/a\\b @o | aa/x[a] | 0
+docs/\[id\]/a\\b @o | ab/\[id\]/{a,b} | 0
+docs/\[id\]/a\\b @o | ab/xa | 0
+docs/\[id\]/a\\b @o | xa/a\b/xa | 0
+docs/\[id\]/a\\b @o | é.md/a.b | 0
+docs/\[id\]/a\\b @o | é/X.MD | 0
+a?/*a*/ @o | !a/a\b/A | 0
+a?/*a*/ @o | [id]/é.md | 0
+a?/*a*/ @o | a.b/é.md/#a | 0
+a?/*a*/ @o | a.md | 0
+a?/*a*/ @o | ab | 0
+a?/*a*/ @o | b.md/a.b/[id] | 0
+a?/*a*/ @o | docs/é.md | 0
+a?/*a*/ @o | x.md/\[id\]/日 | 0
+a?/*a*/ @o | x.md/é | 0
+a?/*a*/ @o | xa | 0
+a?/*a*/ @o | é/b/x[a] | 0
+{a,b}/*a*/\[a @o | #a/X.MD | 0
+{a,b}/*a*/\[a @o | X.MD | 0
+{a,b}/*a*/\[a @o | [id]/[id] | 0
+{a,b}/*a*/\[a @o | a/é.md/a b | 0
+{a,b}/*a*/\[a @o | ab/a.md | 0
+{a,b}/*a*/\[a @o | b/x.md | 0
+{a,b}/*a*/\[a @o | b/é/[id] | 0
+{a,b}/*a*/\[a @o | x.md/a b/x.md | 0
+{a,b}/*a*/\[a @o | x.md/{a,b} | 0
+{a,b}/*a*/\[a @o | x[a] | 0
+{a,b}/*a*/\[a @o | {a,b}/!a/!a | 0
+{a,b}/*a*/\[a @o | 日 | 0
+?/ @o | !a | 0
+?/ @o | A/X.MD | 1
+?/ @o | X.MD/b | 0
+?/ @o | [id] | 0
+?/ @o | a.b/aa | 0
+?/ @o | a.md | 0
+?/ @o | a\b/[id]/a\b | 0
+?/ @o | x.md/日 | 0
+?/ @o | xa/A | 0
+?/ @o | {a,b}/a.b/日 | 0
+?/ @o | é.md/b/xa | 1
+?/ @o | é.md/é/日 | 0
+?/ @o | 日/aa | 0
+x* @o | !a | 0
+x* @o | X.MD/x.md | 1
+x* @o | [id]/x[a] | 1
+x* @o | \[id\]/aa | 0
+x* @o | a b/A | 0
+x* @o | a\b/a.md | 0
+x* @o | b.md/a.b | 0
+x* @o | {a,b}/x.md/a | 1
+x* @o | é.md/X.MD | 0
+x* @o | é.md/a.md/a | 0
+x* @o | é/日 | 0
+x* @o | 日 | 0
+/a#b/b/b @o | !a/!a | 0
+/a#b/b/b @o | #a/a b | 0
+/a#b/b/b @o | X.MD/docs | 0
+/a#b/b/b @o | [id] | 0
+/a#b/b/b @o | \[id\]/a | 0
+/a#b/b/b @o | a | 1
+/a#b/b/b @o | a b/x[a] | 0
+/a#b/b/b @o | ab/\[id\] | 0
+/a#b/b/b @o | b.md | 0
+/a#b/b/b @o | x.md/#a | 0
+/a#b/b/b @o | xa/a b | 0
+/a#b/b/b @o | é/b/a b | 0
+!/\#a/docs @o | A | 0
+!/\#a/docs @o | X.MD/b | 0
+!/\#a/docs @o | X.MD/x[a] | 0
+!/\#a/docs @o | \[id\]/{a,b}/X.MD | 0
+!/\#a/docs @o | a b | 0
+!/\#a/docs @o | a.md/b.md/!a | 0
+!/\#a/docs @o | a\b/x.md/\[id\] | 0
+!/\#a/docs @o | a\b/{a,b}/x[a] | 0
+!/\#a/docs @o | aa | 0
+!/\#a/docs @o | ab/a\b/é.md | 0
+!/\#a/docs @o | {a,b}/b.md | 0
+!/\#a/docs @o | é/X.MD | 0
+!/\#a/docs @o | 日/é | 0
+日 @o | A | 0
+日 @o | \[id\]/A/aa | 0
+日 @o | a b/!a | 0
+日 @o | a.b/#a/x[a] | 0
+日 @o | a\b/é | 0
+日 @o | ab | 0
+日 @o | b | 0
+日 @o | x[a]/!a/a\b | 0
+日 @o | x[a]/!a/é | 0
+日 @o | {a,b}/a.md | 0
+日 @o | 日/x[a]/b | 1
+日 @o | 日/xa/#a | 1
+A/日 @o | [id] | 0
+A/日 @o | a | 0
+A/日 @o | a\b/aa | 0
+A/日 @o | aa | 0
+A/日 @o | ab/[id] | 0
+A/日 @o | ab/b.md/aa | 0
+A/日 @o | b.md/a.md | 0
+A/日 @o | b/\[id\] | 0
+A/日 @o | xa/X.MD | 0
+A/日 @o | é.md | 0
+A/日 @o | 日 | 0
+a\\b/docs/*a* @o | X.MD/a.md/x.md | 0
+a\\b/docs/*a* @o | [id]/x.md | 0
+a\\b/docs/*a* @o | a b/\[id\]/é.md | 0
+a\\b/docs/*a* @o | a/日 | 0
+a\\b/docs/*a* @o | a\b/A | 0
+a\\b/docs/*a* @o | aa/ab | 0
+a\\b/docs/*a* @o | aa/x[a] | 0
+a\\b/docs/*a* @o | ab/é | 0
+a\\b/docs/*a* @o | b/x.md/b | 0
+a\\b/docs/*a* @o | x.md/a.md | 0
+a\\b/docs/*a* @o | é.md/日 | 0
+a\\b/docs/*a* @o | 日/A | 0
+/?/x*/??/ @o | !a/!a/a\b | 0
+/?/x*/??/ @o | A/x[a]/é | 0
+/?/x*/??/ @o | X.MD/a.b/a | 0
+/?/x*/??/ @o | X.MD/b.md/docs | 0
+/?/x*/??/ @o | [id]/ab | 0
+/?/x*/??/ @o | [id]/b/A | 0
+/?/x*/??/ @o | a b | 0
+/?/x*/??/ @o | a\b/a.b | 0
+/?/x*/??/ @o | ab/#a/a.md | 0
+/?/x*/??/ @o | b.md/x[a] | 0
+/?/x*/??/ @o | x.md/a b | 0
+/?/x*/??/ @o | xa/a b | 0
+/\[a/ @o | !a/a b/xa | 0
+/\[a/ @o | #a | 0
+/\[a/ @o | [id]/{a,b}/a.md | 0
+/\[a/ @o | \[id\] | 0
+/\[a/ @o | a b/X.MD/!a | 0
+/\[a/ @o | a\b | 0
+/\[a/ @o | aa | 0
+/\[a/ @o | b.md/docs/é.md | 0
+/\[a/ @o | b.md/x.md/xa | 0
+/\[a/ @o | b.md/{a,b} | 0
+/\[a/ @o | x[a] | 0
+/\[a/ @o | {a,b}/A/é | 0
+/\[a/ @o | é.md/é.md/b.md | 0
+/\[a/ @o | 日/xa | 0
+!日/ @o | !a/b.md/xa | 0
+!日/ @o | A/X.MD | 0
+!日/ @o | A/a.b/a.b | 0
+!日/ @o | [id]/x[a] | 0
+!日/ @o | \[id\]/x.md/{a,b} | 0
+!日/ @o | a.b/A | 0
+!日/ @o | a.md/x.md/X.MD | 0
+!日/ @o | a/aa/a\b | 0
+!日/ @o | a\b | 0
+!日/ @o | b | 0
+!日/ @o | x[a] | 0
+!日/ @o | xa/a/#a | 0
+!日/ @o | {a,b}/b | 0
+a? @o | !a/a.b | 0
+a? @o | X.MD/!a/a b | 0
+a? @o | a b | 0
+a? @o | a.b/x[a]/x.md | 0
+a? @o | a.md/x.md | 0
+a? @o | a\b/a.b | 0
+a? @o | aa | 1
+a? @o | b/x[a] | 0
+a? @o | docs/aa/a\b | 1
+a? @o | x[a]/#a | 0
+a? @o | x[a]/a b/a.b | 0
+a? @o | x[a]/b.md | 0
+/a#b/??/*.MD/ @o | !a | 0
+/a#b/??/*.MD/ @o | #a/\[id\]/é | 0
+/a#b/??/*.MD/ @o | \[id\] | 0
+/a#b/??/*.MD/ @o | a.b/ab | 0
+/a#b/??/*.MD/ @o | a.b/b/ab | 0
+/a#b/??/*.MD/ @o | a\b/x[a] | 0
+/a#b/??/*.MD/ @o | aa/x.md/x.md | 0
+/a#b/??/*.MD/ @o | docs/x.md | 0
+/a#b/??/*.MD/ @o | x.md/#a/b | 0
+/a#b/??/*.MD/ @o | x[a]/xa/#a | 0
+/a#b/??/*.MD/ @o | {a,b} | 0
+/a#b/??/*.MD/ @o | é.md | 0
+b/a @o | #a/#a | 0
+b/a @o | A/!a/aa | 0
+b/a @o | A/aa/aa | 0
+b/a @o | [id]/xa/[id] | 0
+b/a @o | \[id\]/docs/{a,b} | 0
+b/a @o | a b | 0
+b/a @o | a.b/é/X.MD | 0
+b/a @o | a\b/X.MD/docs | 0
+b/a @o | b.md/é/!a | 0
+b/a @o | x[a]/x[a] | 0
+b/a @o | xa/[id]/a.b | 0
+b/a @o | é/a.md | 0
+b/a @o | 日 | 0
+\[id\]/{a,b}/*.md @o | #a | 0
+\[id\]/{a,b}/*.md @o | a.b/A/{a,b} | 0
+\[id\]/{a,b}/*.md @o | a/é | 0
+\[id\]/{a,b}/*.md @o | a\b/A/a.md | 0
+\[id\]/{a,b}/*.md @o | ab/a\b | 0
+\[id\]/{a,b}/*.md @o | b.md/X.MD/é.md | 0
+\[id\]/{a,b}/*.md @o | b/A | 0
+\[id\]/{a,b}/*.md @o | x.md/!a | 0
+\[id\]/{a,b}/*.md @o | x[a]/!a | 0
+\[id\]/{a,b}/*.md @o | xa/é.md/\[id\] | 0
+\[id\]/{a,b}/*.md @o | {a,b}/{a,b}/xa | 0
+\[id\]/{a,b}/*.md @o | é.md | 0
+\[id\]/{a,b}/*.md @o | 日/A/é.md | 0
+x* @o | A | 0
+x* @o | X.MD/[id]/!a | 0
+x* @o | a.b/[id]/é.md | 0
+x* @o | a.md | 0
+x* @o | a/b | 0
+x* @o | b.md | 0
+x* @o | b/ab/a.md | 0
+x* @o | xa/\[id\]/a\b | 1
+x* @o | é.md/[id] | 0
+x* @o | é.md/ab/a | 0
+/{a,b}/? @o | #a/a.b | 0
+/{a,b}/? @o | A/X.MD | 0
+/{a,b}/? @o | \[id\] | 0
+/{a,b}/? @o | a b | 0
+/{a,b}/? @o | a.md/b.md | 0
+/{a,b}/? @o | aa/{a,b}/a | 0
+/{a,b}/? @o | ab | 0
+/{a,b}/? @o | b.md/xa/aa | 0
+/{a,b}/? @o | docs | 0
+/{a,b}/? @o | {a,b}/x[a] | 0
+/{a,b}/? @o | é | 0
+/{a,b}/? @o | 日 | 0
+{a,b}/日 @o | X.MD/x[a]/#a | 0
+{a,b}/日 @o | [id]/x.md/ab | 0
+{a,b}/日 @o | a.md/\[id\]/#a | 0
+{a,b}/日 @o | a\b/\[id\]/#a | 0
+{a,b}/日 @o | a\b/b.md | 0
+{a,b}/日 @o | a\b/é/ab | 0
+{a,b}/日 @o | aa | 0
+{a,b}/日 @o | ab | 0
+{a,b}/日 @o | docs/a b/X.MD | 0
+{a,b}/日 @o | {a,b}/{a,b} | 0
+{a,b}/日 @o | é.md/\[id\]/a\b | 0
+{a,b}/日 @o | é/\[id\]/b.md | 0
+a\\b/ @o | #a/X.MD | 0
+a\\b/ @o | \[id\]/a b/b | 0
+a\\b/ @o | a b/b/x[a] | 0
+a\\b/ @o | a.b/{a,b} | 0
+a\\b/ @o | a.md | 0
+a\\b/ @o | a\b/xa/xa | 1
+a\\b/ @o | b.md/é | 0
+a\\b/ @o | b/X.MD/a\b | 0
+a\\b/ @o | docs/日 | 0
+a\\b/ @o | xa/!a | 0
+a\\b/ @o | xa/xa | 0
+a\\b/ @o | 日/A/ab | 0
+!é/a/ @o | A/!a | 0
+!é/a/ @o | [id]/a/aa | 0
+!é/a/ @o | a b | 0
+!é/a/ @o | a.b | 0
+!é/a/ @o | b | 0
+!é/a/ @o | docs/!a/#a | 0
+!é/a/ @o | x.md/docs/b.md | 0
+!é/a/ @o | x[a] | 0
+!é/a/ @o | {a,b}/X.MD/日 | 0
+!é/a/ @o | é.md/X.MD/X.MD | 0
+**/a/a\\b/ @o | #a/a.b/\[id\] | 0
+**/a/a\\b/ @o | A | 0
+**/a/a\\b/ @o | [id]/é/a | 0
+**/a/a\\b/ @o | a.b/[id] | 0
+**/a/a\\b/ @o | a/x[a]/!a | 0
+**/a/a\\b/ @o | a\b/日/!a | 0
+**/a/a\\b/ @o | aa/é.md | 0
+**/a/a\\b/ @o | docs | 0
+**/a/a\\b/ @o | x.md/\[id\]/\[id\] | 0
+**/a/a\\b/ @o | é | 0
+/x\[a\] @o | #a | 0
+/x\[a\] @o | X.MD/ab/a\b | 0
+/x\[a\] @o | X.MD/x.md/ab | 0
+/x\[a\] @o | [id]/a b/x[a] | 0
+/x\[a\] @o | \[id\] | 0
+/x\[a\] @o | a/b.md/a\b | 0
+/x\[a\] @o | a\b/a b | 0
+/x\[a\] @o | b.md/aa | 0
+/x\[a\] @o | b/é/a b | 0
+/x\[a\] @o | docs | 0
+/x\[a\] @o | {a,b}/b | 0
+/x\[a\] @o | 日 | 0
+/\[id\] @o | !a | 0
+/\[id\] @o | #a/b.md | 0
+/\[id\] @o | [id]/a.b/docs | 1
+/\[id\] @o | [id]/{a,b}/a\b | 1
+/\[id\] @o | a.b | 0
+/\[id\] @o | a/A | 0
+/\[id\] @o | aa/a.md | 0
+/\[id\] @o | b.md/[id]/b.md | 0
+/\[id\] @o | b/a b/日 | 0
+/\[id\] @o | xa/é.md/a | 0
+/\[id\] @o | {a,b}/a\b | 0
+/\[id\] @o | é.md/é.md/b | 0
+/*a* @o | !a | 1
+/*a* @o | #a/[id] | 1
+/*a* @o | X.MD/#a/x[a] | 0
+/*a* @o | [id]/docs/é | 0
+/*a* @o | a b/ab/\[id\] | 1
+/*a* @o | a.b/aa/a.b | 1
+/*a* @o | a.b/{a,b} | 1
+/*a* @o | docs | 0
+/*a* @o | xa/a\b | 1
+/*a* @o | xa/{a,b}/x[a] | 1
+/*a* @o | é.md | 0
+/*a* @o | 日/ab/!a | 0
+/*a* @o | 日/docs/xa | 0
+*.MD/a?/a**b @o | #a/A/X.MD | 0
+*.MD/a?/a**b @o | X.MD/x.md | 0
+*.MD/a?/a**b @o | [id]/docs/é | 0
+*.MD/a?/a**b @o | \[id\] | 0
+*.MD/a?/a**b @o | a.md/b/a.md | 0
+*.MD/a?/a**b @o | ab | 0
+*.MD/a?/a**b @o | b.md | 0
+*.MD/a?/a**b @o | docs/b | 0
+*.MD/a?/a**b @o | x.md/aa/é | 0
+*.MD/a?/a**b @o | x[a]/docs | 0
+*.MD/a?/a**b @o | {a,b}/[id]/a b | 0
+*.MD/a?/a**b @o | é.md/#a | 0
+*.MD/a?/a**b @o | 日 | 0
+**/*/??/ @o | #a/aa | 0
+**/*/??/ @o | A/a.b | 0
+**/*/??/ @o | X.MD/a.b | 0
+**/*/??/ @o | a | 0
+**/*/??/ @o | a b/[id] | 0
+**/*/??/ @o | a b/ab | 0
+**/*/??/ @o | a.md/a.md/!a | 0
+**/*/??/ @o | docs/a\b/X.MD | 0
+**/*/??/ @o | docs/é | 0
+**/*/??/ @o | x[a]/a.md/#a | 0
+**/*/??/ @o | é.md/A | 0
+**/*/??/ @o | é.md/a\b | 0
+**/*/??/ @o | é/x.md | 0
+/a\\b/a#b @o | X.MD/[id]/[id] | 0
+/a\\b/a#b @o | a\b/a\b | 0
+/a\\b/a#b @o | aa/a.md/b.md | 0
+/a\\b/a#b @o | aa/b/!a | 0
+/a\\b/a#b @o | b.md/\[id\]/x.md | 0
+/a\\b/a#b @o | b.md/a.md | 0
+/a\\b/a#b @o | b/a.b | 0
+/a\\b/a#b @o | docs/ab/[id] | 0
+/a\\b/a#b @o | x[a]/xa/A | 0
+/a\\b/a#b @o | xa | 0
+/a\\b/a#b @o | 日/A/X.MD | 0
+a/*.MD/x\[a\] @o | !a/é/#a | 0
+a/*.MD/x\[a\] @o | X.MD/b | 0
+a/*.MD/x\[a\] @o | a/a.b | 0
+a/*.MD/x\[a\] @o | aa/é.md/a b | 0
+a/*.MD/x\[a\] @o | b.md/X.MD/ab | 0
+a/*.MD/x\[a\] @o | b/a/é.md | 0
+a/*.MD/x\[a\] @o | xa | 0
+a/*.MD/x\[a\] @o | {a,b}/日 | 0
+a/*.MD/x\[a\] @o | é | 0
+a/*.MD/x\[a\] @o | é.md/a.b | 0
+/a**b/*a*/\#a @o | !a/é.md/a | 0
+/a**b/*a*/\#a @o | A/[id]/日 | 0
+/a**b/*a*/\#a @o | X.MD/X.MD/!a | 0
+/a**b/*a*/\#a @o | \[id\] | 0
+/a**b/*a*/\#a @o | a b/b.md | 0
+/a**b/*a*/\#a @o | a.md/b | 0
+/a**b/*a*/\#a @o | a/[id]/b | 0
+/a**b/*a*/\#a @o | aa/é.md/A | 0
+/a**b/*a*/\#a @o | ab/x[a]/a b | 0
+/a**b/*a*/\#a @o | b.md | 0
+/a**b/*a*/\#a @o | x[a]/b.md | 0
+/a**b/*a*/\#a @o | é.md/é/[id] | 0
+/a**b/*a*/\#a @o | é/b | 0
+/x.md/*.MD/a#b/ @o | !a/a.b | 0
+/x.md/*.MD/a#b/ @o | #a/b | 0
+/x.md/*.MD/a#b/ @o | X.MD/a\b | 0
+/x.md/*.MD/a#b/ @o | a | 0
+/x.md/*.MD/a#b/ @o | a.b/b | 0
+/x.md/*.MD/a#b/ @o | b/a\b | 0
+/x.md/*.MD/a#b/ @o | docs/a\b/docs | 0
+/x.md/*.MD/a#b/ @o | xa/X.MD/aa | 0
+/x.md/*.MD/a#b/ @o | é.md/[id]/a.md | 0
+/x.md/*.MD/a#b/ @o | é/a.b/x.md | 0
+/x.md/*.MD/a#b/ @o | é/docs | 0
+/x.md/*.MD/a#b/ @o | 日/a\b | 0
+?/ @o | #a | 0
+?/ @o | A/ab/ab | 1
+?/ @o | A/ab/日 | 1
+?/ @o | X.MD/[id]/a b | 0
+?/ @o | \[id\]/[id] | 0
+?/ @o | a b/a.b | 0
+?/ @o | a b/x.md/A | 0
+?/ @o | a.md/aa/!a | 0
+?/ @o | a/a.b/a.b | 1
+?/ @o | a\b/[id]/x.md | 0
+?/ @o | x[a]/X.MD/a.md | 0
+?/ @o | xa | 0
+?/ @o | {a,b}/{a,b}/a.md | 0
+* @o | !a | 1
+* @o | X.MD | 1
+* @o | \[id\]/xa | 1
+* @o | a/\[id\] | 1
+* @o | a/ab/x[a] | 1
+* @o | a\b | 1
+* @o | aa/a/a\b | 1
+* @o | ab/b.md | 1
+* @o | b.md | 1
+* @o | b/docs | 1
+* @o | é/xa | 1
+* @o | 日 | 1
+a\ b/a#b/日/ @o | !a/a.b/#a | 0
+a\ b/a#b/日/ @o | !a/b/a b | 0
+a\ b/a#b/日/ @o | #a/A | 0
+a\ b/a#b/日/ @o | A | 0
+a\ b/a#b/日/ @o | a b | 0
+a\ b/a#b/日/ @o | a.b | 0
+a\ b/a#b/日/ @o | ab/a.b/ab | 0
+a\ b/a#b/日/ @o | b.md/A/!a | 0
+a\ b/a#b/日/ @o | b/b/a\b | 0
+a\ b/a#b/日/ @o | {a,b}/X.MD | 0
+a\ b/a#b/日/ @o | é/日 | 0
+a\ b/a#b/日/ @o | 日/docs | 0
+!/\[id\]/** @o | #a | 0
+!/\[id\]/** @o | \[id\] | 0
+!/\[id\]/** @o | a.b | 0
+!/\[id\]/** @o | a.md/A/a.md | 0
+!/\[id\]/** @o | a.md/X.MD/\[id\] | 0
+!/\[id\]/** @o | a/#a/ab | 0
+!/\[id\]/** @o | a/xa | 0
+!/\[id\]/** @o | aa/é.md | 0
+!/\[id\]/** @o | ab/a.b | 0
+!/\[id\]/** @o | b.md/é | 0
+!/\[id\]/** @o | docs/[id]/docs | 0
+!/\[id\]/** @o | x.md/\[id\]/aa | 0
+!/\[id\]/** @o | é | 0
+!/\[id\]/** @o | 日/xa | 0
+*a*/ @o | A/é.md | 0
+*a*/ @o | [id] | 0
+*a*/ @o | a b/#a | 1
+*a*/ @o | a.b | 0
+*a*/ @o | aa/[id]/b | 1
+*a*/ @o | aa/[id]/xa | 1
+*a*/ @o | b/a.md/docs | 1
+*a*/ @o | é.md/a b | 0
+*a*/ @o | é/x.md/xa | 0
+*a*/ @o | 日/\[id\]/\[id\] | 0
+*a*/ @o | 日/aa | 0
+{a,b}/a?/b/ @o | !a/b.md | 0
+{a,b}/a?/b/ @o | !a/日 | 0
+{a,b}/a?/b/ @o | \[id\]/a b/!a | 0
+{a,b}/a?/b/ @o | a b | 0
+{a,b}/a?/b/ @o | a.b/a.b | 0
+{a,b}/a?/b/ @o | a.md | 0
+{a,b}/a?/b/ @o | ab/a/x[a] | 0
+{a,b}/a?/b/ @o | ab/ab | 0
+{a,b}/a?/b/ @o | docs/xa/aa | 0
+{a,b}/a?/b/ @o | xa/b.md/日 | 0
+{a,b}/a?/b/ @o | é.md/!a | 0
+{a,b}/a?/b/ @o | é/X.MD/x.md | 0
+/é/*/a\\b/ @o | A/é.md/b | 0
+/é/*/a\\b/ @o | X.MD | 0
+/é/*/a\\b/ @o | \[id\]/[id]/a.md | 0
+/é/*/a\\b/ @o | a b/x.md/#a | 0
+/é/*/a\\b/ @o | a.b/\[id\]/aa | 0
+/é/*/a\\b/ @o | a.b/xa | 0
+/é/*/a\\b/ @o | a\b | 0
+/é/*/a\\b/ @o | b | 0
+/é/*/a\\b/ @o | b.md | 0
+/é/*/a\\b/ @o | docs/x.md/xa | 0
+/é/*/a\\b/ @o | x.md/A/a b | 0
+/é/*/a\\b/ @o | é.md/x.md/x[a] | 0
+/é/*/a\\b/ @o | é/a\b | 0
+/é/*/a\\b/ @o | 日 | 0
+!x.md/*/a? @o | #a/b/b | 0
+!x.md/*/a? @o | a b/!a/docs | 0
+!x.md/*/a? @o | a b/X.MD/b | 0
+!x.md/*/a? @o | a.b/x.md/é.md | 0
+!x.md/*/a? @o | a.b/日/x[a] | 0
+!x.md/*/a? @o | a.md | 0
+!x.md/*/a? @o | b/X.MD/\[id\] | 0
+!x.md/*/a? @o | docs/a\b | 0
+!x.md/*/a? @o | docs/{a,b}/x.md | 0
+!x.md/*/a? @o | x.md/\[id\] | 0
+!x.md/*/a? @o | xa | 0
+!x.md/*/a? @o | {a,b}/a.b/A | 0
+!x.md/*/a? @o | é | 0
+*.MD/a/{a,b} @o | !a/日/a.md | 0
+*.MD/a/{a,b} @o | A/docs/\[id\] | 0
+*.MD/a/{a,b} @o | [id]/b | 0
+*.MD/a/{a,b} @o | \[id\]/aa | 0
+*.MD/a/{a,b} @o | a b/a\b/X.MD | 0
+*.MD/a/{a,b} @o | a/{a,b}/a\b | 0
+*.MD/a/{a,b} @o | a\b/b.md/日 | 0
+*.MD/a/{a,b} @o | aa/x[a]/a.md | 0
+*.MD/a/{a,b} @o | ab/docs | 0
+*.MD/a/{a,b} @o | ab/{a,b}/{a,b} | 0
+*.MD/a/{a,b} @o | x[a] | 0
+*.MD/a/{a,b} @o | é.md/b | 0
+*.MD/a/{a,b} @o | 日 | 0
+b/x\[a\]/\[a @o | #a/ab | 0
+b/x\[a\]/\[a @o | #a/b | 0
+b/x\[a\]/\[a @o | X.MD/[id]/xa | 0
+b/x\[a\]/\[a @o | X.MD/ab/a.md | 0
+b/x\[a\]/\[a @o | X.MD/xa/A | 0
+b/x\[a\]/\[a @o | [id]/a | 0
+b/x\[a\]/\[a @o | \[id\]/a.b/docs | 0
+b/x\[a\]/\[a @o | a.b/X.MD | 0
+b/x\[a\]/\[a @o | a.md/A | 0
+b/x\[a\]/\[a @o | aa/aa/a | 0
+b/x\[a\]/\[a @o | xa/x[a] | 0
+b/x\[a\]/\[a @o | é | 0
+b/x\[a\]/\[a @o | 日 | 0
+/**/ @o | #a | 1
+/**/ @o | [id]/é/A | 1
+/**/ @o | \[id\] | 1
+/**/ @o | a.b/é | 1
+/**/ @o | a\b/a.md/a | 1
+/**/ @o | aa/a.b/a.b | 1
+/**/ @o | ab | 1
+/**/ @o | docs/a\b/b | 1
+/**/ @o | xa/a.b/!a | 1
+/**/ @o | é.md | 1
+/**/ @o | é/日 | 1
+/**/ @o | 日/a | 1
+/**/ @o | 日/日/A | 1
+x*/a#b/ @o | !a/日 | 0
+x*/a#b/ @o | X.MD/\[id\] | 0
+x*/a#b/ @o | [id] | 0
+x*/a#b/ @o | a b | 0
+x*/a#b/ @o | a.b | 0
+x*/a#b/ @o | a/a\b/a | 0
+x*/a#b/ @o | aa/A | 0
+x*/a#b/ @o | b.md/a b/a\b | 0
+x*/a#b/ @o | x.md | 0
+x*/a#b/ @o | x[a]/x.md | 0
+x*/a#b/ @o | é.md/a.b | 0
+x*/a#b/ @o | é.md/ab/!a | 0
+x*/a#b/ @o | é.md/xa/x[a] | 0
+x*/a#b/ @o | 日/!a | 0
+*a* @o | #a/\[id\]/x[a] | 1
+*a* @o | A | 0
+*a* @o | X.MD/ab | 1
+*a* @o | [id]/!a/é.md | 1
+*a* @o | a b/!a | 1
+*a* @o | a.md/x[a] | 1
+*a* @o | aa/!a | 1
+*a* @o | x.md/X.MD/!a | 1
+*a* @o | x.md/[id] | 0
+*a* @o | x.md/x[a] | 1
+*a* @o | xa/b | 1
+*a* @o | é.md | 0
+!/b/\[a @o | !a | 0
+!/b/\[a @o | a | 0
+!/b/\[a @o | a.b/b | 0
+!/b/\[a @o | a.md/X.MD/[id] | 0
+!/b/\[a @o | aa/é.md | 0
+!/b/\[a @o | aa/日 | 0
+!/b/\[a @o | ab | 0
+!/b/\[a @o | b | 0
+!/b/\[a @o | b.md/A/{a,b} | 0
+!/b/\[a @o | b.md/[id]/[id] | 0
+!/b/\[a @o | b.md/a | 0
+!/b/\[a @o | xa | 0
+!/b/\[a @o | {a,b} | 0
+!/b/\[a @o | é/x.md | 0
+??/日 @o | !a/ab/aa | 0
+??/日 @o | #a/x.md/[id] | 0
+??/日 @o | A/é | 0
+??/日 @o | X.MD/A | 0
+??/日 @o | a/a.md/a b | 0
+??/日 @o | aa | 0
+??/日 @o | ab/b/a.b | 0
+??/日 @o | b | 0
+??/日 @o | x[a]/é.md | 0
+??/日 @o | xa/docs | 0
+??/日 @o | é.md | 0
+b/a**b @o | !a | 0
+b/a**b @o | A/a | 0
+b/a**b @o | X.MD | 0
+b/a**b @o | a b/A/A | 0
+b/a**b @o | a.md/ab/a.md | 0
+b/a**b @o | a/x.md/\[id\] | 0
+b/a**b @o | a\b | 0
+b/a**b @o | b.md/xa/b.md | 0
+b/a**b @o | b/!a/X.MD | 0
+b/a**b @o | x[a]/xa/\[id\] | 0
+b/a**b @o | xa/[id]/\[id\] | 0
+b/a**b @o | {a,b} | 0
+b/a**b @o | é/X.MD | 0
+/**/x.md/*a* @o | !a/a\b | 0
+/**/x.md/*a* @o | X.MD | 0
+/**/x.md/*a* @o | \[id\]/ab/A | 0
+/**/x.md/*a* @o | a b/{a,b} | 0
+/**/x.md/*a* @o | a\b | 0
+/**/x.md/*a* @o | aa/xa/#a | 0
+/**/x.md/*a* @o | b | 0
+/**/x.md/*a* @o | x[a]/{a,b}/ab | 0
+/**/x.md/*a* @o | xa/b/#a | 0
+/**/x.md/*a* @o | é/!a/!a | 0
+/**/x.md/*a* @o | 日/\[id\] | 0
+!??/é/a\\b/ @o | !a | 0
+!??/é/a\\b/ @o | a b/X.MD/b | 0
+!??/é/a\\b/ @o | a.b/!a/ab | 0
+!??/é/a\\b/ @o | a.md | 0
+!??/é/a\\b/ @o | a\b | 0
+!??/é/a\\b/ @o | ab/b.md/é.md | 0
+!??/é/a\\b/ @o | ab/é | 0
+!??/é/a\\b/ @o | docs/{a,b} | 0
+!??/é/a\\b/ @o | é.md/docs | 0
+!??/é/a\\b/ @o | é/x[a] | 0
+!??/é/a\\b/ @o | 日/#a/docs | 0
+日/\#a/*a* @o | A/b.md/[id] | 0
+日/\#a/*a* @o | X.MD | 0
+日/\#a/*a* @o | [id]/X.MD | 0
+日/\#a/*a* @o | \[id\]/日/x.md | 0
+日/\#a/*a* @o | a | 0
+日/\#a/*a* @o | a\b/aa | 0
+日/\#a/*a* @o | b/X.MD | 0
+日/\#a/*a* @o | docs/é/docs | 0
+日/\#a/*a* @o | xa/é | 0
+日/\#a/*a* @o | {a,b} | 0
+日/\#a/*a* @o | é.md | 0
+日/\#a/*a* @o | 日/ab/xa | 0
+*/*/*.md/ @o | !a | 0
+*/*/*.md/ @o | #a/日/é | 0
+*/*/*.md/ @o | X.MD | 0
+*/*/*.md/ @o | a | 0
+*/*/*.md/ @o | a b/\[id\]/[id] | 0
+*/*/*.md/ @o | a b/x[a]/é | 0
+*/*/*.md/ @o | a.b/x.md/ab | 0
+*/*/*.md/ @o | a\b/x[a] | 0
+*/*/*.md/ @o | b/日 | 0
+*/*/*.md/ @o | x.md | 0
+*/*/*.md/ @o | xa/x.md | 0
+*/*/*.md/ @o | 日/X.MD/A | 0
+/a**b/a\ b/a\\b @o | [id]/a.b | 0
+/a**b/a\ b/a\\b @o | [id]/a\b | 0
+/a**b/a\ b/a\\b @o | [id]/日/a\b | 0
+/a**b/a\ b/a\\b @o | \[id\] | 0
+/a**b/a\ b/a\\b @o | a | 0
+/a**b/a\ b/a\\b @o | a.b/xa/{a,b} | 0
+/a**b/a\ b/a\\b @o | a.md/docs/é | 0
+/a**b/a\ b/a\\b @o | a\b | 0
+/a**b/a\ b/a\\b @o | aa/A | 0
+/a**b/a\ b/a\\b @o | x.md | 0
+日/ @o | a.md | 0
+日/ @o | a/xa | 0
+日/ @o | aa/ab | 0
+日/ @o | b.md | 0
+日/ @o | b/x[a] | 0
+日/ @o | b/{a,b} | 0
+日/ @o | docs | 0
+日/ @o | x.md/a b/#a | 0
+日/ @o | xa/é | 0
+日/ @o | é.md | 0
+日/ @o | 日/ab | 1
+*.js @o | src/app.js | 1
+*.js @o | a.js/b.txt | 1
+/build/logs/ @o | build/logs/a.txt | 1
+/build/logs/ @o | src/build/logs/a.txt | 0
+docs/* @o | docs/a.md | 1
+docs/* @o | docs/sub/a.md | 0
+apps/ @o | src/apps/a.txt | 1
+apps/ @o | apps | 0
+**/logs @o | a/b/logs/x | 1
+/apps/github @o | apps/github/x | 1
+/foo @o | x/foo | 0
+foo/bar @o | x/foo/bar | 0
+*.MD @o | README.md | 0
+/Docs/ @o | docs/a.md | 0
+[ab]x @o | ax | 0
+[ab]x @o | [ab]x | 0
+/app/[id]/ @o | app/[id]/page.tsx | 0
+\[ab\]x @o | [ab]x | 0
+\[ab\]x @o | ax | 0
+\#foo @o | #foo | 1
+a#b @o | a | 1
+a#b @o | a#b | 0
+foo\ bar @o | foo bar | 1
+\*a @o | *a | 0
+a\\b @o | a\b | 1
+*** @o | a | 0
+a**b @o | axyb | 1
+a**b @o | ax/yb | 0
+?.txt @o | a.txt | 1
+?.txt @o | é.txt | 0
+a? @o | a/b | 0
+/* @o | a.md | 1
+/* @o | d/a.md | 0
+* @o | d/e/f | 1
+** @o | d/e | 1
+a/** @o | a/b/c | 1
+a/**/b @o | a/b | 1
+a/**/b @o | a/x/y/b | 1
+docs/**/*.md @o | docs/a.md | 1
+docs/**/*.md @o | docs/x/a.md | 1
+foo/*/ @o | foo/x/y | 1
+*/ @o | a/b | 1
+{a,b} @o | a | 0
+{a,b} @o | {a,b} | 1
+/ @o | a | 0
+/app/\[id\]/ @o | app/[id]/page.tsx | 1
+??.txt @o | é.txt | 1
+a\[b @o | a[b | 0
+/A @o | !a/日 | 0
+/A @o | X.MD/ab/b.md | 0
+/A @o | \[id\] | 0
+/A @o | a | 0
+/A @o | a b/#a/aa | 0
+/A @o | a.b/!a/#a | 0
+/A @o | a.b/é | 0
+/A @o | a\b | 0
+/A @o | aa | 0
+/A @o | ab/!a | 0
+/A @o | x.md | 0
+/A @o | x[a] | 0
+/A @o | é | 0
+é/a?/é/ @o | !a/!a/b.md | 0
+é/a?/é/ @o | !a/日 | 0
+é/a?/é/ @o | \[id\]/é/a.md | 0
+é/a?/é/ @o | a.b/b.md/!a | 0
+é/a?/é/ @o | a.md/!a | 0
+é/a?/é/ @o | a\b/a.b/{a,b} | 0
+é/a?/é/ @o | aa | 0
+é/a?/é/ @o | {a,b}/!a | 0
+é/a?/é/ @o | {a,b}/a b | 0
+é/a?/é/ @o | é.md | 0
+é/a?/é/ @o | 日/x[a] | 0
+é/a?/é/ @o | 日/xa/a.b | 0
+é/a?/é/ @o | 日/日/a.b | 0
+{a,b}/x\[a\]/? @o | !a | 0
+{a,b}/x\[a\]/? @o | #a | 0
+{a,b}/x\[a\]/? @o | X.MD/\[id\] | 0
+{a,b}/x\[a\]/? @o | [id] | 0
+{a,b}/x\[a\]/? @o | a/A/docs | 0
+{a,b}/x\[a\]/? @o | a/[id]/docs | 0
+{a,b}/x\[a\]/? @o | aa/A/é | 0
+{a,b}/x\[a\]/? @o | ab | 0
+{a,b}/x\[a\]/? @o | b/#a/x[a] | 0
+{a,b}/x\[a\]/? @o | b/b/日 | 0
+{a,b}/x\[a\]/? @o | x[a] | 0
+{a,b}/x\[a\]/? @o | xa | 0
+!x*/x.md/ @o | !a | 0
+!x*/x.md/ @o | A | 0
+!x*/x.md/ @o | \[id\] | 0
+!x*/x.md/ @o | a.b/a\b | 0
+!x*/x.md/ @o | a.md/x.md/{a,b} | 0
+!x*/x.md/ @o | a/é.md/x[a] | 0
+!x*/x.md/ @o | b.md/docs/a b | 0
+!x*/x.md/ @o | b/#a/é.md | 0
+!x*/x.md/ @o | xa/é/docs | 0
+!x*/x.md/ @o | {a,b}/a | 0
+!x*/x.md/ @o | é.md/{a,b}/!a | 0
+!x*/x.md/ @o | 日 | 0
+/x.md/?? @o | A/#a | 0
+/x.md/?? @o | X.MD | 0
+/x.md/?? @o | \[id\]/!a/a.md | 0
+/x.md/?? @o | a.b | 0
+/x.md/?? @o | a.md/日/#a | 0
+/x.md/?? @o | aa | 0
+/x.md/?? @o | ab/#a/!a | 0
+/x.md/?? @o | b/x.md | 0
+/x.md/?? @o | x.md/xa/b | 1
+/x.md/?? @o | x[a] | 0
+\[id\]/ @o | !a | 0
+\[id\]/ @o | [id]/ab/ab | 1
+\[id\]/ @o | \[id\] | 0
+\[id\]/ @o | a.b/a.b/a b | 0
+\[id\]/ @o | a.md/日 | 0
+\[id\]/ @o | a/x[a]/x[a] | 0
+\[id\]/ @o | ab | 0
+\[id\]/ @o | b.md/é.md/[id] | 0
+\[id\]/ @o | docs/aa/日 | 0
+\[id\]/ @o | x[a]/X.MD/docs | 0
+\[id\]/ @o | {a,b}/日/a | 0
+!a/*.MD/ @o | A/\[id\] | 0
+!a/*.MD/ @o | A/a/a b | 0
+!a/*.MD/ @o | [id]/docs | 0
+!a/*.MD/ @o | [id]/x[a] | 0
+!a/*.MD/ @o | a.md | 0
+!a/*.MD/ @o | a/a.b/b | 0
+!a/*.MD/ @o | aa | 0
+!a/*.MD/ @o | b.md/{a,b} | 0
+!a/*.MD/ @o | b.md/é.md | 0
+!a/*.MD/ @o | docs/#a | 0
+!a/*.MD/ @o | x.md/日 | 0
+!a/*.MD/ @o | 日/é.md/a.md | 0
+!a @o | #a/a\b/ab | 0
+!a @o | A | 0
+!a @o | X.MD/a\b | 0
+!a @o | a b/é.md/\[id\] | 0
+!a @o | ab/{a,b} | 0
+!a @o | b.md/b/x.md | 0
+!a @o | x.md/日 | 0
+!a @o | x[a]/docs/A | 0
+!a @o | xa/a.md/A | 0
+!a @o | {a,b}/!a | 0
+!a @o | {a,b}/a b/日 | 0
+!a @o | é.md/\[id\] | 0
+!*.MD/*.MD/?? @o | X.MD/X.MD | 0
+!*.MD/*.MD/?? @o | X.MD/é.md/!a | 0
+!*.MD/*.MD/?? @o | \[id\]/a.md/!a | 0
+!*.MD/*.MD/?? @o | a.md/\[id\] | 0
+!*.MD/*.MD/?? @o | a.md/xa | 0
+!*.MD/*.MD/?? @o | a/aa/é.md | 0
+!*.MD/*.MD/?? @o | ab/a.md/b.md | 0
+!*.MD/*.MD/?? @o | ab/docs/é | 0
+!*.MD/*.MD/?? @o | x.md/a.b/a.b | 0
+!*.MD/*.MD/?? @o | {a,b} | 0
+!*.MD/*.MD/?? @o | é.md/#a | 0
+!*.MD/*.MD/?? @o | 日/a\b | 0
+!*.MD/*.MD/?? @o | 日/x[a] | 0
+a**b/**/\[id\] @o | !a/a.md | 0
+a**b/**/\[id\] @o | [id]/A/日 | 0
+a**b/**/\[id\] @o | [id]/x[a] | 0
+a**b/**/\[id\] @o | a | 0
+a**b/**/\[id\] @o | a\b/[id] | 1
+a**b/**/\[id\] @o | ab/{a,b}/#a | 0
+a**b/**/\[id\] @o | b.md/X.MD | 0
+a**b/**/\[id\] @o | x.md/a/aa | 0
+a**b/**/\[id\] @o | x[a]/X.MD/a.b | 0
+a**b/**/\[id\] @o | x[a]/x[a] | 0
+a**b/**/\[id\] @o | {a,b} | 0
+a**b/**/\[id\] @o | é | 0
+a**b/**/\[id\] @o | é.md/[id]/docs | 0
+*.MD/*.MD/A @o | a b/x.md/a | 0
+*.MD/*.MD/A @o | a.b/#a | 0
+*.MD/*.MD/A @o | a.b/a/A | 0
+*.MD/*.MD/A @o | a\b/a.b | 0
+*.MD/*.MD/A @o | x.md/b/X.MD | 0
+*.MD/*.MD/A @o | x[a]/a.b | 0
+*.MD/*.MD/A @o | xa/b.md | 0
+*.MD/*.MD/A @o | {a,b}/b.md | 0
+*.MD/*.MD/A @o | é.md/a.b | 0
+*.MD/*.MD/A @o | 日/X.MD/é.md | 0
+/日/a#b/? @o | !a/A | 0
+/日/a#b/? @o | !a/x.md/!a | 0
+/日/a#b/? @o | A/a b/b | 0
+/日/a#b/? @o | \[id\]/!a/#a | 0
+/日/a#b/? @o | a b/a.b | 0
+/日/a#b/? @o | a b/b.md/b.md | 0
+/日/a#b/? @o | a.b/日 | 0
+/日/a#b/? @o | b.md/[id]/é.md | 0
+/日/a#b/? @o | docs | 0
+/日/a#b/? @o | xa | 0
+/日/a#b/? @o | {a,b} | 0
+/日/a#b/? @o | 日/A | 0
+/日/a#b/? @o | 日/[id] | 0
+a#b @o | #a | 0
+a#b @o | X.MD/#a | 0
+a#b @o | X.MD/docs | 0
+a#b @o | X.MD/日 | 0
+a#b @o | a b/é.md | 0
+a#b @o | a.md/a b/a\b | 0
+a#b @o | b.md/xa/A | 0
+a#b @o | b.md/é.md/é.md | 0
+a#b @o | x.md | 0
+a#b @o | x[a]/a.md/é | 0
+a#b @o | xa | 0
+a#b @o | {a,b} | 0
+a#b @o | é.md/a.md/a.md | 0
+a#b @o | é/#a/aa | 0
+/\#a/a\ b @o | #a/A | 0
+/\#a/a\ b @o | [id]/\[id\] | 0
+/\#a/a\ b @o | \[id\]/aa | 0
+/\#a/a\ b @o | a/a\b | 0
+/\#a/a\ b @o | a\b/a b | 0
+/\#a/a\ b @o | b.md/x.md | 0
+/\#a/a\ b @o | docs/x.md | 0
+/\#a/a\ b @o | x.md/a | 0
+/\#a/a\ b @o | x.md/ab | 0
+/\#a/a\ b @o | é/[id] | 0
+/\#a/a\ b @o | 日 | 0
+/*.md/*a*/a**b @o | !a/a.b | 0
+/*.md/*a*/a**b @o | !a/x[a] | 0
+/*.md/*a*/a**b @o | #a/x.md | 0
+/*.md/*a*/a**b @o | A/x[a]/!a | 0
+/*.md/*a*/a**b @o | a.b/X.MD/ab | 0
+/*.md/*a*/a**b @o | a.md/aa/é.md | 0
+/*.md/*a*/a**b @o | ab | 0
+/*.md/*a*/a**b @o | b/x.md/X.MD | 0
+/*.md/*a*/a**b @o | docs | 0
+/*.md/*a*/a**b @o | xa/{a,b}/é.md | 0
+/*.md/*a*/a**b @o | {a,b}/{a,b} | 0
+/*.md/*a*/a**b @o | é/a\b/aa | 0
+/{a,b}/x.md @o | !a/a\b/b | 0
+/{a,b}/x.md @o | A | 0
+/{a,b}/x.md @o | [id] | 0
+/{a,b}/x.md @o | a b/a.b | 0
+/{a,b}/x.md @o | a/!a/é | 0
+/{a,b}/x.md @o | a/#a/docs | 0
+/{a,b}/x.md @o | b.md/a.b | 0
+/{a,b}/x.md @o | x.md/a\b | 0
+/{a,b}/x.md @o | xa/A | 0
+/{a,b}/x.md @o | {a,b} | 0
+/{a,b}/x.md @o | 日/\[id\]/X.MD | 0
+é/*.md/x.md/ @o | !a/{a,b} | 0
+é/*.md/x.md/ @o | [id]/X.MD/é.md | 0
+é/*.md/x.md/ @o | [id]/b | 0
+é/*.md/x.md/ @o | [id]/b.md/é.md | 0
+é/*.md/x.md/ @o | a b/docs | 0
+é/*.md/x.md/ @o | a.md/!a | 0
+é/*.md/x.md/ @o | aa/b.md | 0
+é/*.md/x.md/ @o | ab/x.md | 0
+é/*.md/x.md/ @o | docs/{a,b}/#a | 0
+é/*.md/x.md/ @o | x.md/é.md | 0
+é/*.md/x.md/ @o | xa/X.MD/!a | 0
+*.md/x\[a\] @o | #a/a.md/{a,b} | 0
+*.md/x\[a\] @o | X.MD | 0
+*.md/x\[a\] @o | [id]/[id]/[id] | 0
+*.md/x\[a\] @o | a.b/b.md/a b | 0
+*.md/x\[a\] @o | a.md/#a | 0
+*.md/x\[a\] @o | a\b/X.MD/A | 0
+*.md/x\[a\] @o | aa | 0
+*.md/x\[a\] @o | b.md | 0
+*.md/x\[a\] @o | b/\[id\]/x.md | 0
+*.md/x\[a\] @o | docs | 0
+*.md/x\[a\] @o | x.md/b.md/a | 0
+*.md/x\[a\] @o | x[a]/A/ab | 0
+*.md/x\[a\] @o | x[a]/b | 0
+*.md/x\[a\] @o | é/b/a.md | 0
+/*.MD/*a* @o | #a/a\b | 0
+/*.MD/*a* @o | #a/aa/[id] | 0
+/*.MD/*a* @o | A/X.MD | 0
+/*.MD/*a* @o | X.MD/a.b/a.b | 1
+/*.MD/*a* @o | [id]/ab/x.md | 0
+/*.MD/*a* @o | \[id\]/aa | 0
+/*.MD/*a* @o | a.md/#a/a | 0
+/*.MD/*a* @o | aa/b.md | 0
+/*.MD/*a* @o | ab | 0
+/*.MD/*a* @o | x[a]/é | 0
+/*.MD/*a* @o | xa/x[a]/x.md | 0
+/*.MD/*a* @o | {a,b}/a.b/[id] | 0
+/*.MD/*a* @o | é.md/x[a]/!a | 0
+/*.MD/*a* @o | é.md/{a,b} | 0
+!?/**/日 @o | #a/xa/é | 0
+!?/**/日 @o | A/ab | 0
+!?/**/日 @o | X.MD | 0
+!?/**/日 @o | [id] | 0
+!?/**/日 @o | \[id\]/x.md | 0
+!?/**/日 @o | a b/\[id\]/[id] | 0
+!?/**/日 @o | a.b/#a/b.md | 0
+!?/**/日 @o | a.md/a | 0
+!?/**/日 @o | a.md/é/x[a] | 0
+!?/**/日 @o | b/é | 0
+!?/**/日 @o | x[a]/x[a] | 0
+!?/**/日 @o | {a,b} | 0
+!?/**/日 @o | é.md/A/b.md | 0
+a#b/\[id\]/é @o | !a/A/aa | 0
+a#b/\[id\]/é @o | A/a.md/a.b | 0
+a#b/\[id\]/é @o | \[id\]/!a | 0
+a#b/\[id\]/é @o | a.md/ab | 0
+a#b/\[id\]/é @o | aa | 0
+a#b/\[id\]/é @o | b | 0
+a#b/\[id\]/é @o | docs/日 | 0
+a#b/\[id\]/é @o | xa/\[id\] | 0
+a#b/\[id\]/é @o | xa/a/b | 1
+a#b/\[id\]/é @o | é.md/a b | 0
+a#b/\[id\]/é @o | é.md/ab/docs | 0
+a#b/\[id\]/é @o | é.md/é.md | 0
+a#b/\[id\]/é @o | 日/!a/{a,b} | 0
+!/a#b/*.md/x* @o | !a/xa | 0
+!/a#b/*.md/x* @o | [id] | 0
+!/a#b/*.md/x* @o | \[id\]/a\b | 0
+!/a#b/*.md/x* @o | a\b/A/xa | 0
+!/a#b/*.md/x* @o | aa | 0
+!/a#b/*.md/x* @o | b | 0
+!/a#b/*.md/x* @o | b.md | 0
+!/a#b/*.md/x* @o | docs/aa | 0
+!/a#b/*.md/x* @o | docs/b.md | 0
+!/a#b/*.md/x* @o | x.md/ab/a.md | 0
+!/a#b/*.md/x* @o | {a,b}/b | 0
+!/a#b/*.md/x* @o | 日/b.md | 0
+!/a#b/*.md/x* @o | 日/é/xa | 0
+!a\ b/? @o | A/a.md/a\b | 0
+!a\ b/? @o | \[id\]/X.MD | 0
+!a\ b/? @o | a/b | 0
+!a\ b/? @o | a\b/a.md/b | 0
+!a\ b/? @o | aa/ab/ab | 0
+!a\ b/? @o | ab/b.md | 0
+!a\ b/? @o | x[a] | 0
+!a\ b/? @o | é.md | 0
+!a\ b/? @o | 日/xa/X.MD | 0
+!/*.md/ @o | !a/!a/é.md | 0
+!/*.md/ @o | #a | 0
+!/*.md/ @o | A/!a | 0
+!/*.md/ @o | X.MD/x.md/b.md | 0
+!/*.md/ @o | a.b/X.MD/{a,b} | 0
+!/*.md/ @o | ab/aa | 0
+!/*.md/ @o | b | 0
+!/*.md/ @o | x.md/a.b | 0
+!/*.md/ @o | x.md/x.md | 0
+!/*.md/ @o | x.md/日/x.md | 0
+!/*.md/ @o | x[a]/b.md | 0
+!/*.md/ @o | 日/b/x[a] | 0
+\#a/a\ b @o | !a | 0
+\#a/a\ b @o | #a/\[id\]/a.b | 0
+\#a/a\ b @o | \[id\]/b.md/xa | 0
+\#a/a\ b @o | a.b/aa/!a | 0
+\#a/a\ b @o | a.b/xa/\[id\] | 0
+\#a/a\ b @o | a.b/日/!a | 0
+\#a/a\ b @o | a/a\b | 0
+\#a/a\ b @o | a\b/X.MD/a.b | 0
+\#a/a\ b @o | ab | 0
+\#a/a\ b @o | b/é.md/aa | 0
+\#a/a\ b @o | docs/ab | 0
+\#a/a\ b @o | x[a]/#a | 0
+\#a/a\ b @o | 日/ab | 0
+A/*a* @o | #a/xa/é | 0
+A/*a* @o | #a/é | 0
+A/*a* @o | X.MD/ab/a.b | 0
+A/*a* @o | X.MD/x.md | 0
+A/*a* @o | [id] | 0
+A/*a* @o | a.md/X.MD | 0
+A/*a* @o | a.md/日/a\b | 0
+A/*a* @o | a/é.md/x[a] | 0
+A/*a* @o | aa/é | 0
+A/*a* @o | docs/docs | 0
+A/*a* @o | xa | 0
+A/*a* @o | é.md/X.MD/é | 0
+A/*a* @o | é.md/a b/b.md | 0
+A/*a* @o | 日 | 0
+é @o | !a | 0
+é @o | X.MD/é | 1
+é @o | [id]/\[id\]/aa | 0
+é @o | \[id\]/日 | 0
+é @o | a b | 0
+é @o | a/{a,b}/b.md | 0
+é @o | b/a/é | 1
+é @o | docs/aa | 0
+é @o | x.md/a.md | 0
+é @o | x[a] | 0
+é @o | {a,b}/a.b/#a | 0
+é @o | {a,b}/b.md | 0
+é @o | é.md/x[a] | 0
+é @o | 日 | 0
+*/*.md @o | A/a.b/b.md | 0
+*/*.md @o | X.MD/a/é.md | 0
+*/*.md @o | X.MD/{a,b}/aa | 0
+*/*.md @o | \[id\]/é.md | 1
+*/*.md @o | a | 0
+*/*.md @o | a.md | 0
+*/*.md @o | x.md | 0
+*/*.md @o | x[a]/[id] | 0
+*/*.md @o | xa | 0
+*/*.md @o | é.md/aa | 0
+*/*.md @o | 日/b.md | 1
+!a/ @o | A/!a/a.md | 1
+!a/ @o | X.MD/x.md | 0
+!a/ @o | \[id\] | 0
+!a/ @o | a b/a | 0
+!a/ @o | a b/a.b/[id] | 0
+!a/ @o | a.b/b | 0
+!a/ @o | a.md | 0
+!a/ @o | a\b/[id]/A | 0
+!a/ @o | b.md/A | 0
+!a/ @o | x.md/X.MD | 0
+!a/ @o | x.md/{a,b} | 0
+!a/ @o | {a,b}/é.md | 0
+!a/ @o | 日/b.md/a b | 0
+!/a\\b/docs/** @o | !a | 0
+!/a\\b/docs/** @o | #a | 0
+!/a\\b/docs/** @o | A/a\b/b | 0
+!/a\\b/docs/** @o | A/b.md | 0
+!/a\\b/docs/** @o | [id]/a b/a\b | 0
+!/a\\b/docs/** @o | a | 0
+!/a\\b/docs/** @o | aa/x.md/日 | 0
+!/a\\b/docs/** @o | ab | 0
+!/a\\b/docs/** @o | b.md/x.md | 0
+!/a\\b/docs/** @o | docs | 0
+!/a\\b/docs/** @o | xa/a b | 0
+!/a\\b/docs/** @o | xa/日 | 0
+!/a\\b/docs/** @o | {a,b} | 0
+!/a\\b/docs/** @o | 日 | 0
+A @o | [id]/ab | 0
+A @o | \[id\]/b.md/#a | 0
+A @o | \[id\]/é/A | 1
+A @o | a b | 0
+A @o | a\b/a.md/docs | 0
+A @o | x.md | 0
+A @o | xa/a\b/x.md | 0
+A @o | xa/b/é | 0
+A @o | {a,b}/b.md | 0
+A @o | é.md/x.md/ab | 0
+A @o | 日/X.MD/!a | 0
+!é @o | #a | 0
+!é @o | \[id\] | 0
+!é @o | a.b/xa/é.md | 0
+!é @o | a\b/\[id\] | 0
+!é @o | aa/xa/a.md | 0
+!é @o | ab/\[id\] | 0
+!é @o | b | 0
+!é @o | docs/é | 1
+!é @o | docs/é.md | 0
+!é @o | x.md/!a | 0
+!é @o | x[a] | 0
+*/\[id\]/x.md @o | !a | 0
+*/\[id\]/x.md @o | #a/x[a] | 0
+*/\[id\]/x.md @o | [id] | 0
+*/\[id\]/x.md @o | a b/x[a] | 0
+*/\[id\]/x.md @o | a b/é.md | 0
+*/\[id\]/x.md @o | a/a.md | 0
+*/\[id\]/x.md @o | a/docs | 0
+*/\[id\]/x.md @o | ab | 0
+*/\[id\]/x.md @o | b | 0
+*/\[id\]/x.md @o | b.md | 0
+*/\[id\]/x.md @o | {a,b}/{a,b} | 0
+*/\[id\]/x.md @o | é/x.md | 0
+!é/x\[a\] @o | !a/b.md | 0
+!é/x\[a\] @o | #a | 0
+!é/x\[a\] @o | A/!a/a\b | 0
+!é/x\[a\] @o | A/日/xa | 0
+!é/x\[a\] @o | X.MD/A | 0
+!é/x\[a\] @o | X.MD/[id] | 0
+!é/x\[a\] @o | \[id\] | 0
+!é/x\[a\] @o | a.b/x.md | 0
+!é/x\[a\] @o | ab | 0
+!é/x\[a\] @o | b/ab/a\b | 0
+!é/x\[a\] @o | docs/\[id\] | 0
+!é/x\[a\] @o | x[a]/a.b | 0
+\[id\] @o | #a/a.b | 0
+\[id\] @o | #a/aa/#a | 0
+\[id\] @o | [id] | 0
+\[id\] @o | \[id\]/!a/#a | 0
+\[id\] @o | a | 0
+\[id\] @o | a b/b.md | 0
+\[id\] @o | a.b | 0
+\[id\] @o | a\b | 0
+\[id\] @o | aa/é.md/!a | 0
+\[id\] @o | b/b/{a,b} | 0
+\[id\] @o | b/é | 0
+\[id\] @o | xa/!a | 0
+\[id\] @o | é.md/\[id\]/[id] | 0
+x\[a\]/ @o | !a/!a/a | 0
+x\[a\]/ @o | #a/docs | 0
+x\[a\]/ @o | A/a\b | 0
+x\[a\]/ @o | [id]/xa | 0
+x\[a\]/ @o | a | 0
+x\[a\]/ @o | a b/A/xa | 0
+x\[a\]/ @o | b | 0
+x\[a\]/ @o | x.md/a/a | 0
+x\[a\]/ @o | x.md/ab | 0
+x\[a\]/ @o | x[a]/a\b/{a,b} | 1
+x\[a\]/ @o | x[a]/é/docs | 1
+x\[a\]/ @o | xa/aa | 0
+a\\b @o | X.MD | 0
+a\\b @o | [id]/b.md/\[id\] | 0
+a\\b @o | \[id\]/b/[id] | 0
+a\\b @o | \[id\]/xa/X.MD | 0
+a\\b @o | a.md/ab/a\b | 1
+a\\b @o | a/X.MD/docs | 0
+a\\b @o | ab | 0
+a\\b @o | b.md | 0
+a\\b @o | docs/\[id\] | 0
+a\\b @o | x[a] | 0
+a\\b @o | xa/b.md/xa | 0
+a\\b @o | é.md | 0
+a\\b @o | é/a.md | 0
+/a\\b @o | !a/xa | 0
+/a\\b @o | [id] | 0
+/a\\b @o | \[id\] | 0
+/a\\b @o | a b/a | 0
+/a\\b @o | a b/b.md/日 | 0
+/a\\b @o | a.md/X.MD | 0
+/a\\b @o | a\b/a b | 1
+/a\\b @o | aa/\[id\]/aa | 0
+/a\\b @o | aa/ab | 0
+/a\\b @o | b/a b/A | 0
+/a\\b @o | docs/a\b/X.MD | 0
+/a\\b @o | 日/a b/aa | 0
+!/x.md/A/\#a/ @o | !a/b.md | 0
+!/x.md/A/\#a/ @o | #a/{a,b}/é | 0
+!/x.md/A/\#a/ @o | [id]/{a,b} | 0
+!/x.md/A/\#a/ @o | \[id\]/[id]/\[id\] | 0
+!/x.md/A/\#a/ @o | a b | 0
+!/x.md/A/\#a/ @o | a.b | 0
+!/x.md/A/\#a/ @o | ab | 0
+!/x.md/A/\#a/ @o | b | 0
+!/x.md/A/\#a/ @o | docs | 0
+!/x.md/A/\#a/ @o | x.md/\[id\] | 0
+!/x.md/A/\#a/ @o | é/a b | 0
+docs/x\[a\] @o | !a/a\b | 0
+docs/x\[a\] @o | X.MD | 0
+docs/x\[a\] @o | \[id\] | 0
+docs/x\[a\] @o | a b/[id]/aa | 0
+docs/x\[a\] @o | a.b/a | 0
+docs/x\[a\] @o | a.md | 0
+docs/x\[a\] @o | a/a/xa | 0
+docs/x\[a\] @o | b.md | 0
+docs/x\[a\] @o | docs/X.MD | 0
+docs/x\[a\] @o | x[a]/a/\[id\] | 0
+docs/x\[a\] @o | é/xa/A | 0
+/\[a/docs/ @o | [id] | 0
+/\[a/docs/ @o | \[id\]/a\b/ab | 0
+/\[a/docs/ @o | \[id\]/x[a] | 0
+/\[a/docs/ @o | a b/a b | 0
+/\[a/docs/ @o | a.b/docs | 0
+/\[a/docs/ @o | a.md/b | 0
+/\[a/docs/ @o | aa/aa | 0
+/\[a/docs/ @o | b.md/b/xa | 0
+/\[a/docs/ @o | b/ab | 0
+/\[a/docs/ @o | xa/a.md | 0
+/\[a/docs/ @o | {a,b}/docs | 0
+/\[a/docs/ @o | é | 0
+/\[a/docs/ @o | é.md/#a/docs | 0
+/\[a/docs/ @o | é.md/b.md | 0
+x\[a\]/*.md/\[a @o | \[id\]/docs/a | 0
+x\[a\]/*.md/\[a @o | a b/\[id\] | 0
+x\[a\]/*.md/\[a @o | a.md | 0
+x\[a\]/*.md/\[a @o | a\b/X.MD | 0
+x\[a\]/*.md/\[a @o | a\b/a.md | 0
+x\[a\]/*.md/\[a @o | ab/a\b/aa | 0
+x\[a\]/*.md/\[a @o | b.md | 0
+x\[a\]/*.md/\[a @o | b/b/[id] | 0
+x\[a\]/*.md/\[a @o | docs | 0
+x\[a\]/*.md/\[a @o | x[a]/b | 0
+x\[a\]/*.md/\[a @o | xa/A | 0
+x\[a\]/*.md/\[a @o | xa/x.md/a.md | 0
+x\[a\]/*.md/\[a @o | {a,b} | 0
+x\[a\]/*.md/\[a @o | é.md | 0
+/\[a @o | !a/{a,b} | 0
+/\[a @o | a b | 0
+/\[a @o | a/b | 0
+/\[a @o | a\b | 0
+/\[a @o | aa/#a/b.md | 0
+/\[a @o | ab/!a | 0
+/\[a @o | b.md/!a/[id] | 0
+/\[a @o | b/aa | 0
+/\[a @o | docs/a.b | 0
+/\[a @o | x.md/a.md/a\b | 0
+/\[a @o | xa | 0
+!??/a**b @o | !a | 0
+!??/a**b @o | [id]/é/a\b | 0
+!??/a**b @o | \[id\]/docs/#a | 0
+!??/a**b @o | a | 0
+!??/a**b @o | a.md | 0
+!??/a**b @o | aa | 0
+!??/a**b @o | ab/A/é | 0
+!??/a**b @o | b/[id]/日 | 0
+!??/a**b @o | x.md | 0
+!??/a**b @o | xa/#a/a.b | 0
+!??/a**b @o | {a,b}/é.md/aa | 0
+!??/a**b @o | é/a.md/é | 0
+!??/a**b @o | é/{a,b} | 0
+a**b @o | a b/é | 1
+a**b @o | a/#a | 0
+a**b @o | ab/aa | 1
+a**b @o | docs | 0
+a**b @o | x[a]/#a | 0
+a**b @o | xa/a b | 1
+a**b @o | {a,b}/!a | 0
+a**b @o | 日/[id]/[id] | 0
+/\[a/日/x* @o | !a | 0
+/\[a/日/x* @o | a | 0
+/\[a/日/x* @o | a.b/aa | 0
+/\[a/日/x* @o | a.b/ab/é.md | 0
+/\[a/日/x* @o | a.md/a | 0
+/\[a/日/x* @o | ab/[id]/aa | 0
+/\[a/日/x* @o | b/xa | 0
+/\[a/日/x* @o | docs | 0
+/\[a/日/x* @o | x[a]/A/ab | 0
+/\[a/日/x* @o | xa | 0
+/\[a/日/x* @o | {a,b}/a | 0
+/\[a/日/x* @o | {a,b}/a\b/日 | 0
+/\[a/日/x* @o | é.md/{a,b} | 0
+\[a/?/ @o | #a/a | 0
+\[a/?/ @o | #a/aa/é.md | 0
+\[a/?/ @o | X.MD/a b | 0
+\[a/?/ @o | [id]/é.md | 0
+\[a/?/ @o | \[id\] | 0
+\[a/?/ @o | a b/x.md | 0
+\[a/?/ @o | a.md/é/é.md | 0
+\[a/?/ @o | x.md/a/b | 0
+\[a/?/ @o | x[a]/[id] | 0
+\[a/?/ @o | xa/docs | 0
+\[a/?/ @o | é | 0
+!/x\[a\]/?? @o | !a/#a | 0
+!/x\[a\]/?? @o | X.MD | 0
+!/x\[a\]/?? @o | \[id\]/ab/a.b | 0
+!/x\[a\]/?? @o | a b/a\b | 0
+!/x\[a\]/?? @o | a.md/#a | 0
+!/x\[a\]/?? @o | b.md/#a | 0
+!/x\[a\]/?? @o | b.md/a.b/é.md | 0
+!/x\[a\]/?? @o | b.md/ab/b | 0
+!/x\[a\]/?? @o | docs | 0
+!/x\[a\]/?? @o | xa | 0
+!/x\[a\]/?? @o | é.md/a | 0
+!/x\[a\]/?? @o | é/[id] | 0
+\[a/ @o | !a/{a,b} | 0
+\[a/ @o | !a/é/a b | 0
+\[a/ @o | [id] | 0
+\[a/ @o | a.b/b.md | 0
+\[a/ @o | a.b/x.md | 0
+\[a/ @o | a.b/é/!a | 0
+\[a/ @o | a/ab | 0
+\[a/ @o | b/X.MD/日 | 0
+\[a/ @o | docs | 0
+\[a/ @o | xa/xa | 0
+\[a/ @o | é.md/X.MD/\[id\] | 0
+\[a/ @o | é/!a/ab | 0
+\[a/ @o | 日/b.md | 0
+*.MD/é/{a,b} @o | A/a/xa | 0
+*.MD/é/{a,b} @o | X.MD/X.MD/\[id\] | 0
+*.MD/é/{a,b} @o | X.MD/aa | 0
+*.MD/é/{a,b} @o | [id]/#a/xa | 0
+*.MD/é/{a,b} @o | [id]/a/A | 0
+*.MD/é/{a,b} @o | a b/ab/é | 0
+*.MD/é/{a,b} @o | a.b/a/é.md | 0
+*.MD/é/{a,b} @o | a.md/{a,b}/a | 0
+*.MD/é/{a,b} @o | a/xa/!a | 0
+*.MD/é/{a,b} @o | b.md/é/X.MD | 0
+*.MD/é/{a,b} @o | x[a]/aa | 0
+*.MD/é/{a,b} @o | xa | 0
+!docs/\#a/**/ @o | !a/#a/a\b | 0
+!docs/\#a/**/ @o | A/a/!a | 0
+!docs/\#a/**/ @o | [id]/[id]/日 | 0
+!docs/\#a/**/ @o | [id]/ab | 0
+!docs/\#a/**/ @o | \[id\] | 0
+!docs/\#a/**/ @o | a.b | 0
+!docs/\#a/**/ @o | a.md/\[id\]/{a,b} | 0
+!docs/\#a/**/ @o | a\b | 0
+!docs/\#a/**/ @o | ab/docs | 0
+!docs/\#a/**/ @o | b.md/[id]/A | 0
+!docs/\#a/**/ @o | docs/[id]/a.md | 0
+!docs/\#a/**/ @o | x.md/é/a\b | 0
+!docs/\#a/**/ @o | {a,b}/日/#a | 0
+!docs/\#a/**/ @o | 日 | 0
+*.md @o | !a/x[a] | 0
+*.md @o | !a/xa | 0
+*.md @o | A/A/{a,b} | 0
+*.md @o | X.MD/\[id\]/日 | 0
+*.md @o | a b/xa/a | 0
+*.md @o | a.b/x.md/a b | 1
+*.md @o | a.md/xa/é.md | 1
+*.md @o | x.md | 1
+*.md @o | {a,b}/a.md | 1
+*.md @o | {a,b}/é.md | 1
+*.md @o | é/aa/#a | 0
+*.md @o | é/xa | 0
+*.md @o | 日/b/a.md | 1
+*.MD/\[a/*a* @o | X.MD | 0
+*.MD/\[a/*a* @o | [id]/b.md/[id] | 0
+*.MD/\[a/*a* @o | a.b/X.MD/é | 0
+*.MD/\[a/*a* @o | a.md/x.md | 0
+*.MD/\[a/*a* @o | a\b | 0
+*.MD/\[a/*a* @o | aa/x.md/[id] | 0
+*.MD/\[a/*a* @o | ab | 0
+*.MD/\[a/*a* @o | b | 0
+*.MD/\[a/*a* @o | x.md/a | 0
+*.MD/\[a/*a* @o | x.md/docs | 0
+*.MD/\[a/*a* @o | é.md | 0
+!/**/docs/??/ @o | !a/b | 0
+!/**/docs/??/ @o | A | 0
+!/**/docs/??/ @o | \[id\]/\[id\]/a.md | 0
+!/**/docs/??/ @o | a b/\[id\]/x.md | 0
+!/**/docs/??/ @o | a/ab/docs | 0
+!/**/docs/??/ @o | a/{a,b} | 0
+!/**/docs/??/ @o | aa/a.md | 0
+!/**/docs/??/ @o | b/!a | 0
+!/**/docs/??/ @o | b/a\b | 0
+!/**/docs/??/ @o | docs/\[id\] | 0
+!/**/docs/??/ @o | x[a] | 0
+!/**/docs/??/ @o | xa/a\b/x.md | 0
+!/**/docs/??/ @o | é.md/a b/a.md | 0
+!A/a**b @o | #a | 0
+!A/a**b @o | A/docs | 0
+!A/a**b @o | X.MD/a.md/b | 0
+!A/a**b @o | \[id\]/a/a b | 0
+!A/a**b @o | a b/x[a]/{a,b} | 0
+!A/a**b @o | a.b/{a,b}/a.b | 0
+!A/a**b @o | a.b/é | 0
+!A/a**b @o | a/[id] | 0
+!A/a**b @o | ab | 0
+!A/a**b @o | docs/A/x.md | 0
+!A/a**b @o | docs/é/b | 0
+!A/a**b @o | x.md/aa | 0
+!A/a**b @o | x.md/日/b.md | 0
+!A/a**b @o | 日/b.md/x.md | 0
+a?/A @o | !a/a | 0
+a?/A @o | !a/{a,b} | 0
+a?/A @o | #a/a.md/é | 0
+a?/A @o | A | 0
+a?/A @o | X.MD/#a/#a | 0
+a?/A @o | a b/[id] | 0
+a?/A @o | a.b/é/A | 0
+a?/A @o | a/xa/x.md | 0
+a?/A @o | b/\[id\]/é.md | 0
+a?/A @o | x.md/xa | 0
+a?/A @o | x[a] | 0
+a?/A @o | xa | 0
+a?/A @o | 日/a.md/a\b | 0
+a?/A @o | 日/日/a b | 0
+/x\[a\] @o | !a/é.md | 0
+/x\[a\] @o | #a/é | 0
+/x\[a\] @o | a | 0
+/x\[a\] @o | a b/A | 0
+/x\[a\] @o | a.b | 0
+/x\[a\] @o | a\b/b.md/\[id\] | 0
+/x\[a\] @o | b.md/日/ab | 0
+/x\[a\] @o | b/a b | 0
+/x\[a\] @o | b/x.md | 0
+/x\[a\] @o | docs/ab/a\b | 0
+/x\[a\] @o | {a,b}/a/\[id\] | 0
+/x\[a\] @o | {a,b}/x.md/X.MD | 0
+/é/a\\b/\[a @o | !a/\[id\]/a.b | 0
+/é/a\\b/\[a @o | #a/aa | 0
+/é/a\\b/\[a @o | A/x.md | 0
+/é/a\\b/\[a @o | [id] | 0
+/é/a\\b/\[a @o | a.b/!a | 0
+/é/a\\b/\[a @o | a.b/[id]/a b | 0
+/é/a\\b/\[a @o | a/b | 0
+/é/a\\b/\[a @o | b.md/a/日 | 0
+/é/a\\b/\[a @o | b/\[id\] | 0
+/é/a\\b/\[a @o | xa/日/\[id\] | 0
+/é/a\\b/\[a @o | é.md/a | 0
+/é/a\\b/\[a @o | é/!a/#a | 0
+a/a#b @o | #a | 0
+a/a#b @o | A/aa | 0
+a/a#b @o | X.MD/A/xa | 0
+a/a#b @o | a b | 0
+a/a#b @o | a.b | 0
+a/a#b @o | a.md | 0
+a/a#b @o | a\b/é.md/a b | 0
+a/a#b @o | aa/a b | 0
+a/a#b @o | aa/é/#a | 0
+a/a#b @o | ab/a\b/a b | 0
+a/a#b @o | docs/xa | 0
+a/a#b @o | xa/a.b | 0
+a/a#b @o | é.md/日/a\b | 0
+a/a#b @o | é/!a/a.md | 0
+{a,b}/\[a/a#b @o | [id]/a.b | 0
+{a,b}/\[a/a#b @o | [id]/b.md/a\b | 0
+{a,b}/\[a/a#b @o | a b/a.md/a.b | 0
+{a,b}/\[a/a#b @o | a/a\b | 0
+{a,b}/\[a/a#b @o | a\b/aa/docs | 0
+{a,b}/\[a/a#b @o | a\b/x.md | 0
+{a,b}/\[a/a#b @o | aa/[id]/docs | 0
+{a,b}/\[a/a#b @o | ab/b.md/[id] | 0
+{a,b}/\[a/a#b @o | ab/b.md/b.md | 0
+{a,b}/\[a/a#b @o | b.md/xa/{a,b} | 0
+{a,b}/\[a/a#b @o | xa/aa | 0
+{a,b}/\[a/a#b @o | {a,b} | 0
+{a,b}/\[a/a#b @o | 日/é.md | 0
+/{a,b}/\[id\] @o | #a/a b/a | 0
+/{a,b}/\[id\] @o | [id] | 0
+/{a,b}/\[id\] @o | \[id\] | 0
+/{a,b}/\[id\] @o | a b/a.md | 0
+/{a,b}/\[id\] @o | a/é.md | 0
+/{a,b}/\[id\] @o | b.md/a b | 0
+/{a,b}/\[id\] @o | b/b.md/!a | 0
+/{a,b}/\[id\] @o | b/docs/A | 0
+/{a,b}/\[id\] @o | b/é/a | 0
+/{a,b}/\[id\] @o | x.md | 0
+/{a,b}/\[id\] @o | x[a]/a.b | 0
+/{a,b}/\[id\] @o | {a,b}/a\b | 0
+/{a,b}/\[id\] @o | é.md/a.md/ab | 0
+?/x\[a\] @o | #a/a | 0
+?/x\[a\] @o | X.MD/xa/aa | 0
+?/x\[a\] @o | [id]/a b/é.md | 0
+?/x\[a\] @o | [id]/a/{a,b} | 0
+?/x\[a\] @o | a | 0
+?/x\[a\] @o | a.b/A/ab | 0
+?/x\[a\] @o | aa/x[a] | 0
+?/x\[a\] @o | ab/A/b.md | 0
+?/x\[a\] @o | ab/a\b | 0
+?/x\[a\] @o | b/x.md/x[a] | 0
+?/x\[a\] @o | xa/A/a.md | 0
+?/x\[a\] @o | é.md/{a,b}/b.md | 0
+?/x\[a\] @o | 日/X.MD | 0
+b/x\[a\]/ @o | [id] | 0
+b/x\[a\]/ @o | a b/#a/!a | 0
+b/x\[a\]/ @o | a.b/X.MD | 0
+b/x\[a\]/ @o | a.b/docs | 0
+b/x\[a\]/ @o | a.md | 0
+b/x\[a\]/ @o | a/{a,b} | 0
+b/x\[a\]/ @o | a\b/!a | 0
+b/x\[a\]/ @o | a\b/x.md | 0
+b/x\[a\]/ @o | aa/A | 0
+b/x\[a\]/ @o | x.md | 0
+b/x\[a\]/ @o | x[a]/X.MD/a.b | 0
+b/x\[a\]/ @o | x[a]/b | 0
+b/x\[a\]/ @o | é.md | 0
+x*/日/a#b @o | #a/[id]/b.md | 0
+x*/日/a#b @o | [id] | 0
+x*/日/a#b @o | a b/x[a]/b | 0
+x*/日/a#b @o | a.b/xa/日 | 0
+x*/日/a#b @o | a/xa/A | 0
+x*/日/a#b @o | ab/a b | 0
+x*/日/a#b @o | b.md/a\b/{a,b} | 0
+x*/日/a#b @o | b.md/日 | 0
+x*/日/a#b @o | x.md/A/a | 0
+x*/日/a#b @o | x.md/日 | 0
+x*/日/a#b @o | é | 0
+x*/日/a#b @o | é.md/X.MD/a b | 0
+x*/日/a#b @o | 日 | 0
+!** @o | X.MD | 1
+!** @o | \[id\]/ab/#a | 1
+!** @o | a\b | 1
+!** @o | aa | 1
+!** @o | b/X.MD | 1
+!** @o | docs | 1
+!** @o | xa/a.md | 1
+!** @o | {a,b}/#a | 1
+!** @o | {a,b}/docs | 1
+!** @o | é.md/\[id\]/[id] | 1
+!** @o | é.md/ab | 1
+!** @o | 日/A/A | 1
+!** @o | 日/\[id\]/a b | 1
+/a\ b/ @o | X.MD/A | 0
+/a\ b/ @o | X.MD/a | 0
+/a\ b/ @o | [id] | 0
+/a\ b/ @o | a b/\[id\]/[id] | 1
+/a\ b/ @o | a.b/A | 0
+/a\ b/ @o | b.md/a b/é.md | 0
+/a\ b/ @o | b/日/a | 0
+/a\ b/ @o | docs/a\b/é.md | 0
+/a\ b/ @o | x.md/A | 0
+/a\ b/ @o | x.md/a\b | 0
+/a\ b/ @o | x[a]/{a,b}/xa | 0
+/a\ b/ @o | {a,b}/aa | 0
+/a\ b/ @o | 日 | 0
+é @o | !a/b.md/é | 1
+é @o | #a/X.MD | 0
+é @o | #a/x[a] | 0
+é @o | \[id\] | 0
+é @o | a b/#a | 0
+é @o | a.b/x[a] | 0
+é @o | a.md | 0
+é @o | a/xa/a.md | 0
+é @o | ab | 0
+é @o | b/aa | 0
+é @o | xa/é.md/[id] | 0
+é @o | {a,b}/b.md/#a | 0
+é @o | é.md | 0
+A/a**b/x\[a\]/ @o | A/aa | 0
+A/a**b/x\[a\]/ @o | A/xa/ab | 0
+A/a**b/x\[a\]/ @o | X.MD | 0
+A/a**b/x\[a\]/ @o | a.b | 0
+A/a**b/x\[a\]/ @o | a.md | 0
+A/a**b/x\[a\]/ @o | a\b/A/ab | 0
+A/a**b/x\[a\]/ @o | ab | 0
+A/a**b/x\[a\]/ @o | docs/é/a b | 0
+A/a**b/x\[a\]/ @o | x.md | 0
+A/a**b/x\[a\]/ @o | x[a]/日 | 0
+A/a**b/x\[a\]/ @o | {a,b}/b.md/b.md | 0
+A/a**b/x\[a\]/ @o | é/ab/b.md | 0
+a? @o | #a | 0
+a? @o | A/日 | 0
+a? @o | X.MD/x.md/docs | 0
+a? @o | [id]/\[id\]/!a | 0
+a? @o | [id]/b/é | 0
+a? @o | a.b | 0
+a? @o | a\b/日/[id] | 0
+a? @o | b.md/a.md | 0
+a? @o | b/X.MD/é | 0
+a? @o | x[a]/\[id\]/a.b | 0
+a? @o | x[a]/a b/a\b | 0
+a? @o | xa/a\b | 0
+a? @o | 日/é/b.md | 0
+a?/a**b @o | !a | 0
+a?/a**b @o | [id]/é.md | 0
+a?/a**b @o | \[id\]/{a,b}/b.md | 0
+a?/a**b @o | a b | 0
+a?/a**b @o | a.md/X.MD | 0
+a?/a**b @o | a/a.b | 0
+a?/a**b @o | a\b/a.b | 0
+a?/a**b @o | a\b/x[a] | 0
+a?/a**b @o | ab/é/a | 0
+a?/a**b @o | b | 0
+a?/a**b @o | x[a]/#a/aa | 0
+a?/a**b @o | é/aa/a b | 0
+a?/a**b @o | 日/[id] | 0
+\#a/\[id\] @o | [id] | 0
+\#a/\[id\] @o | \[id\]/a b/a.md | 0
+\#a/\[id\] @o | a.b/x[a]/b | 0
+\#a/\[id\] @o | a\b | 0
+\#a/\[id\] @o | aa/[id] | 0
+\#a/\[id\] @o | aa/x[a] | 0
+\#a/\[id\] @o | b/x.md/a | 0
+\#a/\[id\] @o | x[a]/\[id\]/日 | 0
+\#a/\[id\] @o | x[a]/a\b/{a,b} | 0
+\#a/\[id\] @o | xa | 0
+\#a/\[id\] @o | é | 0
+* @o | #a/\[id\] | 1
+* @o | A/A | 1
+* @o | A/ab | 1
+* @o | X.MD/a | 1
+* @o | X.MD/a b/\[id\] | 1
+* @o | \[id\]/a.b | 1
+* @o | \[id\]/x[a]/{a,b} | 1
+* @o | a b/\[id\]/a.b | 1
+* @o | a.md/docs/A | 1
+* @o | x.md/xa/X.MD | 1
+* @o | x.md/{a,b} | 1
+* @o | é.md/ab | 1
+* @o | 日/[id] | 1
+a?/??/x\[a\] @o | [id]/!a/#a | 0
+a?/??/x\[a\] @o | [id]/\[id\] | 0
+a?/??/x\[a\] @o | a b | 0
+a?/??/x\[a\] @o | a.b/x.md | 0
+a?/??/x\[a\] @o | ab/{a,b}/!a | 0
+a?/??/x\[a\] @o | b.md | 0
+a?/??/x\[a\] @o | b/x[a] | 0
+a?/??/x\[a\] @o | {a,b}/xa/\[id\] | 0
+a?/??/x\[a\] @o | é | 0
+a?/??/x\[a\] @o | é.md/A | 0
+a\ b/a?/ @o | !a | 0
+a\ b/a?/ @o | A | 0
+a\ b/a?/ @o | X.MD/a\b | 0
+a\ b/a?/ @o | a b/a\b | 0
+a\ b/a?/ @o | a b/é | 0
+a\ b/a?/ @o | a/docs/日 | 0
+a\ b/a?/ @o | aa/\[id\] | 0
+a\ b/a?/ @o | aa/x[a] | 0
+a\ b/a?/ @o | ab/é | 0
+a\ b/a?/ @o | b.md/é.md | 0
+a\ b/a?/ @o | x[a]/xa/a\b | 0
+a\ b/a?/ @o | {a,b} | 0
+a\ b/a?/ @o | é/é/X.MD | 0
+\#a/*.md @o | #a/A/b.md | 0
+\#a/*.md @o | #a/a b | 0
+\#a/*.md @o | A/[id]/é | 0
+\#a/*.md @o | \[id\]/a.b | 0
+\#a/*.md @o | a.md/#a/A | 0
+\#a/*.md @o | aa | 0
+\#a/*.md @o | ab/é.md | 0
+\#a/*.md @o | b.md/docs/X.MD | 0
+\#a/*.md @o | b.md/xa/docs | 0
+\#a/*.md @o | x.md/xa | 0
+\#a/*.md @o | x[a]/docs | 0
+\#a/*.md @o | {a,b}/aa | 0
+!/a\ b @o | A/a | 0
+!/a\ b @o | X.MD/a\b | 0
+!/a\ b @o | [id]/a\b | 0
+!/a\ b @o | a b | 0
+!/a\ b @o | a/a.md | 0
+!/a\ b @o | ab/a | 0
+!/a\ b @o | xa/a\b/!a | 0
+!/a\ b @o | xa/aa | 0
+!/a\ b @o | {a,b}/a b/[id] | 0
+!/a\ b @o | é.md/ab | 0
+!/a\ b @o | é/x.md/{a,b} | 0
+!/a\ b @o | é/xa | 0
+a\ b/\[id\]/a\ b/ @o | !a/X.MD | 0
+a\ b/\[id\]/a\ b/ @o | #a | 0
+a\ b/\[id\]/a\ b/ @o | A/X.MD | 0
+a\ b/\[id\]/a\ b/ @o | A/docs | 0
+a\ b/\[id\]/a\ b/ @o | \[id\]/xa/日 | 0
+a\ b/\[id\]/a\ b/ @o | ab/é | 0
+a\ b/\[id\]/a\ b/ @o | b.md/日/b | 0
+a\ b/\[id\]/a\ b/ @o | x.md/b/X.MD | 0
+a\ b/\[id\]/a\ b/ @o | x[a]/a.md | 0
+a\ b/\[id\]/a\ b/ @o | xa/A/[id] | 0
+a\ b/\[id\]/a\ b/ @o | {a,b}/b/a\b | 0
+a\ b/\[id\]/a\ b/ @o | é.md/aa/日 | 0
+/\[a/ @o | X.MD | 0
+/\[a/ @o | \[id\]/ab | 0
+/\[a/ @o | a b/xa | 0
+/\[a/ @o | a b/é.md/{a,b} | 0
+/\[a/ @o | a.b/a\b | 0
+/\[a/ @o | a.md/a | 0
+/\[a/ @o | a/\[id\] | 0
+/\[a/ @o | aa/{a,b} | 0
+/\[a/ @o | b/A/b.md | 0
+/\[a/ @o | b/a.md | 0
+/\[a/ @o | docs/\[id\]/é.md | 0
+/\[a/ @o | {a,b}/b.md/a | 0
+*.md/ @o | #a | 0
+*.md/ @o | A/!a/\[id\] | 0
+*.md/ @o | a b/x.md/X.MD | 1
+*.md/ @o | a/a/#a | 0
+*.md/ @o | aa/a\b | 0
+*.md/ @o | aa/docs/[id] | 0
+*.md/ @o | ab/aa/A | 0
+*.md/ @o | ab/b | 0
+*.md/ @o | docs/a\b | 0
+*.md/ @o | x.md | 0
+*.md/ @o | x[a]/aa/xa | 0
+*.md/ @o | é.md/b.md/#a | 1
+/b @o | #a | 0
+/b @o | A/{a,b} | 0
+/b @o | A/日 | 0
+/b @o | \[id\] | 0
+/b @o | a b/A | 0
+/b @o | a.md/é | 0
+/b @o | a/[id]/x[a] | 0
+/b @o | a\b/[id] | 0
+/b @o | docs/xa | 0
+/b @o | x[a]/[id]/a.md | 0
+/b @o | {a,b}/a.b | 0
+/b @o | é | 0
+/b @o | 日 | 0
+日/a\ b/a\\b @o | !a | 0
+日/a\ b/a\\b @o | #a | 0
+日/a\ b/a\\b @o | A/x[a] | 0
+日/a\ b/a\\b @o | X.MD/x.md | 0
+日/a\ b/a\\b @o | [id]/a.md/a | 0
+日/a\ b/a\\b @o | ab/aa/a.md | 0
+日/a\ b/a\\b @o | x.md | 0
+日/a\ b/a\\b @o | x[a]/ab | 0
+日/a\ b/a\\b @o | {a,b}/!a/x[a] | 0
+日/a\ b/a\\b @o | é | 0
+日/a\ b/a\\b @o | é.md/[id]/xa | 0
+日/a\ b/a\\b @o | 日/a\b | 0
+日/a\ b/a\\b @o | 日/x[a]/a | 0
+?/a#b @o | !a/docs | 0
+?/a#b @o | A/b.md | 0
+?/a#b @o | A/docs | 0
+?/a#b @o | [id]/A | 0
+?/a#b @o | a | 0
+?/a#b @o | a.b | 0
+?/a#b @o | a\b/a\b/ab | 0
+?/a#b @o | ab/ab | 0
+?/a#b @o | b/a\b/b.md | 0
+?/a#b @o | x.md | 0
+?/a#b @o | {a,b} | 0
+日/** @o | A/a | 0
+日/** @o | X.MD | 0
+日/** @o | \[id\]/a.b/x[a] | 0
+日/** @o | a b/a b/b.md | 0
+日/** @o | a.b/b.md | 0
+日/** @o | a.b/xa/#a | 0
+日/** @o | a/a.md | 0
+日/** @o | a\b/X.MD/X.MD | 0
+日/** @o | ab | 0
+日/** @o | b/\[id\]/a.b | 0
+日/** @o | x.md | 0
+日/** @o | 日 | 0
+/x\[a\]/ @o | #a | 0
+/x\[a\]/ @o | A | 0
+/x\[a\]/ @o | \[id\]/A | 0
+/x\[a\]/ @o | a b/ab/a | 0
+/x\[a\]/ @o | a/\[id\] | 0
+/x\[a\]/ @o | a\b/{a,b}/a b | 0
+/x\[a\]/ @o | ab/a.b | 0
+/x\[a\]/ @o | b | 0
+/x\[a\]/ @o | docs/#a | 0
+/x\[a\]/ @o | xa | 0
+/x\[a\]/ @o | {a,b}/docs/A | 0
+/x\[a\]/ @o | é.md/a.b/{a,b} | 0
+/x\[a\]/ @o | 日/!a | 0
+!A/\[a/* @o | !a | 0
+!A/\[a/* @o | A | 0
+!A/\[a/* @o | X.MD/{a,b} | 0
+!A/\[a/* @o | X.MD/é.md | 0
+!A/\[a/* @o | a.md/#a/[id] | 0
+!A/\[a/* @o | a.md/aa/x.md | 0
+!A/\[a/* @o | x[a]/aa | 0
+!A/\[a/* @o | x[a]/b.md | 0
+!A/\[a/* @o | x[a]/日 | 0
+!A/\[a/* @o | xa/!a | 0
+!A/\[a/* @o | {a,b}/a | 0
+!A/\[a/* @o | {a,b}/日 | 0
+a\\b @o | !a/a.b/X.MD | 0
+a\\b @o | #a/docs/aa | 0
+a\\b @o | X.MD/a b | 0
+a\\b @o | \[id\] | 0
+a\\b @o | a\b/x.md/a | 1
+a\\b @o | b.md/#a | 0
+a\\b @o | b/A | 0
+a\\b @o | docs/a b/a\b | 1
+a\\b @o | docs/x[a] | 0
+a\\b @o | x.md/x.md | 0
+a\\b @o | x.md/{a,b} | 0
+a\\b @o | xa/\[id\]/a.b | 0
+a\\b @o | xa/b | 0
+a\\b @o | {a,b} | 0
+a#b @o | !a/!a/a.md | 0
+a#b @o | !a/x.md/a b | 0
+a#b @o | #a/A | 0
+a#b @o | #a/a | 1
+a#b @o | A/b.md | 0
+a#b @o | [id]/docs/#a | 0
+a#b @o | a/aa | 1
+a#b @o | aa/ab/é | 0
+a#b @o | docs | 0
+a#b @o | 日/b.md/b.md | 0
+a\ b/\[id\] @o | !a/#a/a\b | 0
+a\ b/\[id\] @o | #a/b/xa | 0
+a\ b/\[id\] @o | A/{a,b}/a\b | 0
+a\ b/\[id\] @o | X.MD | 0
+a\ b/\[id\] @o | \[id\]/b.md/!a | 0
+a\ b/\[id\] @o | a.b | 0
+a\ b/\[id\] @o | a.md | 0
+a\ b/\[id\] @o | a\b/A | 0
+a\ b/\[id\] @o | ab/a.b | 0
+a\ b/\[id\] @o | x.md/ab | 0
+a\ b/\[id\] @o | {a,b}/xa | 0
+a\ b/\[id\] @o | 日/ab | 0
+/{a,b}/a#b/a @o | !a/aa/{a,b} | 0
+/{a,b}/a#b/a @o | A/a.b | 0
+/{a,b}/a#b/a @o | A/{a,b}/x.md | 0
+/{a,b}/a#b/a @o | [id] | 0
+/{a,b}/a#b/a @o | \[id\] | 0
+/{a,b}/a#b/a @o | a b/a.md/xa | 0
+/{a,b}/a#b/a @o | a.b/A | 0
+/{a,b}/a#b/a @o | aa | 0
+/{a,b}/a#b/a @o | b.md/a\b | 0
+/{a,b}/a#b/a @o | x.md | 0
+/{a,b}/a#b/a @o | é.md/x[a] | 0
+/{a,b}/a#b/a @o | 日/!a | 0
+!??/ @o | !a/é.md/!a | 0
+!??/ @o | X.MD | 0
+!??/ @o | [id]/X.MD/a | 0
+!??/ @o | a.md/!a/b | 0
+!??/ @o | a.md/a/X.MD | 0
+!??/ @o | a\b/a b | 0
+!??/ @o | ab/a | 0
+!??/ @o | b.md/日/ab | 0
+!??/ @o | b/é.md/docs | 0
+!??/ @o | xa | 0
+!??/ @o | {a,b} | 0
+!??/ @o | é.md | 0
+!??/ @o | 日/\[id\]/a.md | 0
+a?/\#a/é @o | X.MD | 0
+a?/\#a/é @o | a.b/b | 0
+a?/\#a/é @o | a.md | 0
+a?/\#a/é @o | a/x[a]/a.md | 0
+a?/\#a/é @o | aa/é | 0
+a?/\#a/é @o | ab/a\b/xa | 0
+a?/\#a/é @o | b.md | 0
+a?/\#a/é @o | x.md/日 | 0
+a?/\#a/é @o | x[a] | 0
+a?/\#a/é @o | {a,b}/#a | 0
+a?/\#a/é @o | 日/{a,b} | 0
+/a\\b/*/a\\b @o | #a/#a | 0
+/a\\b/*/a\\b @o | A/é.md/é | 0
+/a\\b/*/a\\b @o | [id]/é.md | 0
+/a\\b/*/a\\b @o | a b | 0
+/a\\b/*/a\\b @o | aa | 0
+/a\\b/*/a\\b @o | b/x[a] | 0
+/a\\b/*/a\\b @o | docs/b/a | 0
+/a\\b/*/a\\b @o | x[a]/a.md | 0
+/a\\b/*/a\\b @o | xa | 0
+/a\\b/*/a\\b @o | {a,b}/!a/A | 0
+/a\\b/*/a\\b @o | {a,b}/A/aa | 0
+/a\\b/*/a\\b @o | é/[id] | 0
+\[id\]/a\\b @o | #a/a.b/a.md | 0
+\[id\]/a\\b @o | #a/é.md/aa | 0
+\[id\]/a\\b @o | [id]/b.md | 0
+\[id\]/a\\b @o | \[id\]/docs/b.md | 0
+\[id\]/a\\b @o | a.b/a b | 0
+\[id\]/a\\b @o | a/ab | 0
+\[id\]/a\\b @o | a\b/b.md | 0
+\[id\]/a\\b @o | b.md/{a,b}/a.md | 0
+\[id\]/a\\b @o | b/é.md | 0
+\[id\]/a\\b @o | x[a] | 0
+\[id\]/a\\b @o | é.md/aa | 0
+A @o | [id]/docs/a | 0
+A @o | a.md/docs/aa | 0
+A @o | a\b/a.md | 0
+A @o | aa/日 | 0
+A @o | ab | 0
+A @o | docs/#a/aa | 0
+A @o | xa/a\b/{a,b} | 0
+A @o | {a,b} | 0
+A @o | é/日 | 0
+*a* @o | [id]/docs/b | 0
+*a* @o | \[id\]/b | 0
+*a* @o | a.b/b/a.b | 1
+*a* @o | ab | 1
+*a* @o | b.md/é | 0
+*a* @o | b.md/日 | 0
+*a* @o | b/a\b/xa | 1
+*a* @o | b/ab | 1
+*a* @o | docs | 0
+*a* @o | x[a] | 1
+*a* @o | {a,b} | 1
+a#b/a\\b/日 @o | !a | 0
+a#b/a\\b/日 @o | \[id\]/docs | 0
+a#b/a\\b/日 @o | \[id\]/é | 0
+a#b/a\\b/日 @o | a | 1
+a#b/a\\b/日 @o | a b/A/[id] | 0
+a#b/a\\b/日 @o | a b/a.md | 0
+a#b/a\\b/日 @o | a\b/a.md/x[a] | 0
+a#b/a\\b/日 @o | b | 0
+a#b/a\\b/日 @o | b.md/日/X.MD | 0
+a#b/a\\b/日 @o | {a,b}/a b/a | 1
+a#b/a\\b/日 @o | é/xa | 0
+!/? @o | !a/docs/日 | 0
+!/? @o | A/a.md | 0
+!/? @o | X.MD/x.md | 0
+!/? @o | [id] | 0
+!/? @o | a b/a.b/!a | 0
+!/? @o | a.b | 0
+!/? @o | a.md | 0
+!/? @o | a/[id]/é.md | 0
+!/? @o | a\b | 0
+!/? @o | aa/b.md | 0
+!/? @o | b.md/{a,b}/b.md | 0
+!/? @o | x.md/a b | 0
+!/? @o | é.md/[id]/x[a] | 0
+a?/x.md @o | #a/[id]/é.md | 0
+a?/x.md @o | #a/ab/a.md | 0
+a?/x.md @o | X.MD | 0
+a?/x.md @o | [id]/ab/b | 0
+a?/x.md @o | [id]/b.md | 0
+a?/x.md @o | a | 0
+a?/x.md @o | a b/\[id\] | 0
+a?/x.md @o | x.md | 0
+a?/x.md @o | xa/aa/xa | 0
+a?/x.md @o | é.md/a.md | 0
+a?/x.md @o | é/b | 0
+a?/x.md @o | 日/docs/a | 0
+/x*/a#b/\[a @o | A | 0
+/x*/a#b/\[a @o | \[id\] | 0
+/x*/a#b/\[a @o | a.b/é/xa | 0
+/x*/a#b/\[a @o | a.md/é.md | 0
+/x*/a#b/\[a @o | b/A/日 | 0
+/x*/a#b/\[a @o | docs/é.md | 0
+/x*/a#b/\[a @o | x[a] | 0
+/x*/a#b/\[a @o | {a,b}/a.md | 0
+/x*/a#b/\[a @o | {a,b}/a/A | 0
+/x*/a#b/\[a @o | {a,b}/docs | 0
+/x*/a#b/\[a @o | 日/a | 0
+/*/a?/A/ @o | !a/ab/xa | 0
+/*/a?/A/ @o | A/xa | 0
+/*/a?/A/ @o | [id]/b.md | 0
+/*/a?/A/ @o | a.b/a.md | 0
+/*/a?/A/ @o | a.md/b | 0
+/*/a?/A/ @o | a\b/a.b/b | 0
+/*/a?/A/ @o | b/x.md/x[a] | 0
+/*/a?/A/ @o | x.md/a b/x.md | 0
+/*/a?/A/ @o | x.md/a\b/a.md | 0
+/*/a?/A/ @o | x.md/xa | 0
+/*/a?/A/ @o | xa/{a,b}/\[id\] | 0
+/*/a?/A/ @o | xa/日/x[a] | 0
+/*/a?/A/ @o | é | 0
+/*/a?/A/ @o | é.md | 0
+/*.MD/\[id\] @o | A/A/a | 0
+/*.MD/\[id\] @o | X.MD | 0
+/*.MD/\[id\] @o | [id]/!a | 0
+/*.MD/\[id\] @o | a b/#a | 0
+/*.MD/\[id\] @o | a b/X.MD | 0
+/*.MD/\[id\] @o | a.md | 0
+/*.MD/\[id\] @o | ab/a.b/a.b | 0
+/*.MD/\[id\] @o | ab/b.md/X.MD | 0
+/*.MD/\[id\] @o | b.md | 0
+/*.MD/\[id\] @o | docs | 0
+/*.MD/\[id\] @o | {a,b} | 0
+/*.MD/\[id\] @o | 日/xa | 0
+/*.MD/\[id\] @o | 日/{a,b} | 0
+/??/*a* @o | #a/日 | 0
+/??/*a* @o | X.MD/aa | 0
+/??/*a* @o | [id]/x.md | 0
+/??/*a* @o | \[id\]/a b | 0
+/??/*a* @o | a | 0
+/??/*a* @o | a.md/A/é | 0
+/??/*a* @o | ab/{a,b}/a.md | 1
+/??/*a* @o | b/docs | 0
+/??/*a* @o | docs/a b/{a,b} | 0
+/??/*a* @o | xa/A | 0
+/??/*a* @o | {a,b}/é.md | 0
+/a**b/x* @o | A/é.md | 0
+/a**b/x* @o | a.md | 0
+/a**b/x* @o | a/ab | 0
+/a**b/x* @o | aa | 0
+/a**b/x* @o | ab/[id] | 0
+/a**b/x* @o | b/a b/a.md | 0
+/a**b/x* @o | b/é.md | 0
+/a**b/x* @o | x[a]/ab | 0
+/a**b/x* @o | x[a]/{a,b}/x.md | 0
+/a**b/x* @o | xa/X.MD | 0
+/a**b/x* @o | {a,b}/docs/日 | 0
+/a**b/x* @o | é | 0
+/a**b/x* @o | é.md/a.b | 0
+*a*/a\\b/ @o | !a/é.md/a.md | 0
+*a*/a\\b/ @o | X.MD | 0
+*a*/a\\b/ @o | \[id\]/#a/!a | 0
+*a*/a\\b/ @o | a | 0
+*a*/a\\b/ @o | a b/{a,b} | 0
+*a*/a\\b/ @o | a.md/b | 0
+*a*/a\\b/ @o | aa/a.md | 0
+*a*/a\\b/ @o | ab/docs/xa | 0
+*a*/a\\b/ @o | b.md | 0
+*a*/a\\b/ @o | docs/日/docs | 0
+*a*/a\\b/ @o | x.md/é.md/a b | 0
+*a*/a\\b/ @o | xa/xa | 0
+*a*/a\\b/ @o | {a,b}/a | 0
+a#b/é/\[a/ @o | #a/A | 0
+a#b/é/\[a/ @o | A | 0
+a#b/é/\[a/ @o | [id]/a\b | 0
+a#b/é/\[a/ @o | \[id\]/{a,b} | 0
+a#b/é/\[a/ @o | a.md | 0
+a#b/é/\[a/ @o | ab | 0
+a#b/é/\[a/ @o | b/x.md | 0
+a#b/é/\[a/ @o | docs/é.md/é | 0
+a#b/é/\[a/ @o | x[a]/a\b/ab | 0
+a#b/é/\[a/ @o | xa/é | 0
+a#b/é/\[a/ @o | {a,b}/a/aa | 1
+a#b/é/\[a/ @o | {a,b}/x[a]/b.md | 0
+a#b/é/\[a/ @o | é/{a,b} | 0
+a\ b/a\ b/日 @o | !a/[id] | 0
+a\ b/a\ b/日 @o | #a | 0
+a\ b/a\ b/日 @o | A | 0
+a\ b/a\ b/日 @o | [id]/a.b | 0
+a\ b/a\ b/日 @o | [id]/docs | 0
+a\ b/a\ b/日 @o | \[id\] | 0
+a\ b/a\ b/日 @o | a.md/!a | 0
+a\ b/a\ b/日 @o | a/b | 0
+a\ b/a\ b/日 @o | a\b | 0
+a\ b/a\ b/日 @o | docs/b.md | 0
+a\ b/a\ b/日 @o | é/a b | 0
+a\ b/a\ b/日 @o | 日 | 0
+/\[id\]/a#b @o | !a/b.md/日 | 0
+/\[id\]/a#b @o | #a/a.md/docs | 0
+/\[id\]/a#b @o | X.MD/x.md/docs | 0
+/\[id\]/a#b @o | [id]/x.md/#a | 0
+/\[id\]/a#b @o | \[id\]/{a,b} | 0
+/\[id\]/a#b @o | a b | 0
+/\[id\]/a#b @o | a.b/!a/xa | 0
+/\[id\]/a#b @o | aa | 0
+/\[id\]/a#b @o | docs/!a | 0
+/\[id\]/a#b @o | xa | 0
+/\[id\]/a#b @o | é.md/{a,b} | 0
+/\[id\]/a#b @o | 日/!a | 0
+/\[id\]/a#b @o | 日/[id] | 0
+/日/{a,b}/a @o | A/b/#a | 0
+/日/{a,b}/a @o | A/x.md | 0
+/日/{a,b}/a @o | \[id\] | 0
+/日/{a,b}/a @o | a b/#a | 0
+/日/{a,b}/a @o | a b/b/xa | 0
+/日/{a,b}/a @o | a.md/aa | 0
+/日/{a,b}/a @o | a\b/[id] | 0
+/日/{a,b}/a @o | b.md/a b | 0
+/日/{a,b}/a @o | b.md/x[a] | 0
+/日/{a,b}/a @o | b/{a,b} | 0
+/日/{a,b}/a @o | x.md/b.md | 0
+/日/{a,b}/a @o | xa | 0
+/日/{a,b}/a @o | {a,b}/b.md | 0
+/日/{a,b}/a @o | é/x.md/ab | 0
+\[id\]/a**b @o | #a | 0
+\[id\]/a**b @o | X.MD/\[id\]/é.md | 0
+\[id\]/a**b @o | X.MD/aa | 0
+\[id\]/a**b @o | [id]/a\b/b | 1
+\[id\]/a**b @o | \[id\]/a\b | 1
+\[id\]/a**b @o | \[id\]/x[a] | 0
+\[id\]/a**b @o | a.md | 0
+\[id\]/a**b @o | aa/docs/\[id\] | 0
+\[id\]/a**b @o | ab/ab | 0
+\[id\]/a**b @o | ab/x[a] | 0
+\[id\]/a**b @o | b/x.md/b | 0
+\[id\]/a**b @o | docs | 0
+\[id\]/a**b @o | {a,b}/x.md | 0
+\[id\]/a**b @o | é/x.md/A | 0
+/a\\b/x*/docs @o | A/b/\[id\] | 0
+/a\\b/x*/docs @o | \[id\]/a.md/b.md | 0
+/a\\b/x*/docs @o | a.md/a b/é.md | 0
+/a\\b/x*/docs @o | a/X.MD | 0
+/a\\b/x*/docs @o | a/b/X.MD | 0
+/a\\b/x*/docs @o | ab | 0
+/a\\b/x*/docs @o | b.md/a.b | 0
+/a\\b/x*/docs @o | xa/aa/x.md | 0
+/a\\b/x*/docs @o | é.md/a b | 0
+/a\\b/x*/docs @o | é/A | 0
+/a\\b/x*/docs @o | 日/b.md | 0
+x*/x.md/ @o | \[id\]/b | 0
+x*/x.md/ @o | a b | 0
+x*/x.md/ @o | a.b | 0
+x*/x.md/ @o | aa | 0
+x*/x.md/ @o | ab/!a | 0
+x*/x.md/ @o | ab/A/#a | 0
+x*/x.md/ @o | b.md/a.md/\[id\] | 0
+x*/x.md/ @o | b/X.MD | 0
+x*/x.md/ @o | b/\[id\] | 0
+x*/x.md/ @o | docs/ab/\[id\] | 0
+x*/x.md/ @o | x[a]/aa/a\b | 0
+x*/x.md/ @o | é.md/ab/{a,b} | 0
+x*/x.md/ @o | é.md/x.md | 0
+x*/x.md/ @o | 日 | 0
+!\[id\]/b @o | !a/docs | 0
+!\[id\]/b @o | #a/[id]/docs | 0
+!\[id\]/b @o | X.MD | 0
+!\[id\]/b @o | [id]/a/#a | 0
+!\[id\]/b @o | a b/a b/ab | 0
+!\[id\]/b @o | a.md/a/é | 0
+!\[id\]/b @o | a/#a/a b | 0
+!\[id\]/b @o | a\b/#a/é | 0
+!\[id\]/b @o | aa/a b | 0
+!\[id\]/b @o | aa/é.md | 0
+!\[id\]/b @o | é/ab/é.md | 0
+!\[id\]/b @o | 日/X.MD/#a | 0
+!\[id\]/b @o | 日/é.md/X.MD | 0
+!b/b/a @o | #a | 0
+!b/b/a @o | X.MD/a.b/[id] | 0
+!b/b/a @o | \[id\]/b/é.md | 0
+!b/b/a @o | a.md | 0
+!b/b/a @o | a/b.md | 0
+!b/b/a @o | a/{a,b}/b | 0
+!b/b/a @o | aa/[id]/A | 0
+!b/b/a @o | ab/x.md | 0
+!b/b/a @o | b.md/日 | 0
+!b/b/a @o | x.md/!a | 0
+!b/b/a @o | x.md/b | 0
+!b/b/a @o | é.md/a\b/é.md | 0
+/*a*/a**b/docs @o | #a/#a/é | 0
+/*a*/a**b/docs @o | A/x.md/[id] | 0
+/*a*/a**b/docs @o | X.MD | 0
+/*a*/a**b/docs @o | \[id\]/!a/ab | 0
+/*a*/a**b/docs @o | a b/xa/b | 0
+/*a*/a**b/docs @o | a.b/a/ab | 0
+/*a*/a**b/docs @o | a\b/a\b | 0
+/*a*/a**b/docs @o | aa/ab/a\b | 0
+/*a*/a**b/docs @o | aa/é/b.md | 0
+/*a*/a**b/docs @o | b/aa/a b | 0
+/*a*/a**b/docs @o | b/x[a] | 0
+/*a*/a**b/docs @o | docs | 0
+/*a*/a**b/docs @o | é | 0
+*a*/ @o | X.MD/A/ab | 0
+*a*/ @o | \[id\]/a\b/a b | 1
+*a*/ @o | a | 0
+*a*/ @o | a b/!a/#a | 1
+*a*/ @o | a b/a.md | 1
+*a*/ @o | a.md/ab/{a,b} | 1
+*a*/ @o | ab/\[id\] | 1
+*a*/ @o | b.md/\[id\]/b.md | 0
+*a*/ @o | x.md/X.MD | 0
+*a*/ @o | xa/docs | 1
+*a*/ @o | {a,b}/!a/ab | 1
+*a*/ @o | é/x[a] | 0
+*a*/ @o | é/日 | 0
+!a/docs @o | #a/aa | 0
+!a/docs @o | A/a.md | 0
+!a/docs @o | [id]/{a,b}/{a,b} | 0
+!a/docs @o | a.md | 0
+!a/docs @o | a\b/A/\[id\] | 0
+!a/docs @o | ab | 0
+!a/docs @o | b/X.MD | 0
+!a/docs @o | xa/a\b/a b | 0
+!a/docs @o | {a,b}/A/a.md | 0
+!a/docs @o | 日/a.md | 0
+日/a\ b/ @o | [id]/\[id\]/é | 0
+日/a\ b/ @o | a | 0
+日/a\ b/ @o | a.b/a.md | 0
+日/a\ b/ @o | a.b/aa/a.b | 0
+日/a\ b/ @o | a\b/a.md/a.b | 0
+日/a\ b/ @o | aa/!a/aa | 0
+日/a\ b/ @o | ab/xa/{a,b} | 0
+日/a\ b/ @o | b.md/X.MD/a.b | 0
+日/a\ b/ @o | b.md/b | 0
+日/a\ b/ @o | xa/a b | 0
+日/a\ b/ @o | {a,b}/a.b | 0
+日/a\ b/ @o | é/aa/{a,b} | 0
+!/a**b @o | !a/!a | 0
+!/a**b @o | !a/a.b | 0
+!/a**b @o | A/[id] | 0
+!/a**b @o | A/b.md/\[id\] | 0
+!/a**b @o | \[id\]/{a,b} | 0
+!/a**b @o | a b/x[a]/ab | 0
+!/a**b @o | aa/a\b | 0
+!/a**b @o | ab/a.b | 0
+!/a**b @o | x.md/docs | 0
+!/a**b @o | x[a]/x[a]/docs | 0
+!/a**b @o | {a,b} | 0
+!/a**b @o | 日 | 0
+**/*a* @o | A | 0
+**/*a* @o | [id]/[id] | 0
+**/*a* @o | \[id\]/\[id\] | 0
+**/*a* @o | \[id\]/日/a | 1
+**/*a* @o | a b | 1
+**/*a* @o | a.b/X.MD/{a,b} | 1
+**/*a* @o | a.md/docs | 1
+**/*a* @o | ab/x[a] | 1
+**/*a* @o | b.md | 0
+**/*a* @o | b/b | 0
+**/*a* @o | x.md/a b | 1
+**/*a* @o | {a,b} | 1
+a**b/{a,b} @o | !a | 0
+a**b/{a,b} @o | #a/a b/X.MD | 0
+a**b/{a,b} @o | a.md/{a,b}/a b | 0
+a**b/{a,b} @o | a\b/a b/a.md | 0
+a**b/{a,b} @o | a\b/b | 0
+a**b/{a,b} @o | aa | 0
+a**b/{a,b} @o | {a,b}/X.MD/ab | 0
+a**b/{a,b} @o | é | 0
+a**b/{a,b} @o | é.md/a/a.md | 0
+a**b/{a,b} @o | é.md/é | 0
+a**b/{a,b} @o | é.md/日 | 0
+!a/ @o | !a/x | 1
+!a/ @o | y/!a/x | 1
+!a/ @o | a/x | 0
+!a/ @o | !a2/x | 0
+!a/b @o | !a/b | 1
+!a/b @o | y/!a/b | 0
+!/foo @o | !/foo | 1
+!/foo @o | x/!/foo | 0
+!*/x @o | !q/x | 1
+!*/x @o | q/x | 0
+!*/x @o | !/x | 1
+!**/foo @o | !x/foo | 1
+!**/foo @o | !/foo | 1
+!foo/* @o | !foo/x | 1
+!foo/* @o | foo/x | 0
+a\]b @o | a]b | 0
+a\]b @o | d/a]b | 0
+a\]b @o | a\]b | 0
+/a\]b @o | a]b | 0
+/a\]b @o | a\]b | 0
+a\]b/ @o | a]b/x | 0
+a\]b/ @o | a\]b/x | 0
+\]a @o | ]a | 0
+\]a @o | d/]a | 0
+x\]\[y @o | x][y | 1
+x\]\[y @o | d/x][y | 1
+/x\]\[y\] @o | x][y] | 0
+a\[b\]c\]d @o | a[b]c]d | 0
+a\[b\]c\]d @o | d/a[b]c]d | 0
+a\[b\[c\]d @o | a[b[c]d | 0
+/a\[b @o | a[b | 0
+a\[b/ @o | a[b/x | 0
+a\[\[b\]\] @o | a[[b]] | 1
+a\]\]\[\[b @o | a]][[b | 1
+a\]b/c\[d @o | a]b/c[d | 1
+/a\[b/c\]d @o | a[b/c]d | 1
