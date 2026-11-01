@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- Match patterns like GitHub, which agrees on all 4,157 cases recorded from GitHub in `codeowners/testdata/github.txt`. GitHub skips lines with an unescaped `[` or `]`, a `\` before anything but a space, tab, `#`, `[`, `]` or `\`, or `***`, so character classes and other escapes no longer match, and an unterminated `[` no longer raises `ValueError`. `!` doesn't negate, `?` matches one byte, a trailing `**/` matches files, an unescaped `#` starts a comment anywhere, and a space in a path no longer matches like a slash, so `b` no longer owns `a b`.
+
 # 0.9.0 - 2026-06-28
 
 - Migrate tooling to GitHub Actions, uv, and Ruff, and update the supported Python versions.

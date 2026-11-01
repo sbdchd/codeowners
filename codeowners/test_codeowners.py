@@ -310,11 +310,6 @@ GO_CODEOWNER_EXAMPLES = [
         },
     ),
     ex(
-        name="single segment pattern with escaped wildcard",
-        pattern=r"f\*o",
-        paths={"foo": False, "f*o": True},
-    ),
-    ex(
         name="multi-segment pattern with wildcard",
         pattern="foo/*.txt",
         paths={
@@ -330,21 +325,6 @@ GO_CODEOWNER_EXAMPLES = [
         name="single segment pattern with single-character wildcard",
         pattern="f?o",
         paths={"foo": True, "fo": False, "fooo": False},
-    ),
-    ex(
-        name="single segment pattern with escaped single-character wildcard",
-        pattern="f\\?o",
-        paths={"foo": False, "f?o": True},
-    ),
-    ex(
-        name="single segment pattern with character range",
-        pattern="[Ffb]oo",
-        paths={"foo": True, "Foo": True, "boo": True, "too": False},
-    ),
-    ex(
-        name="single segment pattern with escaped character range",
-        pattern="[\\]f]o\\[o\\]",
-        paths={"fo[o]": True, "]o[o]": True, "foo": False},
     ),
     ex(
         name="leading double-asterisk wildcard",
@@ -402,11 +382,6 @@ GO_CODEOWNER_EXAMPLES = [
         },
     ),
     ex(
-        name="middle double-asterisk wildcard with trailing slash",
-        pattern="foo/**/",
-        paths={"foo/bar": False, "foo/bar/": True, "foo/bar/baz": True},
-    ),
-    ex(
         name="docs absolute",
         pattern="/docs/",
         paths={
@@ -439,7 +414,7 @@ GO_CODEOWNER_EXAMPLES = [
             "docs/build-app/troubleshooting.md": False,
             "/docs/getting-started.md": False,
             "docs/getting-started/foo.md": False,
-            "docs/": True,
+            "docs/": False,
             "bar/docs/getting-started.md": False,
             "foo/bar/docs/foo.js": False,
             "foo/docs/foo.js": False,
@@ -473,7 +448,6 @@ GO_CODEOWNER_EXAMPLES = [
         },
     ),
     ex(name="all files", pattern="*", paths={"buzz": True, "foo": True}),
-    ex(name="escaping str", pattern=r"\*-foo.js", paths={"*-foo.js": True}),
     ex(name="apps absolute", pattern="apps/", paths={"apps/": True}),
     ex(name="foo/bar", pattern="foo/bar", paths={"foo/bar/baz.rs": True}),
     ex(
@@ -510,15 +484,6 @@ GO_CODEOWNER_EXAMPLES = [
     ),
     ex(name="caret", pattern="bar^foo.log", paths={"bar^foo.log": True}),
     ex(
-        name="regex character group",
-        pattern="bar[0-5].log",
-        paths={
-            "bar0.log": True,
-            # differs between git versions
-            # "bar[0-5].log": True,
-        },
-    ),
-    ex(
         name="spaces in dir name",
         pattern="foo/b\\ ar/",
         paths={
@@ -538,12 +503,151 @@ GO_CODEOWNER_EXAMPLES = [
 ]
 
 
-def test_unterminated_char_class() -> None:
+# Where GitHub differs from gitignore, so these aren't checked against git.
+GITHUB_EXAMPLES = [
+    ex(
+        name="escaped wildcard",
+        pattern=r"f\*o",
+        paths={"foo": False, "f*o": False},
+    ),
+    ex(
+        name="escaped single-character wildcard",
+        pattern=r"f\?o",
+        paths={"foo": False, "f?o": False},
+    ),
+    ex(
+        name="escaping str",
+        pattern=r"\*-foo.js",
+        paths={"*-foo.js": False},
+    ),
+    ex(
+        name="character range",
+        pattern="[Ffb]oo",
+        paths={"foo": False, "Foo": False, "boo": False, "too": False},
+    ),
+    ex(
+        name="escaped character range",
+        pattern="[\\]f]o\\[o\\]",
+        paths={"fo[o]": False, "]o[o]": False, "foo": False},
+    ),
+    ex(
+        name="regex character group",
+        pattern="bar[0-5].log",
+        paths={"bar0.log": False, "bar[0-5].log": False},
+    ),
+    ex(
+        name="unterminated character class",
+        pattern="foo[bar.js",
+        paths={"foo[bar.js": False},
+    ),
+    ex(
+        name="escaped brackets",
+        pattern="/app/\\[id\\]/",
+        paths={
+            "app/[id]/page.tsx": True,
+            "app/\\[id\\]/page.tsx": True,
+            "app/id/page.tsx": False,
+        },
+    ),
+    ex(
+        name="escaped brackets without a slash",
+        pattern="\\[id\\]",
+        paths={"[id]": False, "a/[id]": False},
+    ),
+    ex(
+        name="unpaired escaped bracket",
+        pattern="a\\[b",
+        paths={"a[b": False},
+    ),
+    ex(
+        name="middle double-asterisk wildcard with trailing slash",
+        pattern="foo/**/",
+        paths={"foo/bar": True, "foo/bar/": True, "foo/bar/baz": True},
+    ),
+    ex(
+        name="trailing double-asterisk wildcard with trailing slash",
+        pattern="**/",
+        paths={"foo": True, "foo/bar": True},
+    ),
+    ex(
+        name="exclamation mark without a slash",
+        pattern="!foo",
+        paths={"foo": True, "bar/foo": True, "foo/bar": False, "bar": False},
+    ),
+    ex(
+        name="exclamation mark with a slash",
+        pattern="!foo/bar",
+        paths={"!foo/bar": True, "foo/bar": False},
+    ),
+    ex(
+        name="single-character wildcard matches one byte",
+        pattern="?.txt",
+        paths={"a.txt": True, "é.txt": False},
+    ),
+    ex(
+        name="two single-character wildcards match a two-byte character",
+        pattern="??.txt",
+        paths={"é.txt": True},
+    ),
+    ex(
+        name="escaped comment",
+        pattern="\\#a",
+        paths={"#a": True, "a": False},
+    ),
+    ex(
+        name="space in a path",
+        pattern="b",
+        paths={"a b": False, "a/b": True},
+    ),
+    ex(
+        name="case-sensitive",
+        pattern="*.MD",
+        paths={"README.MD": True, "README.md": False},
+    ),
+    ex(
+        name="triple asterisk",
+        pattern="***",
+        paths={"a": False},
+    ),
+]
+
+
+def test_skips_lines_github_rejects() -> None:
     """
-    Ensure we warn about unterminated character classes
+    GitHub skips lines it rejects, so earlier rules apply instead.
     """
-    with pytest.raises(ValueError):
-        CodeOwners("foo[bar.js  @js-user")
+    owners = CodeOwners("* @default\nfoo[bar.js @js-user\n")
+    assert owners.of("foo[bar.js") == [("USERNAME", "@default")]
+
+
+def test_comment_inside_a_pattern() -> None:
+    """
+    An unescaped `#` starts a comment anywhere, so this is the pattern `a`
+    with no owners.
+    """
+    owners = CodeOwners("* @default\na#b @a-owner\n")
+    assert owners.matching_line("a") == ([], 2, "a", None)
+    assert owners.of("a#b") == [("USERNAME", "@default")]
+
+
+def test_matches_like_github() -> None:
+    """
+    Check every file ownership recorded from GitHub in testdata/github.txt.
+    """
+    fixture = Path(__file__).parent / "testdata" / "github.txt"
+    failures = []
+    cases = 0
+    for case in fixture.read_text(encoding="utf-8").splitlines():
+        if not case or case.startswith("#"):
+            continue
+        line, path, expected = case.split(" | ")
+        cases += 1
+        owned = CodeOwners(line).matching_line(path)[1] is not None
+        if owned != (expected == "1"):
+            failures.append(f"{line} | {path} | github: {expected}")
+    assert not failures, (
+        f"{len(failures)} of {cases} differ from GitHub:\n" + "\n".join(failures)
+    )
 
 
 def ids_for(data: Iterable[ex]) -> List[str]:
@@ -551,7 +655,9 @@ def ids_for(data: Iterable[ex]) -> List[str]:
 
 
 @pytest.mark.parametrize(
-    "name,pattern,paths", GO_CODEOWNER_EXAMPLES, ids=ids_for(GO_CODEOWNER_EXAMPLES)
+    "name,pattern,paths",
+    GO_CODEOWNER_EXAMPLES + GITHUB_EXAMPLES,
+    ids=ids_for(GO_CODEOWNER_EXAMPLES + GITHUB_EXAMPLES),
 )
 def test_specific_pattern_path_matching(
     name: str, pattern: str, paths: Dict[str, bool]
@@ -560,7 +666,7 @@ def test_specific_pattern_path_matching(
     for path, expected in paths.items():
         owners = CodeOwners(f"{pattern}  @js-user")
         matches = owners.of(path) == [("USERNAME", "@js-user")]
-        regex, *_ = owners.paths[0]
+        regex = owners.paths[0][0] if owners.paths else None
         assert matches == expected, (
             f"""{pattern} {regex} {"matches" if expected else "shouldn't match"} {path}"""
         )

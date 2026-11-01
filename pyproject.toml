@@ -35,6 +35,7 @@ build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
 packages = ["codeowners"]
+exclude = ["codeowners/testdata"]
 
 [tool.ruff.lint]
 # defaults (E4, E7, E9, F) plus import sorting (replaces isort)
